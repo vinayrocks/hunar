@@ -1,0 +1,32 @@
+#custom-img{
+    border-radius: 30px;
+    border: 5px solid #FFFFFF;
+}
+.custom-col{
+    padding: 30px;
+}
+.separator{
+    margin: 20px 0px;
+}
+.para-custom{
+    margin-top: 50px;
+}
+.section::before{
+    content: "";
+    z-index: 1;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    transform: rotate(45deg);
+    background-color: inherit;
+    margin-top: -15px;
+    margin-left: -15px;
+    top: 100%;
+    left: 50%;
+    border-left-width: 0;
+    border-top-width: 0;
+  }
+  .our-process-title{
+      text-align: center;
+      color: #ffffff;
+  }
