@@ -1,0 +1,204 @@
+<div class="container-fluid">
+  <!-- <div class="button-container">
+    <a href="#button" class="btn btn-primary btn-round btn-lg">Edit Event</a>
+  </div> -->
+  <h2 class="title" style="text-align: center">Edit Event</h2>
+  <div class="separator separator-primary" style="margin-bottom: 20px;"></div>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row card portfolio">
+        <div class="col-md-12 ">
+          <div class="row">
+            <div class="col-md-12 custom-event">
+              <form class="form mb-search" name="editEventForm" [formGroup]="editEventFormGroup">
+                <div class="container-fluid">
+                  <div class="row mt-top"
+                    *ngIf="editEventForm.EventName.errors && (editEventForm.EventName.dirty || editEventForm.EventName.touched)">
+                    <div class="col-md-12">
+                      <app-required-validation-message [fieldName]="'Event Name'"
+                        *ngIf="editEventForm.EventName.errors.required"></app-required-validation-message>
+
+                    </div>
+                  </div>
+                  <div class="row mt-top">
+                    <div class="col-md-2 custom-label">
+                      <div class="portfolio-label">Event Name</div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                      <input type="text" class="signUp-form-control form-control" placeholder="Event Name" 
+                      formControlName="EventName" [attr.disabled]="true">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-top">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="portfolio-label">Event Status</div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="pretty p-switch p-fill">
+                            <input type="checkbox" name="switch123" formControlName="EventStatus" />
+                            <div class="state p-success">
+                              <label>Active/In-Active</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-top"
+                    *ngIf="editEventForm.EventCategory.errors && (editEventForm.EventCategory.dirty || editEventForm.EventCategory.touched)">
+                    <div class="col-md-12">
+                      <app-required-validation-message [fieldName]="'Event Category'"
+                        *ngIf="editEventForm.EventCategory.errors.required"></app-required-validation-message>
+
+                    </div>
+                  </div>
+                  <div class="row mt-top">
+                    <div class="col-md-2 custom-label">
+                      <div class="portfolio-label">Event Category</div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="row mt-top">
+                        <div class="col-md-5">
+                          <select class="select-css" placeholder="Skill/Art"
+                            formControlName="EventSkill" (change)="getSkillSubCategory($event.target.value)">
+                            <option value="" [selected]="true">--Category of Art--</option>
+                            <option *ngFor="let item of skills" value="{{item.radianSkillCategoryId}}">
+                              {{item.radianSkillCategoryName}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row mt-top">
+                        <div class="col-md-12">
+                          <div class="pretty p-switch p-fill" *ngFor="let item of tempSubCategory;let i=index;">
+                            <input type="checkbox" name="switch{{i}}" (change)="onSelectExperties($event,item)"
+                              [checked]="item.isChecked" />
+                            <div class="state p-success">
+                              <label>{{item.name}}</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-top"
+                    *ngIf="editEventForm.EventDescription.errors && (editEventForm.EventDescription.dirty || editEventForm.EventDescription.touched)">
+                    <div class="col-md-12">
+                      <app-required-validation-message [fieldName]="'Event Description'"
+                        *ngIf="editEventForm.EventDescription.errors.required"></app-required-validation-message>
+
+                    </div>
+                  </div>
+                  <div class="row mt-top">
+                    <div class="col-md-2 custom-label">
+                      <div class="portfolio-label">Event Decription</div>
+                    </div>
+                    <div class="col-md-10">
+                      <angular-editor class="form-control" [placeholder]="'About Event'"
+                        formControlName="EventDescription" [config]="config">
+                      </angular-editor>
+                    </div>
+                  </div>
+
+                  <div class="row mt-top"
+                    *ngIf="editEventForm.EventMedia.errors && (editEventForm.EventMedia.dirty || editEventForm.EventMedia.touched)">
+                    <div class="col-md-12">
+                      <app-required-validation-message [fieldName]="'Image'"
+                        *ngIf="editEventForm.EventMedia.errors.required"></app-required-validation-message>
+
+                    </div>
+                  </div>
+                  <div class="row mt-top">
+                    <div class="col-md-2 custom-label">
+                      <div class="portfolio-label">Event Media</div>
+                    </div>
+                  </div>
+                  <div class="row mt-top">
+                    <!-- <div class="col-md-2 custom-label">
+                      <div class="portfolio-label">Event Media</div>
+                    </div> -->
+                    <div class="col-md-12">
+                      <div class="row mt-top">
+                        <div class="col-md-2" *ngFor="let elem of userEvent.EventMedia;let i=index;">
+                          <div class="custom-photo-container">
+                            <img src="{{projectPath}}/{{projectFilePath}}/{{userEvent.EventName}}/{{elem.Name}}" alt="" class="img-raised" title=""
+                            *ngIf="elem.IsImage==='image'">
+                            <a href="{{elem.Name}}" *ngIf="elem.IsImage==='pdf'" target="_blank">
+                              <img src="assets/img/radian/document.png" alt="" class="img-raised">
+                            </a>
+                            <div *ngIf="elem.IsImage==='video'" class="video">
+                                <img src="{{elem.Image}}">
+                                <a></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-top">
+                        <div class="col-md-12">
+                          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                          <span style="margin-left: 7px;font-style: italic;">Please ensure to add a <b>watermark</b> in your <b>word</b> document; save its as <b>PDF;</b> then upload it</span>
+                        </div>
+                      </div>
+                      <div class="row mt-top" *ngFor="let item of addMoreImageArray;let i=index;">
+                        <div class="col-md-3" *ngIf="imageIndex===i">
+                          <select class="select-css" (change)="selectMediaType($event.target.value)">
+                            <option value="image" selected="true">Image/Document</option>
+                            <option value="video">Video</option>
+                          </select>
+                        </div>
+                        <div class="col-md-7" *ngIf="isImageType && imageIndex===i">
+                          <input id="file{{i}}" type="file" accept="application/pdf, image/jpeg, image/png"
+                          (change)="fileChangeEvent($event,i)" />
+                        </div>
+                        <div class="col-md-7" *ngIf="!isImageType && imageIndex===i">
+                          <div class="input-group">
+                          <input id="video{{i}}" type="text" class="signUp-form-control form-control" placeholder="YouTube Video Link"
+                            formControlName="linkURL">
+                          </div>
+                        </div>
+                        <div class="col-md-2" *ngIf="!isImageType && imageIndex===i">
+                          <input type="button" class="btn btn-primary btn-round custom-btn" value="Add"
+                            (click)="addMoreImage(i)" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-top" *ngIf="isUploaded">
+                    <div class="col-md-2" *ngFor='let url of urls;let i =index;'>
+                      <div class="custom-photo-container">
+                        <span class="close"><a (click)="removeMedia(i)">&times;</a></span>
+                        <img src="{{url.Name}}" alt="" class="img-raised" title=""
+                        *ngIf="url.IsImage==='image'">
+                        <a href="{{url.Name}}" *ngIf="url.IsImage==='pdf'" target="_blank">
+                          <img src="assets/img/radian/document.png" alt="" class="img-raised">
+                      </a>
+                        <div *ngIf="url.IsImage==='video'" class="video">
+                            <img src="{{url.Image}}" class="img-raised">
+                            <a></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 flt-right">
+                      <button class="btn btn-primary btn-round btn-margin" (click)="onSubmit()"
+                       >Update</button>&nbsp;
+                      <a [routerLink]="['/member/event_view']" class="btn btn-primary btn-round reset-btn">Cancel</a>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
