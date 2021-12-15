@@ -1,5 +1,3 @@
-import { RdDeserializable } from '../../interfaces/deserializable/rd-deserializable';
-
 export class RdRegister {
     firstName: string;
     middleName: string;

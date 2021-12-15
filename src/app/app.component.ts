@@ -17,7 +17,7 @@ export class AppComponent implements OnInit,AfterViewInit {
     private _router: Subscription;
     currentUser: any;
     loading: any;
-    @ViewChild(RdNavbarComponent) navbar: RdNavbarComponent;
+    // @ViewChild(RdNavbarComponent) navbar: RdNavbarComponent;
 
     constructor(private location: Location, private rdAuthenticateService: RdAuthenticateService,
         private router: Router, private renderer: Renderer2, @Inject(DOCUMENT,)

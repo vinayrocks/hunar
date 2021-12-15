@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ScriptStore} from "../../core/custom-type-script/script.store";
-
+import { ScriptStore } from "../../core/custom-type-script/script.store";
 declare var document: any;
 
 @Injectable()

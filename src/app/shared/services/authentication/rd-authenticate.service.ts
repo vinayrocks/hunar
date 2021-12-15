@@ -29,14 +29,13 @@ export class RdAuthenticateService {
       .pipe(map(res => {
         if(res.status){
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(res.data));
+          // localStorage.setItem('currentUser', JSON.stringify(res.data));
           this.setLocalStorageData(res.data);
         }
         return res;
       }));
   }
   register(RdRegister: RdRegister) {
-
     var data=this._encryptDecryptService.ecryptModel(RdRegister);
     return this.http.post<any>(environment.apiCommon+'radianApi/Users/registrationDetails.php',
     JSON.stringify(data))
@@ -84,7 +83,5 @@ export class RdAuthenticateService {
     if(data!==null){
       localStorage.setItem('currentUser',JSON.stringify(data));
     }
-
-
   }
 }

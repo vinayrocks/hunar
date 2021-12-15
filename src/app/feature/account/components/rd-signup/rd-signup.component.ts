@@ -8,7 +8,6 @@ import * as  skillsInterest from 'src/app/shared/core/json-data/skillsInterest.j
 import * as  memberShipCategory from 'src/app/shared/core/json-data/membershipCategory.json';
 import * as  countryState from 'src/app/shared/core/json-data/countryState.json';
 import { codeValidation, emailValidation, numberValidation, passwordValidation } from 'src/app/shared/core/regx-expression/RegxExpression';
-import { MustMatch } from 'src/app/shared/core/regx-expression/MustMatchExpression';
 import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { RdForgotPassword } from 'src/app/shared/core/models/forgot-password/rd-forgot-password';
 @Component({
@@ -17,21 +16,12 @@ import { RdForgotPassword } from 'src/app/shared/core/models/forgot-password/rd-
   styleUrls: ['./rd-signup.component.scss']
 })
 export class RdSignupComponent implements OnInit {
-
   skills: any;
   skillsSubcategory: any;
   membership: any;
   countryState: any;
   state: any;
   billStates: any;
-  step1: Boolean = false;
-  step2: Boolean = false;
-  step3: Boolean = false;
-  step4: Boolean = false;
-  step5: Boolean = false;
-  step6: Boolean = false;
-  step7: Boolean = false;
-  step8: Boolean = false;
   registerFormGroup: FormGroup;
   currentUser: any;
   tempArr: any = [];
@@ -47,7 +37,13 @@ export class RdSignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   this.initRegisterForm();
+  }
+  initRegisterForm(){
     this.registerFormGroup = this._formBuilder.group({
+      isUser: [true, Validators.required],
+      organizationName:['', this.requiredIfValidator(() => !this.registerForm.isUser.value)],
+      uniqueNumber:['',this.requiredIfValidator(() => !this.registerForm.isUser.value)],
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
@@ -193,39 +189,23 @@ export class RdSignupComponent implements OnInit {
     });
   }
   reset() {
-    this.registerFormGroup = this._formBuilder.group({
-      firstName: ['', Validators.required],
-      middleName: [''],
-      lastName: ['', Validators.required],
-      country: ['', Validators.required],
-      street: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zip: ['', Validators.required],
-      memberShip: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email, emailValidation]],
-      password: ['', [Validators.required, passwordValidation]],
-      confirmPassword: ['', Validators.required],
-      profileSkill: ['', Validators.required],
-      profileSkillSubCategory: ['', Validators.required],
-      paymentMethod: [''],
-      cardName: [''],
-      cardNumber: [''],
-      cardSecurity: [''],
-      cardExpiry: [''],
-      billingAddress: ['', Validators.required],
-      billCountry: ['', Validators.required],
-      billStreet: ['', Validators.required],
-      billCity: ['', Validators.required],
-      billState: ['', Validators.required],
-      billZip: ['', Validators.required],
-      termCondition: ['', Validators.required],
-      phoneCode: ['', [Validators.required, codeValidation]],
-      phone: ['', [Validators.required, numberValidation]],
-      cellCode: ['', [Validators.required, codeValidation]],
-      cell: ['', [Validators.required, numberValidation]],
-      faxCode: ['', [codeValidation]],
-      fax: ['', [numberValidation]],
-    });
+    this.initRegisterForm();
+  }
+  requiredIfValidator(predicate) {
+    return (formControl => {
+      if (!formControl.parent) {
+        return null;
+      }
+      if (predicate()) {
+        return Validators.required(formControl); 
+      }
+      return null;
+    })
+  }
+  changeUserType(event:any){
+    if (event.target.checked) {
+      this.registerForm.organizationName.setValue('');
+      this.registerForm.uniqueNumber.setValue('');
+    }
   }
 }
