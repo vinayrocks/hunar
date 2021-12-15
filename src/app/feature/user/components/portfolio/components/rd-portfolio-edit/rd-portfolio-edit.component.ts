@@ -55,7 +55,6 @@ export class RdPortfolioEditComponent implements OnInit {
     private notificationService: NotificationService,
     private rdAuthenticateService: RdAuthenticateService) {
     this.routerData.Id = this.route.snapshot.paramMap.get('id');
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.notificationService.showLoader();
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     if(this.currentUser!==null){

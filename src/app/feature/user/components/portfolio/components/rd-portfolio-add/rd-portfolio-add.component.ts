@@ -161,7 +161,6 @@ export class RdPortfolioAddComponent implements OnInit {
       .pipe(first())
         .subscribe(
           res => {
-            debugger
             if(res.status){
               var dataReposne=res.data.split(',');
               this.serverFile=[];

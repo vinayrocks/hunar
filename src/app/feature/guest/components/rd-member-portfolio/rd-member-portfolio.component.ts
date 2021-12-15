@@ -38,7 +38,6 @@ export class RdMemberPortfolioComponent implements OnInit {
     private _encryptDecryptService: RdEncryptDecryptService,
     private notificationService : NotificationService,public matDialog: MatDialog) { 
     this.routerData.PortfolioId=this.route.snapshot.paramMap.get('id');
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     this.routerData=this._encryptDecryptService.decryptModel(this.routerData);
   }

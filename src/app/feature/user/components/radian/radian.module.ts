@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmbedVideo } from 'ngx-embed-video';
+import { EmbedVideo, EmbedVideoService } from 'ngx-embed-video';
 import { RadianRoutingModule } from './radian-routing.module';
 import { RdRadianListComponent } from './components/rd-radian-list/rd-radian-list.component';
 import { RdRadianAddComponent } from './components/rd-radian-add/rd-radian-add.component';
@@ -29,6 +29,7 @@ import { RadianLayoutComponent } from './radian-layout/radian-layout.component';
     SharedModule.forRoot(),
     AngularEditorModule,
     ImageCropperModule
-  ]
+  ],
+  providers: [EmbedVideoService],
 })
 export class RadianModule { }

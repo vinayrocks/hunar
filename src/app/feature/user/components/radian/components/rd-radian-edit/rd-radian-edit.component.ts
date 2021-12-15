@@ -56,7 +56,6 @@ export class RdRadianEditComponent implements OnInit {
     private route: ActivatedRoute, private notificationService: NotificationService,
     private rdAuthenticateService: RdAuthenticateService) {
     this.skills = skillsInterest.SkillsInterest;
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.notificationService.showLoader();
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Profile';
@@ -80,7 +79,6 @@ export class RdRadianEditComponent implements OnInit {
     }
   }
   ngOnInit() {
-    var rellaxHeader = new Rellax('.rellax-header');
     var body = document.getElementsByTagName('body')[0];
     body.classList.add('profile-page');
     var navbar = document.getElementsByTagName('nav')[0];

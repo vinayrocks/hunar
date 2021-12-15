@@ -9,11 +9,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
-import { EmbedVideoService } from 'ngx-embed-video';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MatDialogModule } from '@angular/material/dialog';
+import { EmbedVideoService } from 'ngx-embed-video';
 
 @NgModule({
   declarations: [RdEventListComponent, RdEventAddComponent, RdEventEditComponent],
@@ -30,6 +30,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     AngularEditorModule,
     MatDialogModule
   ],
-  providers: [EmbedVideoService],
+  providers: [EmbedVideoService]
 })
 export class EventModule { }

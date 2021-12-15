@@ -20,9 +20,7 @@ export class AppComponent implements OnInit,AfterViewInit {
     // @ViewChild(RdNavbarComponent) navbar: RdNavbarComponent;
 
     constructor(private location: Location, private rdAuthenticateService: RdAuthenticateService,
-        private router: Router, private renderer: Renderer2, @Inject(DOCUMENT,)
-        private document: any, private element: ElementRef, private notificationService: NotificationService) {
-        // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
+        private router: Router,@Inject(DOCUMENT,) private notificationService: NotificationService) {
       
         this._router = this.router.events.filter(event => event instanceof NavigationEnd)
             .subscribe((event: NavigationEnd) => {
