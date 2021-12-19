@@ -18,7 +18,7 @@ export class RdGuestLayoutComponent implements OnInit {
     private router: Router) {
    
     // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
-    this.currentUser = this.rdAuthenticateService.getLocalStorageData();
+    // this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     // this._router = this.router.events.filter(event => event instanceof NavigationEnd)
     // .subscribe((event: NavigationEnd) => {
     //   var _location = this.location.path();

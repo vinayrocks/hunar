@@ -17,7 +17,7 @@ export class RdUserService {
   constructor(private http: HttpClient, private _encryptDecryptService: RdEncryptDecryptService,
     private rdAuthenticateService: RdAuthenticateService) {
    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
-    // this.currentUser = this.currentUserSubject.asObservable();
+   // this.currentUser = this.currentUserSubject.asObservable();
   }
   // public get currentUserValue() {
   //   return this.currentUserSubject;
