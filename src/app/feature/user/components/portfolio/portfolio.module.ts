@@ -8,11 +8,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import {MatExpansionModule} from '@angular/material/expansion'
 import { MatStepperModule } from '@angular/material/stepper';
-import { EmbedVideo, EmbedVideoService } from 'ngx-embed-video';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { EmbedVideoService } from 'ngx-embed-video';
 @NgModule({
   declarations: [RdPortfolioListComponent, RdPortfolioAddComponent, RdPortfolioEditComponent],
   imports: [
@@ -28,6 +28,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     AngularEditorModule,
     ImageCropperModule
   ],
-  providers: [EmbedVideoService],
+  providers: [EmbedVideoService]
 })
-export class PortfolioModule { }
+export class PortfolioModule { 
+}

@@ -10,33 +10,22 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RdAuthenticateService {
-
   public currentUserSubject: any;
-  // public currentUser: Observable<any>;
-
   constructor(private http: HttpClient, private _encryptDecryptService: RdEncryptDecryptService) {
-    // this.currentUserSubject = JSON.parse(localStorage.getItem('currentUser'));
-    // this.currentUser = this.currentUserSubject;
+    this.currentUserSubject = this.getLocalStorageData();
   }
-
-  public get currentUserValue() {
-    return this.currentUserSubject;
-  }
-
   login(RdLogin: RdLogin) {
     var data=this._encryptDecryptService.ecryptModel(RdLogin);
     return this.http.post<any>(environment.apiCommon+'radianApi/Users/loginDetails.php', data)
       .pipe(map(res => {
         if(res.status){
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(res.data));
           this.setLocalStorageData(res.data);
         }
         return res;
       }));
   }
   register(RdRegister: RdRegister) {
-
     var data=this._encryptDecryptService.ecryptModel(RdRegister);
     return this.http.post<any>(environment.apiCommon+'radianApi/Users/registrationDetails.php',
     JSON.stringify(data))
@@ -71,20 +60,15 @@ export class RdAuthenticateService {
   logout() {
     // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
-    // localStorage.setItem('currentUser',null);
     localStorage.clear();
     this.currentUserSubject=[];
-    // this.currentUserSubject.next(null);
   }
   getLocalStorageData(){
     return  localStorage.getItem('currentUser') === null?null:JSON.parse(localStorage.getItem('currentUser'));
   }
   setLocalStorageData(data){
-    // localStorage.setItem('currentUser',null);
     if(data!==null){
       localStorage.setItem('currentUser',JSON.stringify(data));
     }
-
-
   }
 }

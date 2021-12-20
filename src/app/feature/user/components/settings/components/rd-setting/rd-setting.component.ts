@@ -16,21 +16,18 @@ export class RdSettingComponent implements OnInit {
   addSettingFormGroup: FormGroup;
   data: Date = new Date()
   currentUser:any;
-  private currentUserSubject: BehaviorSubject<any>;
+  // private currentUserSubject: BehaviorSubject<any>;
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private notificationService: NotificationService, private router: Router,
     private rdAuthenticateService: RdAuthenticateService) { 
-      // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
       this.currentUser = this.rdAuthenticateService.getLocalStorageData();
       this.currentUser.isAddressShown=this.currentUser.isAddressShown==true?true:false;
       this.currentUser.isEmailShown=this.currentUser.isEmailShown==true?true:false;
       this.currentUser.isMailingAddressShown=this.currentUser.isMailingAddressShown==true?true:false;
       this.currentUser.isRadianMemberProfileShown=this.currentUser.isRadianMemberProfileShown==true?true:false;
       this.currentUser.isViewerProfileShown=this.currentUser.isViewerProfileShown==true?true:false;
-      // this.currentUserSubject = new BehaviorSubject<any>(this.currentUser);
     }
   ngOnInit() {
-    var rellaxHeader = new Rellax('.rellax-header');
     var body = document.getElementsByTagName('body')[0];
     body.classList.add('profile-page');
     var navbar = document.getElementsByTagName('nav')[0];
@@ -56,7 +53,6 @@ export class RdSettingComponent implements OnInit {
     this.rdUserService.addUpdateSettings(new RdUserSetting(this.addSettingFormGroup.value))
       .subscribe(res => {
         if (res.status) {
-          
           this.currentUser.isAddressShown = this.addSettingFormGroup.controls.IsAddressShown.value===true?true:false;
           this.currentUser.isRadianMemberProfileShown = this.addSettingFormGroup.controls.IsRadianMemberProfileShown.value===true?true:false;
           this.currentUser.isMailingAddressShown = this.addSettingFormGroup.controls.IsMailingAddressShown.value===true?true:false;
@@ -68,9 +64,7 @@ export class RdSettingComponent implements OnInit {
           this.currentUser = this.rdAuthenticateService.getLocalStorageData();
 
           this.notificationService.hideLoader();
-          // this.currentUserSubject.next(res.data);
           this.notificationService.success(res.message);
-          // this.notificationService.success('Please Logout to make setting changes reflect in your account.');
           this.router.navigate(['/member/setting_view']);
           
         } else {

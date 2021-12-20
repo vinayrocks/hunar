@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { EmbedVideoService } from 'ngx-embed-video';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RdUserService } from 'src/app/shared/services/user/rd-user-service';
@@ -35,12 +34,11 @@ export class RdMemberDetailComponent implements OnInit {
   currentUser:any;
   UserLiked:String='';
   memberProfiles:any=[];
-  constructor(private embedService: EmbedVideoService, private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
     private rdUserService: RdUserService,private rdAuthenticateService: RdAuthenticateService,
     private _encryptDecryptService: RdEncryptDecryptService,public matDialog: MatDialog,
     private notificationService : NotificationService,private router: Router) { 
     this.routerData.ProfileId=this.route.snapshot.paramMap.get('id');
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     this.routerData=this._encryptDecryptService.decryptModel(this.routerData);
     if(this.currentUser===null){

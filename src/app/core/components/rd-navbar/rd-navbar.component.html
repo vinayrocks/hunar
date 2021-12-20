@@ -58,7 +58,7 @@
           <div class="dropdown button-dropdown nav-link">
             <div ngbDropdown>
               <a ngbDropdownToggle routerLinkActive="active" class="custom-link nav-link">
-                <p>{{currentUser.firstName }} {{currentUser.lastName}}</p>
+                <p>{{currentUser?.firstName }} {{currentUser?.lastName}}</p>
               </a>
               <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                 <a class="nav-link dropdown-item" [routerLink]="['/member/hunar_view']"><p>My Profile(s)</p></a>

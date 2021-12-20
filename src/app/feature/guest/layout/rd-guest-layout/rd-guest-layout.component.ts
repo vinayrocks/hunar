@@ -14,38 +14,7 @@ export class RdGuestLayoutComponent implements OnInit {
   private _router: Subscription;
   currentUser:any;
   isCustomHeader:Boolean=false;
-  constructor(private location: Location, private rdAuthenticateService: RdAuthenticateService,
-    private router: Router) {
-   
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
-    // this.currentUser = this.rdAuthenticateService.getLocalStorageData();
-    // this._router = this.router.events.filter(event => event instanceof NavigationEnd)
-    // .subscribe((event: NavigationEnd) => {
-    //   var _location = this.location.path();
-    //   _location = _location.split('/')[2];
-    //   if(_location!=='home'){
-    //     this.setSmallPageHeader=true;
-    //     this.isCustomHeader=true;
-    //   } else {
-    //     this.setSmallPageHeader=false;
-    //     this.isCustomHeader=false;
-    //   }
-    // });
-    // if (this.currentUser !== null) {
-    //   this.router.navigate(['/member/view']);
-    // }
-    // router.events.subscribe(val => {
-    //   var _location = this.location.path();
-    //   _location = _location.split('/')[2];
-    //   if(_location!=='home'){
-    //      this.setSmallPageHeader=true;
-    //      this.isCustomHeader=true;
-    //   } else {
-    //     this.setSmallPageHeader=false;
-    //      this.isCustomHeader=false;
-    //   }
-    // });
-   }
+  constructor() {}
 
   ngOnInit(): void {
   }

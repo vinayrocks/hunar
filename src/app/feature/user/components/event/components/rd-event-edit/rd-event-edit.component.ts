@@ -138,7 +138,6 @@ export class RdEventEditComponent implements OnInit {
       res => {
         this.notificationService.hideLoader();
         res.data.forEach(element => {
-          debugger
           this.EventPictureModel = element.EventMedia.split(',');
           element.EventSkill=element.EventSkill === ''?[]:JSON.parse(element.EventSkill);
           element.EventCategory=element.EventCategory === ''?[]:JSON.parse(element.EventCategory);

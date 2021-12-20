@@ -1,30 +1,19 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { RdEncryptDecryptService } from '../encrypt-decrypt/rd-encrypt-decrypt.service';
-import { RdPortfolio } from '../../core/models/rd-portfolio/rd-portfolio';
 import { RdAuthenticateService } from '../authentication/rd-authenticate.service';
 import { environment } from 'src/environments/environment';
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RdUserService {
 
-  private currentUserSubject: any;
-  // public currentUser: Observable<any>;
-
+  currentUserSubject: any=[];
   constructor(private http: HttpClient, private _encryptDecryptService: RdEncryptDecryptService,
     private rdAuthenticateService: RdAuthenticateService) {
-   this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
-   // this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
   }
-  // public get currentUserValue() {
-  //   return this.currentUserSubject;
-  // }
 
   getUserProfiles(rdCommon) {
-    // rdCommon.UserId=this.currentUserSubject.id;
     return this.http.post<any>(environment.apiCommon+'radianApi/Profiles/getProfiles.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -47,7 +36,6 @@ export class RdUserService {
       }));
   }
   getUserPorfolios(rdCommon) {
-    
     rdCommon.UserId=this.currentUserSubject.id;
     rdCommon.Id=0;
     
@@ -96,7 +84,6 @@ export class RdUserService {
       }));
   }
   UploadUserPortfolioFile(file: any, portfolioName: string) {
-    debugger
     const formData = new FormData();
     formData.append('UserId', this._encryptDecryptService.set(this.currentUserSubject.id));
     formData.append('Email', this._encryptDecryptService.set(this.currentUserSubject.username));
@@ -108,7 +95,6 @@ export class RdUserService {
     }
     return this.http.post<any>(environment.apiCommon+'radianApi/Uploads/uploadMedia.php', formData)
       .pipe(map(res => {
-        debugger
         return res;
        
       }));
@@ -215,7 +201,6 @@ export class RdUserService {
           return res;
         }));
     }
-    return null
   }
   getPortfolioDetail(rdGetPortfolio) {
     return this.http.post<any>(environment.apiCommon+'radianApi/Portfolios/getSinglePortfolio.php', 

@@ -4,8 +4,6 @@ import { UserRoutingModule } from './user-routing.module';
 import { RdUserLayoutComponent } from './layout/rd-user-layout/rd-user-layout.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { MatOptionModule } from '@angular/material/core';
 import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [RdUserLayoutComponent],
@@ -18,4 +16,6 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule
   ]
 })
-export class UserModule { }
+export class UserModule { 
+ 
+}
