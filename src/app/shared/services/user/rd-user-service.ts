@@ -10,7 +10,7 @@ export class RdUserService {
   currentUserSubject: any=[];
   constructor(private http: HttpClient, private _encryptDecryptService: RdEncryptDecryptService,
     private rdAuthenticateService: RdAuthenticateService) {
-    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
+     
   }
 
   getUserProfiles(rdCommon) {
@@ -21,7 +21,7 @@ export class RdUserService {
       }));
   }
   getUserProfile(rdCommon) {
-    rdCommon.UserId=this.currentUserSubject.id;
+    rdCommon.UserId=rdCommon.UserId;
     return this.http.post<any>(environment.apiCommon+'radianApi/Profiles/getProfiles.php', 
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -36,7 +36,7 @@ export class RdUserService {
       }));
   }
   getUserPorfolios(rdCommon) {
-    rdCommon.UserId=this.currentUserSubject.id;
+    rdCommon.UserId=rdCommon.UserId;
     rdCommon.Id=0;
     
     return this.http.post<any>(environment.apiCommon+'radianApi/Portfolios/getPortfolios.php',
@@ -46,7 +46,8 @@ export class RdUserService {
       }));
   }
   getUserPorfolio(rdCommon) {
-    rdCommon.UserId=this.currentUserSubject.id;
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
+    rdCommon.UserId=this.currentUserSubject.UserId;
     return this.http.post<any>(environment.apiCommon+'radianApi/Portfolios/getPortfolios.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -54,7 +55,8 @@ export class RdUserService {
       }));
   }
   getUserEvents(rdCommon) {
-    rdCommon.UserId=this.currentUserSubject.id;
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
+    rdCommon.UserId=this.currentUserSubject.UserId;
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/getEvents.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -62,7 +64,8 @@ export class RdUserService {
       }));
   }
   getUserEvent(rdCommon) {
-    rdCommon.UserId=this.currentUserSubject.id;
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
+    rdCommon.UserId=this.currentUserSubject.UserId;
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/getEvents.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -84,6 +87,7 @@ export class RdUserService {
       }));
   }
   UploadUserPortfolioFile(file: any, portfolioName: string) {
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     const formData = new FormData();
     formData.append('UserId', this._encryptDecryptService.set(this.currentUserSubject.id));
     formData.append('Email', this._encryptDecryptService.set(this.currentUserSubject.username));
@@ -101,6 +105,7 @@ export class RdUserService {
   }
   
   UploadUserRadianProfileImage(ProfilePicture: any, CoverPicture: any, profileName: string) {
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     const formData = new FormData();
     formData.append('UserId', this._encryptDecryptService.set(this.currentUserSubject.id));
     formData.append('Email', this._encryptDecryptService.set(this.currentUserSubject.username));
@@ -116,6 +121,7 @@ export class RdUserService {
       }));
   }
   UploadUserEventImage(file: any, eventName: string) {
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     const formData = new FormData();
     formData.append('UserId', this._encryptDecryptService.set(this.currentUserSubject.id));
     formData.append('Email', this._encryptDecryptService.set(this.currentUserSubject.username));
@@ -132,6 +138,7 @@ export class RdUserService {
       }));
   }
   addUserProfile(rdProfile: any) {
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdProfile.UserId = this.currentUserSubject.id;
     rdProfile.Email = this.currentUserSubject.username;
     rdProfile.FirstName = this.currentUserSubject.firstName;
@@ -143,6 +150,7 @@ export class RdUserService {
   }
 
   addUserPortfolio(rdPortfolio: any) {
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdPortfolio.UserId = this.currentUserSubject.id;
     rdPortfolio.Email = this.currentUserSubject.username;
     rdPortfolio.FirstName = this.currentUserSubject.firstName;
@@ -152,6 +160,7 @@ export class RdUserService {
     JSON.stringify(data));
   }
   addUserEvent(rdEvent: any) {
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdEvent.UserId = this.currentUserSubject.id;
     rdEvent.Email = this.currentUserSubject.username;
     rdEvent.FirstName = this.currentUserSubject.firstName;
@@ -159,6 +168,7 @@ export class RdUserService {
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/createEvent.php', JSON.stringify(data));
   }
   addUpdateSettings(rdSettings:any){
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdSettings.UserId = this.currentUserSubject.id;
     rdSettings.Email = this.currentUserSubject.username;
     rdSettings.FirstName = this.currentUserSubject.firstName;
@@ -166,6 +176,7 @@ export class RdUserService {
     return this.http.post<any>(environment.apiCommon+'radianApi/Settings/userSettings.php', JSON.stringify(data));
   }
   searchMember(rdSearchMember:any){
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdSearchMember.UserId = this.currentUserSubject===null?0:this.currentUserSubject.id;
     rdSearchMember.Email = this.currentUserSubject===null?'':this.currentUserSubject.username;
     rdSearchMember.FirstName = this.currentUserSubject===null?'':this.currentUserSubject.firstName;
@@ -181,6 +192,7 @@ export class RdUserService {
   }
 
   DeleteRequest(rdCommon,type:string){
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdCommon.UserId = this.currentUserSubject.id;
     if(type==='Event'){
       return this.http.post<any>(environment.apiCommon+'radianApi/Events/deleteUserEvent.php', 
@@ -210,7 +222,6 @@ export class RdUserService {
       }));
   }
   addEventParticipation(rdEvent: any) {
-    // rdEvent.UserId = this.currentUserSubject.id;
     var data = this._encryptDecryptService.ecryptModel(rdEvent);
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/userEventCollaboration.php', JSON.stringify(data));
   }
