@@ -6,9 +6,7 @@ import { RdEncryptDecryptService } from '../encrypt-decrypt/rd-encrypt-decrypt.s
 import { RdPortfolio } from '../../core/models/rd-portfolio/rd-portfolio';
 import { RdAuthenticateService } from '../authentication/rd-authenticate.service';
 import { environment } from 'src/environments/environment';
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RdUserService {
 
   private currentUserSubject: any;
