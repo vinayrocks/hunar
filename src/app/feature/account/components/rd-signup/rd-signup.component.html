@@ -1,11 +1,62 @@
 <div class="section section-team">
     <div class="container">
-        <!-- <h2 class="title text-center">Join us today... it's simple</h2>
-        <div class="separator separator-primary" style="margin-bottom: 40px;"></div> -->
         <div class="row">
             <div class="col-md-12 card">
                 <form name="registerForm" class="registerForm" [formGroup]="registerFormGroup">
-                    <h4>Full Name</h4><br />
+                    <h4>Registered As</h4><br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="pretty p-switch p-fill">
+                                <input type="radio" name="isUser" checked [value]="true" formControlName="isUser" 
+                                (change)="changeUserType($event)"/>
+                                <div class="state p-success">
+                                    <label>Individual</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="pretty p-switch p-fill">
+                                <input type="radio" name="isUser" [value]="false" formControlName="isUser" 
+                                (change)="changeUserType($event)"/>
+                                <div class="state p-success">
+                                    <label>Bussiness</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 *ngIf="!registerForm.isUser.value">Organization Info</h4><br />
+                    <div class="row" *ngIf="!registerForm.isUser.value">
+                        <div class="col-md-6">
+                            <div class="row"
+                                *ngIf="registerForm.organizationName.errors && (registerForm.organizationName.dirty || registerForm.organizationName.touched)">
+                                <div class="col-md-12">
+                                    <app-required-validation-message [fieldName]="'Organization Name'"
+                                        *ngIf="registerForm.organizationName.errors.required">
+                                    </app-required-validation-message>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="signUp-form-control form-control" placeholder="Organization Name*"
+                                    formControlName="organizationName">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row"
+                                *ngIf="registerForm.uniqueNumber.errors && (registerForm.uniqueNumber.dirty || registerForm.uniqueNumber.touched)">
+                                <div class="col-md-12">
+                                    <app-required-validation-message [fieldName]="'TIN/GSTIN Number'"
+                                        *ngIf="registerForm.uniqueNumber.errors.required">
+                                    </app-required-validation-message>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="signUp-form-control form-control" placeholder="TIN/GSTIN Number"
+                                    formControlName="uniqueNumber">
+                            </div>
+                        </div>
+                    </div>
+                    <h4 *ngIf="registerForm.isUser.value">Full Name</h4>
+                    <h4 *ngIf="!registerForm.isUser.value">Contact Person Full Name</h4>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="row"
@@ -138,23 +189,24 @@
                                         *ngIf="registerForm.phoneCode.errors.required">
                                     </app-required-validation-message>
                                     <app-format-validation-message [fieldName]="'Phone Code'"
-                                    *ngIf="registerForm.phoneCode.errors.pattern"></app-format-validation-message>
+                                        *ngIf="registerForm.phoneCode.errors.pattern"></app-format-validation-message>
                                 </div>
                             </div>
-                            <div class="row" *ngIf="(registerForm.phone.errors && (registerForm.phone.dirty || registerForm.phone.touched))">
+                            <div class="row"
+                                *ngIf="(registerForm.phone.errors && (registerForm.phone.dirty || registerForm.phone.touched))">
                                 <div class="col-md-12">
                                     <app-required-validation-message [fieldName]="'Phone'"
                                         *ngIf="registerForm.phone.errors.required">
                                     </app-required-validation-message>
                                     <app-format-validation-message [fieldName]="'Phone'"
-                                    *ngIf="registerForm.phone.errors.pattern"></app-format-validation-message>
+                                        *ngIf="registerForm.phone.errors.pattern"></app-format-validation-message>
                                 </div>
                             </div>
                             <div class="input-group">
                                 <input type="text" maxlength="3" class="col-md-4 signUp-form-control form-control"
                                     placeholder="Area Code*" formControlName="phoneCode">
-                                <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control" placeholder="Home*"
-                                    formControlName="phone">
+                                <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control"
+                                    placeholder="Home*" formControlName="phone">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -165,23 +217,24 @@
                                         *ngIf="registerForm.cellCode.errors.required">
                                     </app-required-validation-message>
                                     <app-format-validation-message [fieldName]="'Cell Code'"
-                                    *ngIf="registerForm.cellCode.errors?.pattern"></app-format-validation-message>
+                                        *ngIf="registerForm.cellCode.errors?.pattern"></app-format-validation-message>
                                 </div>
                             </div>
-                            <div class="row" *ngIf="(registerForm.cell.errors && (registerForm.cell.dirty || registerForm.cell.touched))">
+                            <div class="row"
+                                *ngIf="(registerForm.cell.errors && (registerForm.cell.dirty || registerForm.cell.touched))">
                                 <div class="col-md-12">
                                     <app-required-validation-message [fieldName]="'Cell'"
                                         *ngIf="registerForm.cell.errors.required">
                                     </app-required-validation-message>
                                     <app-format-validation-message [fieldName]="'Cell'"
-                                    *ngIf="registerForm.cell.errors?.pattern"></app-format-validation-message>
+                                        *ngIf="registerForm.cell.errors?.pattern"></app-format-validation-message>
                                 </div>
                             </div>
                             <div class="input-group">
                                 <input type="text" maxlength="3" class="col-md-4 signUp-form-control form-control"
                                     placeholder="Area Code*" formControlName="cellCode">
-                                <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control" placeholder="Cell*"
-                                    formControlName="cell">
+                                <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control"
+                                    placeholder="Cell*" formControlName="cell">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -189,38 +242,39 @@
                             ">
                                 <div class="col-md-12">
                                     <app-format-validation-message [fieldName]="'Fax Code'"
-                                    *ngIf="registerForm.faxCode.errors?.pattern"></app-format-validation-message>
+                                        *ngIf="registerForm.faxCode.errors?.pattern"></app-format-validation-message>
                                 </div>
                             </div>
-                            <div class="row" *ngIf="(registerForm.fax.errors && (registerForm.fax.dirty || registerForm.fax.touched))">
+                            <div class="row"
+                                *ngIf="(registerForm.fax.errors && (registerForm.fax.dirty || registerForm.fax.touched))">
                                 <div class="col-md-12">
                                     <app-format-validation-message [fieldName]="'Fax'"
-                                    *ngIf="registerForm.fax.errors?.pattern"></app-format-validation-message>
+                                        *ngIf="registerForm.fax.errors?.pattern"></app-format-validation-message>
                                 </div>
                             </div>
                             <div class="input-group">
                                 <input type="text" maxlength="3" class="col-md-4 signUp-form-control form-control"
                                     placeholder="Area Code" formControlName="faxCode">
-                                <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control" placeholder="Fax"
-                                    formControlName="fax">
+                                <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control"
+                                    placeholder="Fax" formControlName="fax">
                             </div>
                         </div>
                     </div>
                     <h4>Prefered Membership Category</h4><br />
                     <div class="row"
-                            *ngIf="registerForm.memberShip.errors && (registerForm.memberShip.dirty || registerForm.memberShip.touched)">
-                            <div class="col-md-12">
-                                <app-required-validation-message [fieldName]="'MemberShip'"
-                                    *ngIf="registerForm.memberShip.errors.required"></app-required-validation-message>
-                            </div>
+                        *ngIf="registerForm.memberShip.errors && (registerForm.memberShip.dirty || registerForm.memberShip.touched)">
+                        <div class="col-md-12">
+                            <app-required-validation-message [fieldName]="'MemberShip'"
+                                *ngIf="registerForm.memberShip.errors.required"></app-required-validation-message>
                         </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6 card-register-membership custom-set"
                             *ngFor="let item of membership;let i=index;">
                             <input id="radio{{i}}" type="radio" value="{{item.Id}}" formControlName="memberShip">
                             <label class="form-check-label card-label" for="radio{{i}}">
                                 <h4>{{item.name}}</h4>
-                                <h5>{{item.currency}}{{item.amount}} [{{item.planType}}]</h5><br/>
+                                <h5>{{item.currency}}{{item.amount}} [{{item.planType}}]</h5><br />
                                 <h6 class="cstm-h6" *ngFor="let propItem of item.properties">{{propItem}}</h6>
                                 <span class="form-check-sign"></span>
                             </label>
@@ -289,7 +343,8 @@
                         </div>
                     </div>
                     <h4>Skills / Interests </h4>
-                    <p style="margin-bottom: 0px;">[ Select your skillset. Upon registration, you will get to create multiple profiles. ]</p><br />
+                    <p style="margin-bottom: 0px;">[ Select your skillset. Upon registration, you will get to create
+                        multiple profiles. ]</p><br />
                     <div class="row">
                         <div class="col-md-5">
                             <select class="select-css" matNativeControl placeholder="Specialities / Interests"
@@ -509,8 +564,10 @@
                     </div><br />
                     <div class="row">
                         <div class="col-md-12">
-                            <button mat-button class="btn btn-danger btn-round btn-margin reset-btn" (click)="reset()">Reset</button>
-                            <button class="btn btn-danger btn-round btn-float-right" (click)="onSubmit()">Register</button>
+                            <button mat-button class="btn btn-danger btn-round btn-margin reset-btn"
+                                (click)="reset()">Reset</button>
+                            <button class="btn btn-danger btn-round btn-float-right"
+                                (click)="onSubmit()">Register</button>
                         </div>
                     </div>
                 </form>

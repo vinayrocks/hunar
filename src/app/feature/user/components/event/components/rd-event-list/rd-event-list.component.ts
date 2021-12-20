@@ -49,7 +49,6 @@ export class RdEventListComponent implements OnInit {
     private embedService: EmbedVideoService, private router: Router,
     private _encryptDecryptService: RdEncryptDecryptService,
     private rdAuthenticateService: RdAuthenticateService, private notificationService: NotificationService) {
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.notificationService.showLoader();
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     if (this.currentUser !== null) {

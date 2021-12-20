@@ -6,9 +6,7 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { RdFakeDatabaseProvider } from './shared/authentication/fakedb/rd-fake-database.interceptor'
 import { SharedModule } from './shared/shared.module';
-import { UserModule } from './feature/user/user.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -21,7 +19,7 @@ import { UserModule } from './feature/user/user.module';
     HttpClientModule,
     SharedModule.forRoot()
   ],
-  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy},RdFakeDatabaseProvider],
+  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

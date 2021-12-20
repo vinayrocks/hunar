@@ -25,18 +25,6 @@ export class RdNavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        
-        //const navbar: HTMLElement = this.element.nativeElement;
-        //this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-        //this.currentUser = this.authenticationService.getLocalStorageData();
-            //this.authenticationService.setLocalStorageData(this.currentUser);
-            //if(this.currentUser!==null){
-                this.isLoggedIn=true;
-            //} else {
-                //this.isLoggedIn=false;
-            //}
-
-
         this._router = this.router.events.filter(event => event instanceof NavigationEnd)
         .subscribe((event: NavigationEnd) => {
             this.currentUser = this.authenticationService.getLocalStorageData();
@@ -65,8 +53,6 @@ export class RdNavbarComponent implements OnInit {
         html.classList.remove('nav-open');
     };
     sidebarToggle() {
-      // const toggleButton = this.toggleButton;
-      // const body = document.getElementsByTagName('body')[0];
       if (this.sidebarVisible === false) {
           this.sidebarOpen();
       } else {

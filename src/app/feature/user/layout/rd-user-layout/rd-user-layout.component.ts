@@ -11,7 +11,6 @@ export class RdUserLayoutComponent implements OnInit {
   profileImagePath:string;
   coverImagePath:string
   constructor(private rdAuthenticateService: RdAuthenticateService) { 
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
   }
 

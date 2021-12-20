@@ -41,7 +41,6 @@ export class RdRadianDetailComponent implements OnInit {
     private _encryptDecryptService: RdEncryptDecryptService) {
     this.routerData.EventId = this.route.snapshot.paramMap.get('id');
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.routerData = this._encryptDecryptService.decryptModel(this.routerData);
     if (this.currentUser === null) {
       this.radianLikeData.UserId = '';

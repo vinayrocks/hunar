@@ -56,7 +56,6 @@ export class RdLoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(res => {
         if (res.status) {
-          debugger
           this.matDialog.closeAll();
           this.notificationService.success(res.message);
           this.router.navigate(['/member/hunar_view']);

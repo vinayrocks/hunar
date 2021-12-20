@@ -50,12 +50,10 @@ export class RdPortfolioListComponent implements OnInit {
       this.notificationService.showLoader();
   }
   ngOnInit() {
-    var rellaxHeader = new Rellax('.rellax-header');
     var body = document.getElementsByTagName('body')[0];
     body.classList.add('profile-page');
     var navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.add('navbar-transparent');
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     if(this.currentUser!==null){
       this.projectFilePath=this.currentUser.firstName+'_'+this.currentUser.username.split('@')[0]+'/Portfolio/'; 

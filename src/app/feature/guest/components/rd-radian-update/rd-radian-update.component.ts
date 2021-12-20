@@ -51,7 +51,6 @@ export class RdRadianUpdateComponent implements OnInit {
     this.skills = skillsInterest.SkillsInterest;
     this.radianUpdates = [];
     this.notificationService.showLoader();
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     this.routerData = this._encryptDecryptService.decryptModel(this.routerData);
     if (this.currentUser === null) {

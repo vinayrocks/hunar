@@ -43,7 +43,6 @@ export class RdRadianListComponent implements OnInit {
     private notificationService: NotificationService,public matDialog: MatDialog,
      private rdAuthenticateService: RdAuthenticateService) {
     this.skills = skillsInterest.SkillsInterest;
-    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
     this.notificationService.showLoader();
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     if(this.currentUser !== null) {
@@ -53,7 +52,6 @@ export class RdRadianListComponent implements OnInit {
     
   }
   ngOnInit() {
-    var rellaxHeader = new Rellax('.rellax-header');
     var body = document.getElementsByTagName('body')[0];
     body.classList.add('profile-page');
     var navbar = document.getElementsByTagName('nav')[0];
