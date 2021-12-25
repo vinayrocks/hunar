@@ -7,6 +7,7 @@ import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd
 import * as  skillsInterest from 'src/app/shared/core/json-data/skillsInterest.json';
 import * as  memberShipCategory from 'src/app/shared/core/json-data/membershipCategory.json';
 import * as  countryState from 'src/app/shared/core/json-data/countryState.json';
+import * as  countryCode from 'src/app/shared/core/json-data/countryCodes.json';
 import { codeValidation, emailValidation, numberValidation, passwordValidation } from 'src/app/shared/core/regx-expression/RegxExpression';
 import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { RdForgotPassword } from 'src/app/shared/core/models/forgot-password/rd-forgot-password';
@@ -20,6 +21,7 @@ export class RdSignupComponent implements OnInit {
   skillsSubcategory: any;
   membership: any;
   countryState: any;
+  countryCode: any;
   state: any;
   billStates: any;
   registerFormGroup: FormGroup;
@@ -33,6 +35,7 @@ export class RdSignupComponent implements OnInit {
     this.skills = skillsInterest.SkillsInterest;
     this.membership = memberShipCategory.MembershipCategories;
     this.countryState = countryState.Countries;
+    this.countryCode = countryCode.CountryCodes;
     this.setSameAddress = false;
   }
 
@@ -70,12 +73,14 @@ export class RdSignupComponent implements OnInit {
       billState: ['', Validators.required],
       billZip: ['', Validators.required],
       termCondition: ['', Validators.required],
-      phoneCode: ['', [Validators.required, codeValidation]],
-      phone: ['', [Validators.required, numberValidation]],
-      cellCode: ['', [Validators.required, codeValidation]],
+      //phoneCode: ['', [Validators.required, codeValidation]],
+      //phone: ['', [Validators.required, numberValidation]],
+      mobileCountryCode: ['', [Validators.required, numberValidation]],
       cell: ['', [Validators.required, numberValidation]],
-      faxCode: ['', [codeValidation]],
-      fax: ['', [numberValidation]],
+      altMmobileCountryCode: [''],
+      altMobileNumber: ['']
+      //faxCode: ['', [codeValidation]],
+      //fax: ['', [numberValidation]],
     });
     this.notificationService.hideLoader();
   }
@@ -203,9 +208,16 @@ export class RdSignupComponent implements OnInit {
     })
   }
   changeUserType(event:any){
+    debugger
     if (event.target.checked) {
       this.registerForm.organizationName.setValue('');
       this.registerForm.uniqueNumber.setValue('');
+    } 
+    if(this.registerForm.isUser.value){
+      this.membership = memberShipCategory.MembershipCategories;
+    }
+    else {
+      this.membership = this.membership.filter((x:any)=>x.name==='Premium');
     }
   }
 }
