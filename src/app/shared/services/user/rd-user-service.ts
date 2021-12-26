@@ -47,7 +47,7 @@ export class RdUserService {
   }
   getUserPorfolio(rdCommon) {
     this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
-    rdCommon.UserId=this.currentUserSubject.UserId;
+    rdCommon.UserId=this.currentUserSubject.id;
     return this.http.post<any>(environment.apiCommon+'radianApi/Portfolios/getPortfolios.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -56,7 +56,7 @@ export class RdUserService {
   }
   getUserEvents(rdCommon) {
     this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
-    rdCommon.UserId=this.currentUserSubject.UserId;
+    rdCommon.UserId=this.currentUserSubject.id;
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/getEvents.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -65,7 +65,7 @@ export class RdUserService {
   }
   getUserEvent(rdCommon) {
     this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
-    rdCommon.UserId=this.currentUserSubject.UserId;
+    rdCommon.UserId=this.currentUserSubject.id;
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/getEvents.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {

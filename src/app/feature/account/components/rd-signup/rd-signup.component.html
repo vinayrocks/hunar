@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 card">
                 <form name="registerForm" class="registerForm" [formGroup]="registerFormGroup">
-                    <h4>Registered As</h4><br />
+                    <h4>Register as</h4><br />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="pretty p-switch p-fill">
@@ -19,14 +19,16 @@
                                 <input type="radio" name="isUser" [value]="false" formControlName="isUser" 
                                 (change)="changeUserType($event)"/>
                                 <div class="state p-success">
-                                    <label>Bussiness</label>
+                                    <label>Business</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <h4 *ngIf="!registerForm.isUser.value">Organization Info</h4><br />
+                    <h4 *ngIf="!registerForm.isUser.value">Organization Info</h4>
+                    <hr/>
                     <div class="row" *ngIf="!registerForm.isUser.value">
                         <div class="col-md-6">
+                            <label class="lbl-custom">Organization Name*</label>
                             <div class="row"
                                 *ngIf="registerForm.organizationName.errors && (registerForm.organizationName.dirty || registerForm.organizationName.touched)">
                                 <div class="col-md-12">
@@ -36,11 +38,12 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="Organization Name*"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="organizationName">
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <label class="lbl-custom">TIN/GSTIN Number</label>
                             <div class="row"
                                 *ngIf="registerForm.uniqueNumber.errors && (registerForm.uniqueNumber.dirty || registerForm.uniqueNumber.touched)">
                                 <div class="col-md-12">
@@ -50,15 +53,17 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="TIN/GSTIN Number"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="uniqueNumber">
                             </div>
                         </div>
                     </div>
                     <h4 *ngIf="registerForm.isUser.value">Full Name</h4>
-                    <h4 *ngIf="!registerForm.isUser.value">Contact Person Full Name</h4>
+                    <h4 *ngIf="!registerForm.isUser.value">Contact Person Name</h4>
+                    <hr/>
                     <div class="row">
                         <div class="col-md-4">
+                            <label class="lbl-custom">First Name*</label>
                             <div class="row"
                                 *ngIf="registerForm.firstName.errors && (registerForm.firstName.dirty || registerForm.firstName.touched)">
                                 <div class="col-md-12">
@@ -68,11 +73,12 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="First Name*"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="firstName">
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">Middle Name</label>
                             <div class="row"
                                 *ngIf="registerForm.middleName.errors && (registerForm.middleName.dirty || registerForm.middleName.touched)">
                                 <div class="col-md-12">
@@ -82,11 +88,12 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="Middle Name"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="middleName">
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">Last Name*</label>
                             <div class="row"
                                 *ngIf="registerForm.lastName.errors && (registerForm.lastName.dirty || registerForm.lastName.touched)">
                                 <div class="col-md-12">
@@ -95,14 +102,16 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="Last Name*"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="lastName">
                             </div>
                         </div>
                     </div>
-                    <h4>Primary Address</h4><br />
+                    <h4>Primary Address</h4>
+                    <hr/>
                     <div class="row">
                         <div class="col-md-4">
+                            <label class="lbl-custom">Country*</label>
                             <div class="row"
                                 *ngIf="registerForm.country.errors && (registerForm.country.dirty || registerForm.country.touched)">
                                 <div class="col-md-12">
@@ -111,9 +120,8 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <select class="select-css" formControlName="country" name="country"
-                                    placeholder="Country*" (change)="getStates($event.target.value)">
-                                    <option value="" [disabled]="true" [selected]="true">Country*</option>
+                                <select class="select-css" formControlName="country" name="country" (change)="getStates($event.target.value)">
+                                    <option value="" [disabled]="true" [selected]="true">Select</option>
                                     <option *ngFor="let item of countryState" value="{{item.country}}">
                                         {{item.country}}
                                     </option>
@@ -121,6 +129,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">Apt/Street*</label>
                             <div class="row"
                                 *ngIf="registerForm.street.errors && (registerForm.street.dirty || registerForm.street.touched)">
                                 <div class="col-md-12">
@@ -129,11 +138,12 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="Apt/Street*"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="street">
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">City*</label>
                             <div class="row"
                                 *ngIf="registerForm.city.errors && (registerForm.city.dirty || registerForm.city.touched)">
                                 <div class="col-md-12">
@@ -142,13 +152,14 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="City*"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="city">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
+                            <label class="lbl-custom">State*</label>
                             <div class="row"
                                 *ngIf="registerForm.state.errors && (registerForm.state.dirty || registerForm.state.touched)">
                                 <div class="col-md-12">
@@ -157,8 +168,8 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <select class="select-css" formControlName="state" name="state" placeholder="State*">
-                                    <option value="" [disabled]="true" [selected]="true">State*</option>
+                                <select class="select-css" formControlName="state" name="state">
+                                    <option value="" [disabled]="true" [selected]="true">Select</option>
                                     <option *ngFor="let item of state" value="{{item}}">
                                         {{item}}
                                     </option>
@@ -166,6 +177,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">Zip / Pin Code*</label>
                             <div class="row"
                                 *ngIf="registerForm.zip.errors && (registerForm.zip.dirty || registerForm.zip.touched)">
                                 <div class="col-md-12">
@@ -175,14 +187,57 @@
                             </div>
                             <div class="input-group">
                                 <input type="select" class="signUp-form-control form-control"
-                                    placeholder="Zip / Pin Code*" formControlName="zip">
+                                    formControlName="zip">
                             </div>
                         </div>
                     </div>
-                    <h4>Contact Numbers</h4><br />
+                    <h4>Contact Numbers</h4>
+                    <hr/>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="row" *ngIf="(registerForm.phoneCode.errors
+                        <div class="col-md-6">
+                            <div class="row" *ngIf="(registerForm.mobileCountryCode.errors &&
+                            (registerForm.mobileCountryCode.dirty || registerForm.mobileCountryCode.touched))">
+                                <div class="col-md-12">
+                                    <app-required-validation-message [fieldName]="'Code'"
+                                        *ngIf="registerForm.mobileCountryCode.errors.required">
+                                    </app-required-validation-message>
+                                </div>
+                            </div>
+                            <div class="row"
+                                *ngIf="(registerForm.cell.errors && (registerForm.cell.dirty || registerForm.cell.touched))">
+                                <div class="col-md-12">
+                                    <app-required-validation-message [fieldName]="'Mobile Number'"
+                                        *ngIf="registerForm.cell.errors.required">
+                                    </app-required-validation-message>
+                                    <app-format-validation-message [fieldName]="'Mobile Number'"
+                                        *ngIf="registerForm.cell.errors?.pattern"></app-format-validation-message>
+                                </div>
+                            </div>
+                            <label class="lbl-custom">Mobile Number*</label>
+                            <div class="input-group">
+                                <select class="col-md-3 signUp-form-control form-control" formControlName="mobileCountryCode" name="mobileCountryCode">
+                                    <option value="" [disabled]="true" [selected]="true">Select</option>
+                                    <option *ngFor="let item of countryCode" value="{{item.dial_code}}">
+                                        {{item.code}} - ({{item.dial_code}})
+                                    </option>
+                                </select>
+                                <input type="text" maxlength="10" class="col-md-9
+                                 signUp-form-control form-control" formControlName="cell">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="lbl-custom">Alternate Mobile Number</label>
+                            <div class="input-group">
+                                <select class="col-md-3 signUp-form-control form-control" formControlName="altMmobileCountryCode" name="altMmobileCountryCode">
+                                    <option value="" [disabled]="true" [selected]="true">Select</option>
+                                    <option *ngFor="let item of countryCode" value="{{item.dial_code}}">
+                                        {{item.code}} - ({{item.dial_code}})
+                                    </option>
+                                </select>
+                                <input type="text" maxlength="10" class="col-md-9
+                                 signUp-form-control form-control" formControlName="altMobileNumber">
+                            </div>
+                            <!-- <div class="row" *ngIf="(registerForm.phoneCode.errors
                             && (registerForm.phoneCode.dirty || registerForm.phoneCode.touched))">
                                 <div class="col-md-12">
                                     <app-required-validation-message [fieldName]="'Phone Code'"
@@ -191,7 +246,7 @@
                                     <app-format-validation-message [fieldName]="'Phone Code'"
                                         *ngIf="registerForm.phoneCode.errors.pattern"></app-format-validation-message>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="row"
                                 *ngIf="(registerForm.phone.errors && (registerForm.phone.dirty || registerForm.phone.touched))">
                                 <div class="col-md-12">
@@ -201,43 +256,16 @@
                                     <app-format-validation-message [fieldName]="'Phone'"
                                         *ngIf="registerForm.phone.errors.pattern"></app-format-validation-message>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="input-group">
                                 <input type="text" maxlength="3" class="col-md-4 signUp-form-control form-control"
                                     placeholder="Area Code*" formControlName="phoneCode">
                                 <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control"
                                     placeholder="Home*" formControlName="phone">
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="col-md-4">
-                            <div class="row" *ngIf="(registerForm.cellCode.errors &&
-                            (registerForm.cellCode.dirty || registerForm.cellCode.touched))">
-                                <div class="col-md-12">
-                                    <app-required-validation-message [fieldName]="'Cell Code'"
-                                        *ngIf="registerForm.cellCode.errors.required">
-                                    </app-required-validation-message>
-                                    <app-format-validation-message [fieldName]="'Cell Code'"
-                                        *ngIf="registerForm.cellCode.errors?.pattern"></app-format-validation-message>
-                                </div>
-                            </div>
-                            <div class="row"
-                                *ngIf="(registerForm.cell.errors && (registerForm.cell.dirty || registerForm.cell.touched))">
-                                <div class="col-md-12">
-                                    <app-required-validation-message [fieldName]="'Cell'"
-                                        *ngIf="registerForm.cell.errors.required">
-                                    </app-required-validation-message>
-                                    <app-format-validation-message [fieldName]="'Cell'"
-                                        *ngIf="registerForm.cell.errors?.pattern"></app-format-validation-message>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <input type="text" maxlength="3" class="col-md-4 signUp-form-control form-control"
-                                    placeholder="Area Code*" formControlName="cellCode">
-                                <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control"
-                                    placeholder="Cell*" formControlName="cell">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        
+                        <!-- <div class="col-md-4">
                             <div class="row" *ngIf="(registerForm.faxCode.errors && (registerForm.faxCode.dirty || registerForm.faxCode.touched))
                             ">
                                 <div class="col-md-12">
@@ -258,9 +286,10 @@
                                 <input type="text" maxlength="10" class="col-md-8 signUp-form-control form-control"
                                     placeholder="Fax" formControlName="fax">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
-                    <h4>Prefered Membership Category</h4><br />
+                    <h4>Prefered Membership Category</h4>
+                    <hr/>
                     <div class="row"
                         *ngIf="registerForm.memberShip.errors && (registerForm.memberShip.dirty || registerForm.memberShip.touched)">
                         <div class="col-md-12">
@@ -269,8 +298,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 card-register-membership custom-set"
-                            *ngFor="let item of membership;let i=index;">
+                        <div class="col-md-6 card-register-membership custom-set" *ngFor="let item of membership;let i=index;">
                             <input id="radio{{i}}" type="radio" value="{{item.Id}}" formControlName="memberShip">
                             <label class="form-check-label card-label" for="radio{{i}}">
                                 <h4>{{item.name}}</h4>
@@ -281,8 +309,10 @@
                         </div>
                     </div>
                     <h4>Create Login</h4>
+                    <hr/>
                     <div class="row">
                         <div class="col-md-4">
+                            <label class="lbl-custom">Email*</label>
                             <div class="row"
                                 *ngIf="registerForm.email.errors && (registerForm.email.dirty || registerForm.email.touched)">
                                 <div class="col-md-12">
@@ -293,11 +323,12 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="Email*"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="email" (blur)="checkEmailExists()">
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">Password*</label>
                             <div class="row"
                                 *ngIf="registerForm.password.errors && (registerForm.password.dirty || registerForm.password.touched)">
                                 <div class="col-md-12">
@@ -308,7 +339,7 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="password" class="signUp-form-control form-control" placeholder="Password*"
+                                <input type="password" class="signUp-form-control form-control" 
                                     formControlName="password">
                             </div>
                         </div>
@@ -321,10 +352,11 @@
                                 <li>Should contain atlease 1 Special Character [!@#$%*]</li>
                             </ul>
                         </div>
-                    </div>
+                    </div><br/>
                     <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-4" style="margin-top: -40px;">
+                            <label class="lbl-custom">Re-enter Password*</label>
                             <div class="row"
                                 *ngIf="registerForm.confirmPassword.errors && (registerForm.confirmPassword.dirty || registerForm.confirmPassword.touched)">
                                 <div class="col-md-12">
@@ -338,11 +370,12 @@
                             </div>
                             <div class="input-group">
                                 <input type="password" class="signUp-form-control form-control"
-                                    placeholder="Re-enter Password*" formControlName="confirmPassword">
+                                    formControlName="confirmPassword">
                             </div>
                         </div>
                     </div>
                     <h4>Skills / Interests </h4>
+                    <hr/>
                     <p style="margin-bottom: 0px;">[ Select your skillset. Upon registration, you will get to create
                         multiple profiles. ]</p><br />
                     <div class="row">
@@ -441,7 +474,8 @@
                             </div>
                         </div>
                     </div> -->
-                    <h4>Billing Address</h4><br />
+                    <h4>Billing Address</h4>
+                    <hr/>
                     <div class="row">
                         <div class="col-md-12">
                             <!-- <h5><a target="_blank" [routerLink]="['/radian/term-of-use']"></a></h5> -->
@@ -462,6 +496,7 @@
                     </div><br />
                     <div class="row">
                         <div class="col-md-4">
+                            <label class="lbl-custom">Country*</label>
                             <div class="row"
                                 *ngIf="registerForm.billCountry.errors && (registerForm.billCountry.dirty || registerForm.billCountry.touched)">
                                 <div class="col-md-12">
@@ -473,7 +508,7 @@
                             <div class="input-group">
                                 <select class="select-css" formControlName="billCountry" name="billCountry"
                                     placeholder="Country*" (change)="getBillingStates($event.target.value)">
-                                    <option value="" [disabled]="true" [selected]="true">Country*</option>
+                                    <option value="" [disabled]="true" [selected]="true">Select</option>
                                     <option *ngFor="let item of countryState" value="{{item.country}}">
                                         {{item.country}}
                                     </option>
@@ -481,6 +516,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">Apt/Street*</label>
                             <div class="row"
                                 *ngIf="registerForm.billStreet.errors && (registerForm.billStreet.dirty || registerForm.billStreet.touched)">
                                 <div class="col-md-12">
@@ -491,10 +527,11 @@
                             </div>
                             <div class="input-group">
                                 <input type="text" class="signUp-form-control form-control"
-                                    placeholder="Billing Apt/Street*" formControlName="billStreet">
+                                formControlName="billStreet">
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">City*</label>
                             <div class="row"
                                 *ngIf="registerForm.billCity.errors && (registerForm.billCity.dirty || registerForm.billCity.touched)">
                                 <div class="col-md-12">
@@ -503,13 +540,14 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <input type="text" class="signUp-form-control form-control" placeholder="City*"
+                                <input type="text" class="signUp-form-control form-control"
                                     formControlName="billCity">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
+                            <label class="lbl-custom">State*</label>
                             <div class="row"
                                 *ngIf="registerForm.billState.errors && (registerForm.billState.dirty || registerForm.billState.touched)">
                                 <div class="col-md-12">
@@ -521,7 +559,7 @@
                             <div class="input-group">
                                 <select class="select-css" formControlName="billState" name="billState"
                                     placeholder="State*">
-                                    <option value="" [disabled]="true" [selected]="true">State*</option>
+                                    <option value="" [disabled]="true" [selected]="true">Select</option>
                                     <option *ngFor="let item of state" value="{{item}}">
                                         {{item}}
                                     </option>
@@ -529,6 +567,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="lbl-custom">Zip / Pin Code*</label>
                             <div class="row"
                                 *ngIf="registerForm.billZip.errors && (registerForm.billZip.dirty || registerForm.billZip.touched)">
                                 <div class="col-md-12">
@@ -538,11 +577,12 @@
                             </div>
                             <div class="input-group">
                                 <input type="select" class="signUp-form-control form-control"
-                                    placeholder="Zip / Pin Code*" formControlName="billZip">
+                                    formControlName="billZip">
                             </div>
                         </div>
                     </div>
-                    <h4>Terms & Condition</h4><br />
+                    <h4>Terms & Condition</h4>
+                    <hr/>
                     <div class="row">
                         <div class="col-md-12">
                             <a target="_blank" [routerLink]="['/radian/term-of-use']">Click here to read Hunar Terms &
