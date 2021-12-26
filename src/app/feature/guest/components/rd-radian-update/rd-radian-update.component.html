@@ -1,17 +1,16 @@
 <a>
-  <div id="mainPageHeader" filter-color="orange" class="page-header page-header-small">
+  <div id="mainPageHeader" filter-color="orange" class="page-header">
     <div class="page-header-image rellax-header" data-rellax-speed="0">
       <img src="./assets/img/radian/inside_pages5.jpg">
     </div>
   </div>
 </a>
-<div class="section section-team" style="background:url('./assets/img/home-section-01-bg.jpg')">
+<div class="section section-team">
   <div class="container-fluid">
-    <!-- <h2 class="title">Radian Updates</h2>
-    <div class="separator separator-primary" style="margin-bottom: 20px;"></div> -->
     <div class="row">
-      <div class="col-md-12">
-        <form class="form radian-update-search" name="searchRadianUpdatesForm" [formGroup]="searchRadianUpdatesFormGroup">
+      <div class="col-md-4">
+        <form class="form radian-update-search" name="searchRadianUpdatesForm"
+          [formGroup]="searchRadianUpdatesFormGroup">
           <div class="row card mb-search">
             <div class="col-md-12">
               <div class="row">
@@ -50,7 +49,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-8">
                   <div class="input-group">
                     <input type="text" class="signUp-form-control form-control mt-top custom-input mat-expansion-panel"
                       placeholder="Search Events" formControlName="SearchByText">
@@ -64,86 +63,87 @@
             </div>
           </div>
         </form>
-
-        <div class="row card portfolio mb-search">
-        <div clas="col-md-12" style="text-align:center;" *ngIf="radianUpdates?.length===0">
+      </div>
+      <div class="col-md-7">
+        <div class="row card portfolio mb-search" *ngIf="radianUpdates?.length===0">
+          <div clas="col-md-12" style="text-align:center;">
             <h4>No results found...</h4>
+          </div>
         </div>
-          <div class="col-md-12" *ngIf="radianUpdates?.length!==0">
-            <div class="row">
-              <div class="col-md-12" *ngFor="let item of radianUpdates">
-                <div class="row">
-                  <div class="col-md-12">
-                    <h4 class="title mem-title"><a (click)="GetRadianDetail(item)">{{item.EventName}}</a></h4>
-                  </div>
+        <div class="row card portfolio mb-search" *ngFor="let item of radianUpdates">
+          <div class="row">
+            <div class="col-md-12" *ngIf="radianUpdates?.length!==0">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="title mem-title"><a (click)="GetRadianDetail(item)">{{item.EventName}}</a></h4>
                 </div>
-                <div class="row">
-                  <div class="col-md-2 custom-align">
-                    <div>
-                      <table>
-                        <tr>
-                          <td>
-                            <div class="custom-like">{{item.LikeCount}}&nbsp;
-                            </div>
-                          </td>
-                          <td *ngIf="radianLikeData.UserId!==''">
-                            <a class="a-btn a-click" (click)="likeRadianEvent(true,item)" *ngIf="item.isUserLiked==='0'">
-                              <img src="./assets/img/radian/like-icon.png">
+              </div>
+              <div class="row">
+                <div class="col-md-2 custom-align">
+                  <div>
+                    <table>
+                      <tr>
+                        <td>
+                          <div class="custom-like">{{item.LikeCount}}&nbsp;
+                          </div>
+                        </td>
+                        <td *ngIf="radianLikeData.UserId!==''">
+                          <a class="a-btn a-click" (click)="likeRadianEvent(true,item)" *ngIf="item.isUserLiked==='0'">
+                            <img src="./assets/img/radian/like-icon.png">
                           </a>
                           <a class="a-btn a-click" (click)="likeRadianEvent(false,item)" *ngIf="item.isUserLiked!=='0'">
-                              <img src="./assets/img/radian/like-icon-filled.png">
+                            <img src="./assets/img/radian/like-icon-filled.png">
                           </a>
-                          </td>
-                          <td *ngIf="radianLikeData.UserId!==''">
-                            <a class="a-btn a-click" (click)="getShareLink()"><i class="fa fa-share custom-icon"></i></a>
-                          </td>
-                          <td *ngIf="radianLikeData.UserId===''">
-                            <a class="a-btn" *ngIf="item.LikeCount==='0'">
-                              <img src="./assets/img/radian/like-icon.png">
+                        </td>
+                        <td *ngIf="radianLikeData.UserId!==''">
+                          <a class="a-btn a-click" (click)="getShareLink()"><i class="fa fa-share custom-icon"></i></a>
+                        </td>
+                        <td *ngIf="radianLikeData.UserId===''">
+                          <a class="a-btn" *ngIf="item.LikeCount==='0'">
+                            <img src="./assets/img/radian/like-icon.png">
                           </a>
                           <a class="a-btn" *ngIf="item.LikeCount!=='0'">
-                              <img src="./assets/img/radian/like-icon-filled.png">
+                            <img src="./assets/img/radian/like-icon-filled.png">
                           </a>
-                          </td>
-                          <td *ngIf="radianLikeData.UserId===''">
-                            <a class="a-btn"><i class="fa fa-share custom-icon"></i></a>
-                          </td>
-                          <td>
-                            <a class="a-btn" >
-                              <img *ngIf="!item.EventStatus" title="In-Active" src="./assets/img/radian/inActiveIcon.png">
-                              <img *ngIf="item.EventStatus" title="Active" src="./assets/img/radian/activeIcon.png">
-                            </a>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 custom-editor">
-                    <angular-editor class="custom-angular-editor" [attr.disabled]="true"
-                      [(ngModel)]="item.EventDescription" [config]="config">
-                    </angular-editor>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 ">
-                    <p class="p-skill"><span><strong>Event Categories :</strong></span>{{item.EventSkill.Name}} -
-                        <label *ngFor="let child of item.EventCategories;let i = index">
-                         <span *ngIf="i<item.EventCategories.length-1">{{child.name}},</span>
-                         <span *ngIf="i===item.EventCategories.length-1">{{child.name}}</span>
-                        </label>
-                    </p>
+                        </td>
+                        <td *ngIf="radianLikeData.UserId===''">
+                          <a class="a-btn"><i class="fa fa-share custom-icon"></i></a>
+                        </td>
+                        <td>
+                          <a class="a-btn">
+                            <img *ngIf="!item.EventStatus" title="In-Active" src="./assets/img/radian/inActiveIcon.png">
+                            <img *ngIf="item.EventStatus" title="Active" src="./assets/img/radian/activeIcon.png">
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row" *ngIf="showLoadMore">
-              <div class="col-md-12">
-                  <button mat-button class="btn btn-danger mt-top btn-lg btn-ft-right"
-                  (click)="onSubmit(radianUpdates?.length)">Load More..</button>
+              <div class="row">
+                <div class="col-md-12 custom-editor">
+                  <angular-editor class="custom-angular-editor" [attr.disabled]="true"
+                    [(ngModel)]="item.EventDescription" [config]="config">
+                  </angular-editor>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 ">
+                  <p class="p-skill"><span><strong>Event Categories :</strong></span>{{item.EventSkill.Name}} -
+                    <label *ngFor="let child of item.EventCategories;let i = index">
+                      <span *ngIf="i<item.EventCategories.length-1">{{child.name}},</span>
+                      <span *ngIf="i===item.EventCategories.length-1">{{child.name}}</span>
+                    </label>
+                  </p>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="showLoadMore">
+          <div class="col-md-12">
+            <button mat-button class="btn btn-danger mt-top btn-lg btn-ft-right"
+              (click)="onSubmit(radianUpdates?.length)">Load More..</button>
           </div>
         </div>
       </div>

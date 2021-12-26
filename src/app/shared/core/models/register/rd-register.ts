@@ -1,4 +1,7 @@
 export class RdRegister {
+    isUser: string;
+    organizationName: string;
+    uniqueNumber: number;
     firstName: string;
     middleName: string;
     lastName: string;
@@ -9,10 +12,8 @@ export class RdRegister {
     zip: string;
     phoneCode: string;
     phone: string;
-    cellCode: string;
-    cell: string;
-    faxCode: string;
-    fax: string;
+    altMmobileCountryCode: string;
+    altMobileNumber: string;
     memberShip: string;
     email: string;
     password: string;

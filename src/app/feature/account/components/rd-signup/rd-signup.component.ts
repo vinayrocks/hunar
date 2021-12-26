@@ -43,6 +43,7 @@ export class RdSignupComponent implements OnInit {
    this.initRegisterForm();
   }
   initRegisterForm(){
+    debugger;
     this.registerFormGroup = this._formBuilder.group({
       isUser: [true, Validators.required],
       organizationName:['', this.requiredIfValidator(() => !this.registerForm.isUser.value)],
@@ -161,7 +162,7 @@ export class RdSignupComponent implements OnInit {
   }
   onSubmit() {
     this.notificationService.showLoader();
-    // stop here if form is invalid
+    // Stop here if form is invalid
     if (this.registerFormGroup.invalid) {
       this.notificationService.hideLoader();
       this.notificationService.error('Please fill in the required fields');
