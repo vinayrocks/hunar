@@ -103,6 +103,7 @@ export class RdRadianUpdateComponent implements OnInit {
       .subscribe(res => {
         this.notificationService.hideLoader();
         if (res.status) {
+          debugger;
           if (res.data !== 'No Results Found!') {
             res.data.forEach(element => {
               element.EventStatus = element.EventStatus === '1' ? true : false;
