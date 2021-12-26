@@ -30,7 +30,7 @@
                         <div class="col-md-6">
                             <label class="lbl-custom">Organization Name*</label>
                             <div class="row"
-                                *ngIf="registerForm.organizationName.errors && (registerForm.organizationName.dirty || registerForm.organizationName.touched)">
+                                *ngIf="!registerForm.isUser.value && registerForm.organizationName.errors && (registerForm.organizationName.dirty || registerForm.organizationName.touched)">
                                 <div class="col-md-12">
                                     <app-required-validation-message [fieldName]="'Organization Name'"
                                         *ngIf="registerForm.organizationName.errors.required">
@@ -45,7 +45,7 @@
                         <div class="col-md-6">
                             <label class="lbl-custom">TIN/GSTIN Number</label>
                             <div class="row"
-                                *ngIf="registerForm.uniqueNumber.errors && (registerForm.uniqueNumber.dirty || registerForm.uniqueNumber.touched)">
+                                *ngIf="!registerForm.isUser.value && registerForm.uniqueNumber.errors && (registerForm.uniqueNumber.dirty || registerForm.uniqueNumber.touched)">
                                 <div class="col-md-12">
                                     <app-required-validation-message [fieldName]="'TIN/GSTIN Number'"
                                         *ngIf="registerForm.uniqueNumber.errors.required">

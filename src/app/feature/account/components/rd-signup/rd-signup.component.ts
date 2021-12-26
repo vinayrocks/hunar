@@ -41,6 +41,7 @@ export class RdSignupComponent implements OnInit {
 
   ngOnInit(): void {
    this.initRegisterForm();
+   debugger
   }
   initRegisterForm(){
     debugger;
@@ -76,7 +77,7 @@ export class RdSignupComponent implements OnInit {
       termCondition: ['', Validators.required],
       //phoneCode: ['', [Validators.required, codeValidation]],
       //phone: ['', [Validators.required, numberValidation]],
-      mobileCountryCode: ['', [Validators.required, numberValidation]],
+      mobileCountryCode: ['', [Validators.required]],
       cell: ['', [Validators.required, numberValidation]],
       altMmobileCountryCode: [''],
       altMobileNumber: ['']
@@ -161,6 +162,7 @@ export class RdSignupComponent implements OnInit {
     }
   }
   onSubmit() {
+    debugger
     this.notificationService.showLoader();
     // Stop here if form is invalid
     if (this.registerFormGroup.invalid) {
@@ -169,6 +171,7 @@ export class RdSignupComponent implements OnInit {
       this.validateAllFormFields(this.registerFormGroup);
       return;
     }
+    debugger
     this.rdAuthenticateService.register(new RdRegister(this.registerFormGroup.value))
       .pipe(first())
       .subscribe(
@@ -213,8 +216,6 @@ export class RdSignupComponent implements OnInit {
     if (event.target.checked) {
       this.registerForm.organizationName.setValue('');
       this.registerForm.uniqueNumber.setValue('');
-    } 
-    if(this.registerForm.isUser.value){
       this.membership = memberShipCategory.MembershipCategories;
     }
     else {
