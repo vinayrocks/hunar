@@ -177,17 +177,18 @@ export class RdUserService {
   }
   searchMember(rdSearchMember:any){
     this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
-    rdSearchMember.UserId = this.currentUserSubject.length===0?0:this.currentUserSubject.id;
-    rdSearchMember.Email = this.currentUserSubject.length===0?'':this.currentUserSubject.username;
-    rdSearchMember.FirstName = this.currentUserSubject.length===0?'':this.currentUserSubject.firstName;
+    rdSearchMember.UserId = this.currentUserSubject===null?0:this.currentUserSubject.id;
+    rdSearchMember.Email = this.currentUserSubject===null?'':this.currentUserSubject.username;
+    rdSearchMember.FirstName = this.currentUserSubject===null?'':this.currentUserSubject.firstName;
     var data = this._encryptDecryptService.ecryptModel(rdSearchMember);
     return this.http.post<any>(environment.apiCommon+'radianApi/Search/searchMember.php', JSON.stringify(data));
   }
   searchRadianUpdate(rdSearchRadian:any){
     debugger
-    rdSearchRadian.UserId = this.currentUserSubject.length===0?0:this.currentUserSubject.id;
-    rdSearchRadian.Email = this.currentUserSubject.length===0?'':this.currentUserSubject.username;
-    rdSearchRadian.FirstName = this.currentUserSubject.length===0?'':this.currentUserSubject.firstName;
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
+    rdSearchRadian.UserId = this.currentUserSubject===null?0:this.currentUserSubject.id;
+    rdSearchRadian.Email = this.currentUserSubject===null?'':this.currentUserSubject.username;
+    rdSearchRadian.FirstName = this.currentUserSubject===null?'':this.currentUserSubject.firstName;
     var data = this._encryptDecryptService.ecryptModel(rdSearchRadian);
     return this.http.post<any>(environment.apiCommon+'radianApi/Search/searchRadian.php', JSON.stringify(data));
   }
