@@ -1,7 +1,7 @@
 {
     "MembershipCategories":[
       {
-        "Id":2,
+        "Id":1,
         "name": "Basic",
         "amount": "",
         "currency": "",
@@ -14,7 +14,7 @@
         ]
       },
       {
-        "Id":1,
+        "Id":2,
         "name": "Premium",
         "amount": "50",
         "currency": "$",
