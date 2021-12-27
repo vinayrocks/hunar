@@ -216,6 +216,8 @@ export class RdSignupComponent implements OnInit {
     if (event.target.checked) {
       this.registerForm.organizationName.setValue('');
       this.registerForm.uniqueNumber.setValue('');
+    }
+    if(this.registerForm.isUser.value===true){
       this.membership = memberShipCategory.MembershipCategories;
     }
     else {
