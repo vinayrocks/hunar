@@ -211,7 +211,7 @@ export class RdRadianEditComponent implements OnInit {
       this.notificationService.hideLoader();
       if (res.status) {
         this.notificationService.success(res.message);
-        this.router.navigate(['/member/radian_view']);
+        this.router.navigate(['/member/hunar_view']);
       } else {
         this.notificationService.error(res.message);
       }

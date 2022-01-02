@@ -36,11 +36,37 @@
 .title.mem-title a {
     cursor: pointer;
     font-family: 'Open Sans';
+    font-size: 21px;
+}
+.custom-col{
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .title.mem-title a:hover {
     color:#FF3636;
 }
-
+.custom-col-6{
+    text-align: right;
+}
+.custom-col-for-like{
+    max-width: 3.3333333333% !important;
+}
+.custom-margin-icon{
+    margin-top: 3px;
+}
+.like-count-text{
+    display: inline-block;
+    margin-bottom: 0px;
+    margin-top: 6px;
+    font-size: 16px;
+    font-weight: 700;
+}
+.custom-row-like{
+    margin-bottom:0px !important;
+}
+.custom-row-for-marking-like{
+    justify-content: center;
+}
 .container-fluid h2.title{
     margin-top: 0px !important;
 }
@@ -49,7 +75,7 @@ mat-accordion {
 }
 .a-btn
 {
-    float:right;
+    float:left;
     img{
         max-height:25px;
         max-width: unset !important;

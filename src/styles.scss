@@ -182,12 +182,11 @@ image-cropper.border-custom{
   margin-bottom: 1em;
 }
 .custom-photo-container div iframe {
-    width: 150px;
-    height: 150px;
-    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-    max-height: 150px;
-    max-width: 150px;
-    margin-bottom: 11px;
+    width: 215px;
+    height: 215px;
+    max-height: 215px;
+    max-width: 215px;
+    margin-bottom: 20px;
 }
 .card-img-wrapper div {
   height: 98px !important
@@ -370,14 +369,12 @@ img.rounded-circle.img-raised:hover {
   height:inherit;
 }
 .custom-photo-container img {
-  width: 150px;
-  height: 150px;
-  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.3);
-  max-height: 150px;
-  max-width: 150px;
-  margin-bottom: 11px;
-  min-height: 150px;
-  min-width: 150px;
+  width: 215px;
+  height: 215px;
+  margin-bottom: 20px;
+  min-height: 215px;
+  min-width: 215px;
+  border-radius: 8px;
 }
 .mat-expansion-panel-header-title,.mat-expansion-panel-header-description{
   font-family: 'Open Sans';
@@ -403,15 +400,15 @@ img.rounded-circle.img-raised:hover {
   font-family: 'Open Sans';
 }
 .custom-photo-container{
-  width:162px !important
+  width:215px !important
 }
 .custom-div {
   text-align:center !important;
 }
 .custom-photo-container .close {
   position: relative;
-  top: 23px;
-  right: 20px;
+  top: 25px;
+  right: 10px;
   z-index: 100;
   color: #111111;
 }
@@ -552,8 +549,8 @@ img.rounded-circle.img-raised:hover {
   background: url(http://www.slatecube.com/images/play-btn.png);
   height: 50px;
   width: 50px;
-  top: 49px;
-  left: 66px;
+  top: 105px;
+  left: 99px;
   background-size: 50px 50px;
   background-repeat: no-repeat;
 }

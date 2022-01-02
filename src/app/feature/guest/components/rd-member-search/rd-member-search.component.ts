@@ -81,7 +81,7 @@ export class RdMemberSearchComponent implements OnInit {
         this.notificationService.hideLoader();
         if (res.data !== 'No Results Found!') {
           res.data.forEach(element => {
-
+            debugger
             // element.UserLiked=true;
             element.ContactDetails = element.ContactDetails === '' ? [] : JSON.parse(element.ContactDetails);
             element.ProfileAddress = element.ProfileAddress === '' ? [] : JSON.parse(element.ProfileAddress);
