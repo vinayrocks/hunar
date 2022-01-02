@@ -94,12 +94,12 @@ export class RdRadianDetailComponent implements OnInit {
         .forEach(element => {
           if(element.indexOf('youtu.be')===-1 && element.indexOf('youtube')===-1 && element.indexOf('pdf')===-1
           && element.indexOf('pdf')===-1){
-            imageArry.push({Name:environment.apiCommon+'radianApi/media/' + data.FirstName + '_' + data.Email.split('@')[0] + '/Event/' + data.EventName + '/' +element,IsImage:'image'});
+            imageArry.push({Name:environment.apiCommon+'radianApi/media/' + data.FirstName + '_' + data.Email.split('@')[0] + '/Event/' + data.EventName.replace(/\s/g, "") + '/' +element,IsImage:'image'});
             if (this.CoverPicture === '') {
-              this.CoverPicture = environment.apiCommon+'radianApi/media/' + data.FirstName + '_' + data.Email.split('@')[0] + '/Event/' + data.EventName + '/' +element
+              this.CoverPicture = environment.apiCommon+'radianApi/media/' + data.FirstName + '_' + data.Email.split('@')[0] + '/Event/' + data.EventName.replace(/\s/g, "") + '/' +element
             }
           }else if(element.indexOf('youtu.be')===-1 && element.indexOf('youtube')===-1 && element.indexOf('pdf')!==-1){
-            imageArry.push({Name:environment.apiCommon+'radianApi/media/' + data.FirstName + '_' + data.Email.split('@')[0] + '/Event/' + data.EventName + '/'+element,IsImage:'pdf'});
+            imageArry.push({Name:environment.apiCommon+'radianApi/media/' + data.FirstName + '_' + data.Email.split('@')[0] + '/Event/' + data.EventName.replace(/\s/g, "") + '/'+element,IsImage:'pdf'});
           } else {
             this.embedService.embed_image(element, { image: 'mqdefault' })
             .then(res => {

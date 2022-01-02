@@ -101,11 +101,11 @@
     </div>
     <div class="separator separator-primary"></div>
     <div class="team custom-paragraph crousel-slider-custom">
-      <div class="row" style="margin-top: 70px" [@inOutAnimation] data-rellax-speed="0"
+      <div class="row" style="margin-top: 70px;" [@inOutAnimation] data-rellax-speed="0"
         *ngFor="let item of radianUpdates">
         <div class="slick col-md-3" *ngFor="let child of item">
           <a [routerLink]="['/updates']">
-            <div class="team-player">
+            <div class="team-player custom-team-player">
               <img src="{{child.EventImages[0].Name}}" alt="" class="img-raised" title=""
                 *ngIf="child.EventImages[0].IsImage==='image'">
               <a *ngIf="child.EventImages[0].IsImage==='pdf'">
