@@ -14,6 +14,7 @@ import { RdDeleteConfirmationBoxComponent } from 'src/app/core/components/rd-del
 import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { environment } from 'src/environments/environment';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 // declare the javascript function here
 declare function modifyPdf(filePath,PDFDocument,StandardFonts,rgb): any;
@@ -45,9 +46,9 @@ export class RdPortfolioListComponent implements OnInit {
   };
   constructor(private rdUserService: RdUserService, public matDialog: MatDialog,
     private embedService: EmbedVideoService,private router: Router,
-    private _encryptDecryptService: RdEncryptDecryptService,
-    private rdAuthenticateService: RdAuthenticateService,private notificationService:NotificationService) {
-      this.notificationService.showLoader();
+    private _encryptDecryptService: RdEncryptDecryptService,private spinner:NgxSpinnerService,
+    private rdAuthenticateService: RdAuthenticateService) {
+      
   }
   ngOnInit() {
     var body = document.getElementsByTagName('body')[0];
@@ -63,13 +64,12 @@ export class RdPortfolioListComponent implements OnInit {
     
   }
   getUserPorfolio() {
-    this.notificationService.showLoader();
+    this.spinner.hide()
     this.rdUserService.getUserPorfolios(new RdCommon(this.routerData))
       .pipe(first())
       .subscribe(
         res => {
-          
-          this.notificationService.hideLoader();
+          this.spinner.hide()
           res.data.forEach(element => {
             element.PortfolioMedia= this.GetPortfolioImagePath(element);
           });
@@ -77,6 +77,7 @@ export class RdPortfolioListComponent implements OnInit {
           this.userPortfolio = res.data;
         },
         error => {
+          this.spinner.hide()
         });
   }
   openImageDialog(data, index) {

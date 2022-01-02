@@ -13,6 +13,7 @@ import { RdUrlLinkBoxComponent } from 'src/app/core/components/rd-url-link-box/r
 import { RdLikeEventProfile } from 'src/app/shared/core/models/rd-common/rd-common';
 import { first } from 'rxjs/operators';
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-member-search',
   templateUrl: './rd-member-search.component.html',
@@ -30,10 +31,10 @@ export class RdMemberSearchComponent implements OnInit {
   routerData: any = [];
   currentUser: any;
   UserLiked: String = ''
-  constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
+  constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,private spinner:NgxSpinnerService,
     private notificationService: NotificationService, private router: Router, private rdAuthenticateService: RdAuthenticateService,
     public matDialog: MatDialog, private _encryptDecryptService: RdEncryptDecryptService) {
-    this.notificationService.showLoader();
+    
     this.skills = skillsInterest.SkillsInterest;
     this.countryState = countryState.Countries;
     this.rdMemberSearch = [];
@@ -70,18 +71,18 @@ export class RdMemberSearchComponent implements OnInit {
     })[0].states;
   }
   onSubmit(SearchCount: Number) {
-    this.notificationService.showLoader();
+    this.spinner.show()
     if (this.searchMemberFormGroup.invalid) {
-      this.notificationService.hideLoader();
+      this.spinner.hide()
       return;
     }
     this.searchMemberForm.SearchCount.setValue(SearchCount);
     this.rdUserService.searchMember(new RdSearchMember(this.searchMemberFormGroup.value))
       .subscribe(res => {
-        this.notificationService.hideLoader();
+        this.spinner.hide()
         if (res.data !== 'No Results Found!') {
           res.data.forEach(element => {
-            debugger
+            
             // element.UserLiked=true;
             element.ContactDetails = element.ContactDetails === '' ? [] : JSON.parse(element.ContactDetails);
             element.ProfileAddress = element.ProfileAddress === '' ? [] : JSON.parse(element.ProfileAddress);

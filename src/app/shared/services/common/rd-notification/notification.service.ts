@@ -8,9 +8,9 @@ import {environment} from '../../../../../environments/environment'
 })
 export class NotificationService {
   // private loading: BehaviorSubject<boolean>;
-  public loading: any;
+  public loading = new BehaviorSubject(false);
   constructor(private _snackBar: MatSnackBar,private router: Router) { 
-    this.loading = new BehaviorSubject<boolean>(false);
+    this.loading = new BehaviorSubject<boolean>(true);
   }
   success(message){
     this._snackBar.open(message, 'close', {

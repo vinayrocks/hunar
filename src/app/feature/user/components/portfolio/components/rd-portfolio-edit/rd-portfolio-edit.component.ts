@@ -11,6 +11,7 @@ import { RdPortfolio } from 'src/app/shared/core/models/rd-portfolio/rd-portfoli
 import { RdCommon } from 'src/app/shared/core/models/rd-common/rd-common';
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-portfolio-edit',
   templateUrl: './rd-portfolio-edit.component.html',
@@ -52,10 +53,10 @@ export class RdPortfolioEditComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private router: Router, private _encryptDecryptService: RdEncryptDecryptService,
     private route: ActivatedRoute, private embedService: EmbedVideoService,
-    private notificationService: NotificationService,
+    private notificationService: NotificationService,private spinner:NgxSpinnerService,
     private rdAuthenticateService: RdAuthenticateService) {
     this.routerData.Id = this.route.snapshot.paramMap.get('id');
-    this.notificationService.showLoader();
+    
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     if(this.currentUser!==null){
       this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Portfolio';
@@ -91,13 +92,12 @@ export class RdPortfolioEditComponent implements OnInit {
     this.editPortfolioForm.PortfolioArtifacts.setValue(this.userPortfolio.PortfolioArtifacts);
   }
   getUserPorfolio(data) {
-    this.notificationService.showLoader();
+    this.spinner.show()
     this.rdUserService.getUserPorfolio(new RdCommon(data))
       .pipe(first())
       .subscribe(
         res => {
-          
-          this.notificationService.hideLoader();
+          this.spinner.hide()
           res.data.forEach(element => {
             this.PortfolioMediaModel = element.PortfolioMedia.split(',');
             element.PortfolioMedia = this.GetPortfolioImagePath(element);
@@ -110,6 +110,7 @@ export class RdPortfolioEditComponent implements OnInit {
           this.setFormGroup();
         },
         error => {
+          this.spinner.hide()
         });
   }
   addMoreImage(index: number) {
@@ -192,10 +193,10 @@ export class RdPortfolioEditComponent implements OnInit {
     this.serverFile.splice(index,1);
   }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.editPortfolioFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.editPortfolioFormGroup);
       return;
@@ -238,7 +239,7 @@ export class RdPortfolioEditComponent implements OnInit {
     
     this.rdUserService.addUserPortfolio(new RdPortfolio(this.editPortfolioFormGroup.value))
       .subscribe(res => {
-        this.notificationService.hideLoader();
+        this.spinner.hide()
         if (res.status) {
           this.notificationService.success(res.message);
           this.router.navigate(['/member/portfolio_view']);

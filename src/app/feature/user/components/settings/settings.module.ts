@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [RdSettingComponent],
@@ -17,6 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NgbModule,
     JwBootstrapSwitchNg2Module,
     ReactiveFormsModule,
+    NgxSpinnerModule,
     SharedModule.forRoot(),
   ]
 })

@@ -12,7 +12,7 @@ import { NotificationService } from './shared/services/common/rd-notification/no
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit,AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
     title = 'radian';
     private _router: Subscription;
     currentUser: any;
@@ -20,10 +20,12 @@ export class AppComponent implements OnInit,AfterViewInit {
     // @ViewChild(RdNavbarComponent) navbar: RdNavbarComponent;
 
     constructor(private location: Location, private rdAuthenticateService: RdAuthenticateService,
-        private router: Router,@Inject(DOCUMENT,) private notificationService: NotificationService) {
-      
+        private router: Router, @Inject(DOCUMENT,) private notificationService: NotificationService) {
+
         this._router = this.router.events.filter(event => event instanceof NavigationEnd)
             .subscribe((event: NavigationEnd) => {
+                // this.loading = this.notificationService.loading;
+                // console.log(this.loading);
                 this.currentUser = this.rdAuthenticateService.getLocalStorageData();
                 if (window.outerWidth > 991) {
                     window.document.children[0].scrollTop = 0;
@@ -35,16 +37,19 @@ export class AppComponent implements OnInit,AfterViewInit {
                 if (this.currentUser !== null && _location !== 'our-purpose' && _location !== 'vission-mission'
                     && _location !== 'member-detail' && _location !== 'detail' && _location !== 'portfolio-detail'
                     && _location !== 'our-process' && _location !== 'updates' && _location !== 'search' && _location !== 'resetpassword'
-                    ) {
+                ) {
                     //this.router.navigate(['/member/hunar_view']);
                 }
 
             });
     }
     ngOnInit() {
-       
+
     }
     ngAfterViewInit() {
-        this.loading = this.notificationService.loading;
+        // this.notificationService.loading.subscribe((v) => {
+        //     console.log(v);
+        //     this.loading = this.notificationService.loading;
+        //   });
     }
 }

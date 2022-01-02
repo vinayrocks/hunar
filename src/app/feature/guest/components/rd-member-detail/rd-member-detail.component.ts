@@ -10,6 +10,7 @@ import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd
 import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { RdUrlLinkBoxComponent } from 'src/app/core/components/rd-url-link-box/rd-url-link-box.component';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rd-member-detail',
@@ -34,7 +35,7 @@ export class RdMemberDetailComponent implements OnInit {
   currentUser:any;
   UserLiked:String='';
   memberProfiles:any=[];
-  constructor(private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,private spinner:NgxSpinnerService,
     private rdUserService: RdUserService,private rdAuthenticateService: RdAuthenticateService,
     private _encryptDecryptService: RdEncryptDecryptService,public matDialog: MatDialog,
     private notificationService : NotificationService,private router: Router) { 
@@ -54,11 +55,12 @@ export class RdMemberDetailComponent implements OnInit {
     this.GetProfileDetail()
   }
   GetProfileDetail(){
-    this.notificationService.showLoader();
+    this.spinner.show()
     this.rdUserService.getUserProfileDetail(new RdGetProfile(this.routerData))
     .pipe(first())
     .subscribe(
       res => {
+        this.spinner.hide()
         res.data.forEach(element => {
           element.ContactDetails=element.ContactDetails === ''?[]:JSON.parse(element.ContactDetails);
           element.ProfileAddress=element.ProfileAddress === ''?[]:JSON.parse(element.ProfileAddress);
@@ -76,10 +78,10 @@ export class RdMemberDetailComponent implements OnInit {
         })
         this.memberEvents = res.Events;
         this.memberProfiles = res.Profiles;
-        this.notificationService.hideLoader();
+  
       },
       error => {
-        this.notificationService.hideLoader();
+        this.spinner.hide()
       });
   }
 

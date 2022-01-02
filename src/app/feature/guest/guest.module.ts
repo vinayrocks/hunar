@@ -23,6 +23,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { RdRadianDetailComponent } from './components/rd-radian-detail/rd-radian-detail.component';
 import { RdMemberDetailComponent } from './components/rd-member-detail/rd-member-detail.component';
 import { RdMemberPortfolioComponent } from './components/rd-member-portfolio/rd-member-portfolio.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [RdRadianUpdateComponent, RdMemberSearchComponent, RdHomeComponent,
     RdGuestLayoutComponent, RdAboutUsComponent, RdContactUsComponent, RdHowItWorksComponent,
@@ -39,6 +40,7 @@ import { RdMemberPortfolioComponent } from './components/rd-member-portfolio/rd-
     MatIconModule,
     MatFormFieldModule,
     AngularEditorModule,
+    NgxSpinnerModule,
     SharedModule.forRoot()
   ]
 })

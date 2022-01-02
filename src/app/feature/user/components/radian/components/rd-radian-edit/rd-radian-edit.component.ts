@@ -12,6 +12,7 @@ import { RdRadian } from 'src/app/shared/core/models/rd-radian/rd-radian';
 import { RdCommon } from 'src/app/shared/core/models/rd-common/rd-common';
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-radian-edit',
   templateUrl: './rd-radian-edit.component.html',
@@ -54,9 +55,10 @@ export class RdRadianEditComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private router: Router, private _encryptDecryptService: RdEncryptDecryptService,
     private route: ActivatedRoute, private notificationService: NotificationService,
+    private spinner:NgxSpinnerService,
     private rdAuthenticateService: RdAuthenticateService) {
     this.skills = skillsInterest.SkillsInterest;
-    this.notificationService.showLoader();
+    
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Profile';
     this.routerData.Id = this.route.snapshot.paramMap.get('id');
@@ -110,12 +112,11 @@ export class RdRadianEditComponent implements OnInit {
   }
 
   getUserProfile(data) {
-    this.notificationService.showLoader();
+    this.spinner.show()
     this.rdUserService.getUserProfile(new RdCommon(data))
       .pipe(first())
       .subscribe(
         res => {
-          
           res.data.forEach(element => {
             element.ProfileExpertise = element.ProfileExpertise === ''?[]:JSON.parse(element.ProfileExpertise);
             element.ProfileSkill = element.ProfileSkill === ''?[]:JSON.parse(element.ProfileSkill);
@@ -127,6 +128,7 @@ export class RdRadianEditComponent implements OnInit {
           this.getUserPorfolio();
         },
         error => {
+          this.spinner.hide()
         });
   }
 
@@ -161,17 +163,18 @@ export class RdRadianEditComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          this.notificationService.hideLoader();
+          this.spinner.hide()
           this.userPortfolio = res.data;
         },
         error => {
+          this.spinner.hide()
         });
   }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.editRadianFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.editRadianFormGroup);
       return;
@@ -182,12 +185,14 @@ export class RdRadianEditComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
+          
           this.serverFile = [];
           this.editRadianForm.ProfilePicture.setValue(res.data.ProfilePicture);
           this.editRadianForm.CoverPicture.setValue(res.data.CoverPicture);
           this.submitDetail();
         },
         error => {
+          this.spinner.hide()
           this.notificationService.error('Something went wrong.Please try again.');
         });
     } else {
@@ -208,7 +213,7 @@ export class RdRadianEditComponent implements OnInit {
   submitDetail(){
     this.rdUserService.addUserProfile(new RdRadian(this.editRadianFormGroup.value))
     .subscribe(res => {
-      this.notificationService.hideLoader();
+      this.spinner.hide()
       if (res.status) {
         this.notificationService.success(res.message);
         this.router.navigate(['/member/hunar_view']);

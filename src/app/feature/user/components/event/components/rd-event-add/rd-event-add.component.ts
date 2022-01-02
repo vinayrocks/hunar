@@ -9,6 +9,7 @@ import { NotificationService } from 'src/app/shared/services/common/rd-notificat
 import { RdEvent } from 'src/app/shared/core/models/rd-event/rd-event';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-event-add',
   templateUrl: './rd-event-add.component.html',
@@ -47,12 +48,12 @@ export class RdEventAddComponent implements OnInit {
     ]
   };
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
-    private embedService: EmbedVideoService,
+    private embedService: EmbedVideoService,private spinner:NgxSpinnerService,
      private notificationService: NotificationService,
      private router: Router) {
     //PortfolioMedia
     this.skills = skillsInterest.SkillsInterest;
-    // this.notificationService.showLoader();
+    // 
   }
   ngOnInit() {
     var rellaxHeader = new Rellax('.rellax-header');
@@ -170,10 +171,10 @@ export class RdEventAddComponent implements OnInit {
     this.serverFile.splice(index,1);
   }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.addEventFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.addEventFormGroup);
       return;
@@ -183,7 +184,7 @@ export class RdEventAddComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          this.notificationService.hideLoader();
+          this.spinner.hide()
           var dataReposne = res.data.split(',');
           this.serverFile = [];
           dataReposne.forEach(element => {
@@ -201,6 +202,7 @@ export class RdEventAddComponent implements OnInit {
             });
         },
         error => {
+          this.spinner.hide()
           this.notificationService.error('Something went wrong.Please try again.');
         });
     } else {
