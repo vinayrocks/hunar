@@ -1,8 +1,8 @@
 <div class="wrapper" appBlockCopy>
     <div class="page-header page-header-small" filter-color="orange">
         <div class="page-header-image rellax-header" data-rellax-speed="0">
-            <img *ngIf="currentUser?.CoverPicture!==null" src="{{coverImagePath}}">
-            <img *ngIf="currentUser?.CoverPicture===null" src="./assets/img/default-cover-picture.jpg">
+            <img *ngIf="currentUser?.CoverPicture!==null" src="{{coverImagePath}}" class="custom-cover-picture">
+            <img *ngIf="currentUser?.CoverPicture===null" src="./assets/img/default-cover-picture.jpg" class="custom-cover-picture"/>
         </div>
         <div class="container">
             <div class="content-center">

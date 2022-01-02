@@ -106,12 +106,14 @@ export class RdRadianUpdateComponent implements OnInit {
         if (res.status) {
           debugger;
           if (res.data !== 'No Results Found!') {
+            debugger
             res.data.forEach(element => {
               element.EventStatus = element.EventStatus === '1' ? true : false;
               element.ContactDetails = element.ContactDetails === '' ? [] : JSON.parse(element.ContactDetails);
               element.EventCategories = element.EventCategories === '' ? [] : JSON.parse(element.EventCategories);
               element.EventSkill = element.EventSkill === '' ? [] : JSON.parse(element.EventSkill);
               element.EventImages = this.getProfilefilePath(element);
+              element.ProfilePicture = this.getProfilefilePath(element);
               if (SearchCount !== 0) {
                 this.radianUpdates.push(element);
               }
@@ -136,6 +138,12 @@ export class RdRadianUpdateComponent implements OnInit {
   }
   getProfilefilePath(data: any) {
     const imageArry = [];
+
+    if (data.ProfilePicture != null) {
+      return 'http://itechprovisions.com/radianApi/media/' + data.FirstName + '_' + data.Email.split('@')[0] + '/Profile/' + data.ProfileName + '/ProfileImages/' + data.ProfilePicture;
+    } else {
+      return 'assets/img/default-avatar.png';
+    }
     if (data.EventImages.split(',').length > 1) {
       data.EventImages.split(',')
         .forEach(element => {
