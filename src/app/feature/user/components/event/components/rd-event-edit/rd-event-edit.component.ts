@@ -12,6 +12,7 @@ import { RdEvent } from 'src/app/shared/core/models/rd-event/rd-event';
 import { RdCommon } from 'src/app/shared/core/models/rd-common/rd-common';
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-event-edit',
   templateUrl: './rd-event-edit.component.html',
@@ -57,10 +58,10 @@ export class RdEventEditComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private router: Router,private _encryptDecryptService: RdEncryptDecryptService,
     private route: ActivatedRoute,private embedService: EmbedVideoService,
-    private notificationService:NotificationService,
+    private notificationService:NotificationService,private spinner:NgxSpinnerService,
     private rdAuthenticateService: RdAuthenticateService) {
       // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
-      this.notificationService.showLoader();
+      
       this.currentUser = this.rdAuthenticateService.getLocalStorageData();
       this.projectFilePath=this.currentUser.firstName+'_'+this.currentUser.username.split('@')[0]+'/Event'; 
     //PortfolioMedia
@@ -131,12 +132,12 @@ export class RdEventEditComponent implements OnInit {
     }
   }
   getUserEvent(item){
-    this.notificationService.showLoader();
+    this.spinner.show()
     this.rdUserService.getUserEvent(new RdCommon(item))
     .pipe(first())
     .subscribe(
       res => {
-        this.notificationService.hideLoader();
+        this.spinner.hide()
         res.data.forEach(element => {
           this.EventPictureModel = element.EventMedia.split(',');
           element.EventSkill=element.EventSkill === ''?[]:JSON.parse(element.EventSkill);
@@ -151,19 +152,11 @@ export class RdEventEditComponent implements OnInit {
         this.setFormGroup();
       },
       error => {
+        this.spinner.hide()
       });
   }
   getVideo(url){
     return this.embedService.embed(url);
-    // this.embedService
-    // .embed_image(
-    //   url,
-    //   { image: 'mqdefault' }
-    // )
-    // .then(res => {
-    //   
-    //   return res.html;
-    // });
   }
   fileChangeEvent(event: any, index: number): void {
     const data: any = [];
@@ -252,10 +245,10 @@ export class RdEventEditComponent implements OnInit {
     this.editEventForm.EventCategory.setValue(this.tempArr.join(','));
   }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.editEventFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.editEventFormGroup);
       return;
@@ -274,6 +267,7 @@ export class RdEventEditComponent implements OnInit {
           this.submitDetail();
         },
         error => {
+          this.spinner.hide()
           this.notificationService.error('Something went wrong.Please try again.');
         });
     } else {
@@ -284,7 +278,7 @@ export class RdEventEditComponent implements OnInit {
   submitDetail(){
     this.rdUserService.addUserEvent(new RdEvent(this.editEventFormGroup.value))
     .subscribe(res => {
-      this.notificationService.hideLoader();
+      this.spinner.hide()
       if (res.status) {
         this.notificationService.success(res.message);
         this.router.navigate(['/member/event_view']);

@@ -12,6 +12,7 @@ import { NotificationService } from 'src/app/shared/services/common/rd-notificat
 import { RdUrlLinkBoxComponent } from 'src/app/core/components/rd-url-link-box/rd-url-link-box.component';
 import { PopupImageSliderComponent } from 'src/app/shared/components/popup-image-slider/popup-image-slider.component';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-radian-detail',
   templateUrl: './rd-radian-detail.component.html',
@@ -35,7 +36,7 @@ export class RdRadianDetailComponent implements OnInit {
   };
   currentUser: any;
   UserLiked: String = ''
-  constructor(private embedService: EmbedVideoService, private route: ActivatedRoute,
+  constructor(private embedService: EmbedVideoService, private route: ActivatedRoute,private spinner:NgxSpinnerService,
     private rdAuthenticateService: RdAuthenticateService, private notificationService: NotificationService,
     private rdUserService: RdUserService, public matDialog: MatDialog,
     private _encryptDecryptService: RdEncryptDecryptService) {
@@ -66,11 +67,12 @@ export class RdRadianDetailComponent implements OnInit {
     this.GetEventDetail();
   }
   GetEventDetail() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     this.rdUserService.getEventDetail(new RdGetEvent(this.routerData))
       .pipe(first())
       .subscribe(
         res => {
+          this.spinner.hide()
           res.data.forEach(element => {
             element.EventStatus = element.EventStatus === '1' ? true : false;
             element.ContactDetails = element.ContactDetails === '' ? [] : JSON.parse(element.ContactDetails);
@@ -81,10 +83,10 @@ export class RdRadianDetailComponent implements OnInit {
           this.radianDetail = res.data[0];
           this.UserLiked = res.UserLiked;
           this.UserInterested = res.UserInterested;
-          this.notificationService.hideLoader();
+
         },
         error => {
-          this.notificationService.hideLoader();
+          this.spinner.hide()
         });
   }
   getProfilefilePath(data: any) {

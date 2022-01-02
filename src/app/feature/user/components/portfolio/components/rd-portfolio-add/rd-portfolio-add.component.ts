@@ -8,6 +8,7 @@ import { NotificationService } from 'src/app/shared/services/common/rd-notificat
 import { RdPortfolio } from 'src/app/shared/core/models/rd-portfolio/rd-portfolio';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-portfolio-add',
   templateUrl: './rd-portfolio-add.component.html',
@@ -42,11 +43,11 @@ export class RdPortfolioAddComponent implements OnInit {
     ]
   };
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
-    private embedService: EmbedVideoService,
+    private embedService: EmbedVideoService,private spinner:NgxSpinnerService,
     private notificationService:NotificationService, private router: Router
     ) {
     //PortfolioMedia
-    // this.notificationService.showLoader();
+    // 
   }
 
   ngOnInit() {
@@ -147,10 +148,10 @@ export class RdPortfolioAddComponent implements OnInit {
     }
   }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.addPortfolioFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.addPortfolioFormGroup);
       return;
@@ -161,6 +162,7 @@ export class RdPortfolioAddComponent implements OnInit {
       .pipe(first())
         .subscribe(
           res => {
+            this.spinner.hide()
             if(res.status){
               var dataReposne=res.data.split(',');
               this.serverFile=[];
@@ -170,7 +172,7 @@ export class RdPortfolioAddComponent implements OnInit {
               this.addPortfolioForm.PortfolioMedia.setValue(this.PortfolioMediaModel.join(','))
               this.rdUserService.addUserPortfolio(new RdPortfolio(this.addPortfolioFormGroup.value))
               .subscribe(res=>{
-                this.notificationService.hideLoader();
+      
                 if(res.status){
                   this.notificationService.success(res.message);
                   this.router.navigate(['/member/portfolio_view']);
@@ -183,12 +185,13 @@ export class RdPortfolioAddComponent implements OnInit {
             }
           },
           error => {
+            this.spinner.hide()
           });
     } else {
       this.addPortfolioForm.PortfolioMedia.setValue('');
       this.rdUserService.addUserPortfolio(new RdPortfolio(this.addPortfolioFormGroup.value))
       .subscribe(res=>{
-        this.notificationService.hideLoader();
+  
         if(res.status){
           this.notificationService.success(res.message);
           this.router.navigate(['/member/portfolio_view']);

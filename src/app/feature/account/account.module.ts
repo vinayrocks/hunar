@@ -11,6 +11,7 @@ import {ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ReactiveFormsModule,
     HttpClientModule,
     MatAutocompleteModule,
+    NgxSpinnerModule,
     SharedModule.forRoot()
   ]
 })

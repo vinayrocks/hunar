@@ -47,7 +47,7 @@ export class RdHomeComponent implements OnInit {
   constructor(private notificationService: NotificationService,private rdUserService: RdUserService,
     private _formBuilder: FormBuilder,private embedService: EmbedVideoService,) {
     this.data=0;
-    this.notificationService.showLoader();
+    
      //emit 0 after 1 second then complete, since no second argument is supplied
       const source = timer(5000,5000);
       //output: 0
@@ -92,9 +92,9 @@ export class RdHomeComponent implements OnInit {
           element.EventImages=this.getProfilefilePath(element);
         });
         this.radianUpdates=this.chunkArray(res.data,4);
-        this.notificationService.hideLoader();
+  
       } else {
-        this.notificationService.hideLoader();
+  
         this.notificationService.success(res.message);
       
       }

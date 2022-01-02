@@ -5,6 +5,7 @@ import { RdUserLayoutComponent } from './layout/rd-user-layout/rd-user-layout.co
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [RdUserLayoutComponent],
   imports: [
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     MatExpansionModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ]
 })
 export class UserModule { 
