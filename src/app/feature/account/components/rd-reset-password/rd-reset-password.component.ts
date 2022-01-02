@@ -9,6 +9,7 @@ import { RdResetPassword } from 'src/app/shared/core/models/reset-password/rd-re
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
 import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { RdEncryptDecryptService } from 'src/app/shared/services/encrypt-decrypt/rd-encrypt-decrypt.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-reset-password',
   templateUrl: './rd-reset-password.component.html',
@@ -20,10 +21,10 @@ export class RdResetPasswordComponent implements OnInit {
   routerData:String='';
   constructor(private matDialog: MatDialog, private _formBuilder: FormBuilder,
     private rdAuthenticateService: RdAuthenticateService,
-    private notificationService:NotificationService,
+    private notificationService:NotificationService,private spinner:NgxSpinnerService,
     private router: Router,private _encryptDecryptService: RdEncryptDecryptService,
     private route: ActivatedRoute) {
-      this.notificationService.showLoader();
+      
       const data = this.route.snapshot.paramMap.get('id');
       this.routerData=this._encryptDecryptService.get(data);
       if(this.routerData===''){
@@ -39,14 +40,14 @@ export class RdResetPasswordComponent implements OnInit {
       Password: ['', [Validators.required,passwordValidation]],
       ConfirmPassword: ['', [Validators.required]],
     });
-    this.notificationService.hideLoader();
+
   }
   get resetPasswordForm() { return this.resetPasswordFormGroup.controls; }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.resetPasswordFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.resetPasswordFormGroup);
       return;
@@ -55,7 +56,7 @@ export class RdResetPasswordComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          this.notificationService.hideLoader();
+          this.spinner.hide()
           if(res.status){
             this.notificationService.success(res.message);
             this.router.navigate(['/home']);
@@ -64,6 +65,7 @@ export class RdResetPasswordComponent implements OnInit {
           }
         },
         error => {
+          this.spinner.hide()
           this.notificationService.error('Something went wrong.Pleased try again.');
         });
 

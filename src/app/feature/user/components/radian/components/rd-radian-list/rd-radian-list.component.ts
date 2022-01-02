@@ -11,6 +11,7 @@ import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatDialog } from '@angular/material/dialog';
 import { RdDeleteConfirmationBoxComponent } from 'src/app/core/components/rd-delete-confirmation-box/rd-delete-confirmation-box.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-radian-list',
   templateUrl: './rd-radian-list.component.html',
@@ -40,10 +41,10 @@ export class RdRadianListComponent implements OnInit {
   };
   constructor(private rdUserService: RdUserService, private router: Router,
     private _encryptDecryptService: RdEncryptDecryptService,
-    private notificationService: NotificationService,public matDialog: MatDialog,
+    private spinner: NgxSpinnerService,public matDialog: MatDialog,
      private rdAuthenticateService: RdAuthenticateService) {
     this.skills = skillsInterest.SkillsInterest;
-    this.notificationService.showLoader();
+    
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     if(this.currentUser !== null) {
       this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Profile';
@@ -59,14 +60,12 @@ export class RdRadianListComponent implements OnInit {
     this.getUserProfiles()
   }
   getUserProfiles() {
+    this.spinner.show()
     this.userProfiles=[];
-    this.notificationService.showLoader();
-    
     this.rdUserService.getUserProfiles(new RdCommon(this.routerData))
       .pipe(first())
       .subscribe(res => {
-        
-        this.notificationService.hideLoader();
+        this.spinner.hide()
         res.data.forEach(element => {
           element.ProfileExpertise = element.ProfileExpertise === ''?[]:JSON.parse(element.ProfileExpertise);
           element.ProfileSkill =  element.ProfileSkill === ''?[]:JSON.parse(element.ProfileSkill);
@@ -76,6 +75,7 @@ export class RdRadianListComponent implements OnInit {
         this.projectPath = res.projectPath;
       },
         error => {
+          this.spinner.hide()
         });
   }
   openEdit(data: Number) {

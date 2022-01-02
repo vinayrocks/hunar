@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { EmbedVideoService } from 'ngx-embed-video';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { first } from 'rxjs/operators';
 import { PopupImageSliderComponent } from 'src/app/shared/components/popup-image-slider/popup-image-slider.component';
 import { RdGetPortfolio } from 'src/app/shared/core/models/rd-common/rd-common';
@@ -35,7 +36,7 @@ export class RdMemberPortfolioComponent implements OnInit {
   UserLiked:String=''
   constructor(private embedService: EmbedVideoService, private route: ActivatedRoute,
     private rdUserService: RdUserService,private rdAuthenticateService: RdAuthenticateService,
-    private _encryptDecryptService: RdEncryptDecryptService,
+    private _encryptDecryptService: RdEncryptDecryptService,private spinner:NgxSpinnerService,
     private notificationService : NotificationService,public matDialog: MatDialog) { 
     this.routerData.PortfolioId=this.route.snapshot.paramMap.get('id');
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
@@ -47,19 +48,20 @@ export class RdMemberPortfolioComponent implements OnInit {
   }
 
   GetPortfolioDetail(){
-    this.notificationService.showLoader();
+    this.spinner.show()
     this.rdUserService.getPortfolioDetail(new RdGetPortfolio(this.routerData))
     .pipe(first())
     .subscribe(
       res => {
+        this.spinner.hide()
         res.data.forEach(element => {
           element.userPortfolioAttachment=element.userPortfolioAttachment === ''?[]:this.GetPortfolioImagePath(element);
         });
         this.portfolioDetail= res.data[0];
-        this.notificationService.hideLoader();
+  
       },
       error => {
-        this.notificationService.hideLoader();
+        this.spinner.hide()
       });
   }
   getVideo(url){

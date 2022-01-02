@@ -10,6 +10,7 @@ import { RdRadian } from 'src/app/shared/core/models/rd-radian/rd-radian';
 import { RdCommon } from 'src/app/shared/core/models/rd-common/rd-common';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-radian-add',
   templateUrl: './rd-radian-add.component.html',
@@ -44,9 +45,10 @@ export class RdRadianAddComponent implements OnInit {
     ]
   };
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
+    private spinner:NgxSpinnerService,
     private notificationService: NotificationService, private router: Router) {
     this.skills = skillsInterest.SkillsInterest;
-    // this.notificationService.showLoader();
+    // 
   }
   ngOnInit() {
     var rellaxHeader = new Rellax('.rellax-header');
@@ -104,21 +106,23 @@ export class RdRadianAddComponent implements OnInit {
     this.addRadianForm.ProfileExpertise.setValue(this.tempArr.join(','));
   }
   getUserPorfolio() {
+    this.spinner.show()
     this.rdUserService.getUserPorfolios(new RdCommon(this.routerData))
       .pipe(first())
       .subscribe(
         res => {
-          
+          this.spinner.hide()
           this.userPortfolio = res.data;
         },
         error => {
+          this.spinner.hide()
         });
   }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.addRadianFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.addRadianFormGroup);
       return;
@@ -128,13 +132,14 @@ export class RdRadianAddComponent implements OnInit {
         .pipe(first())
         .subscribe(
           res => {
+            this.spinner.hide()
             const pp = res.data.ProfilePicture;
             const cc = res.data.CoverPicture;
             this.addRadianForm.ProfilePicture.setValue(pp);
             this.addRadianForm.CoverPicture.setValue(cc);
             this.rdUserService.addUserProfile(new RdRadian(this.addRadianFormGroup.value))
               .subscribe(res => {
-                this.notificationService.hideLoader();
+      
                 if (res.status) {
                   this.notificationService.success(res.message);
                   this.onReset();
@@ -145,14 +150,16 @@ export class RdRadianAddComponent implements OnInit {
               });
           },
           error => {
+            this.spinner.hide()
             this.notificationService.error('Something went wrong.Please try again.');
           });
     } else {
+      this.spinner.show()
       this.addRadianForm.ProfilePicture.setValue('');
       this.addRadianForm.CoverPicture.setValue('');
       this.rdUserService.addUserProfile(new RdRadian(this.addRadianFormGroup.value))
         .subscribe(res => {
-          this.notificationService.hideLoader();
+          this.spinner.hide()
           if (res.status) {
             this.notificationService.success(res.message);
             this.onReset();

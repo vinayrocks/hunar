@@ -16,6 +16,7 @@ import { NotificationService } from 'src/app/shared/services/common/rd-notificat
 import { RdUserListBoxComponent } from 'src/app/core/components/rd-user-list-box/rd-user-list-box.component';
 import { environment } from 'src/environments/environment';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 // declare the javascript function here
 declare function modifyPdf(filePath,PDFDocument,StandardFonts,rgb): any;
@@ -48,8 +49,8 @@ export class RdEventListComponent implements OnInit {
   constructor(private rdUserService: RdUserService, public matDialog: MatDialog,
     private embedService: EmbedVideoService, private router: Router,
     private _encryptDecryptService: RdEncryptDecryptService,
-    private rdAuthenticateService: RdAuthenticateService, private notificationService: NotificationService) {
-    this.notificationService.showLoader();
+    private rdAuthenticateService: RdAuthenticateService, private spinner: NgxSpinnerService) {
+    // 
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     if (this.currentUser !== null) {
       this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Event/';
@@ -67,11 +68,11 @@ export class RdEventListComponent implements OnInit {
     this.getUserEvents();
   }
   getUserEvents() {
-    this.notificationService.showLoader();
+    this.spinner.hide()
     this.rdUserService.getUserEvents(new RdCommon(this.routerData))
       .pipe(first())
       .subscribe(res => {
-        this.notificationService.hideLoader();
+        this.spinner.hide()
         if (res !== '') {
           res.data.forEach(element => {
             element.EventStatus = element.EventStatus === '1' ? true : false;
@@ -81,10 +82,12 @@ export class RdEventListComponent implements OnInit {
           });
           this.projectPath = res.projectPath;
           this.userEvents = res.data;
+          // ();
         }
 
       },
         error => {
+          // ();
         });
   }
   openImageDialog(data, index) {

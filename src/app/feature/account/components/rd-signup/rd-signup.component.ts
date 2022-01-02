@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RdRegister } from 'src/app/shared/core/models/register/rd-register';
 import { first } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import * as  countryCode from 'src/app/shared/core/json-data/countryCodes.json';
 import { codeValidation, emailValidation, numberValidation, passwordValidation } from 'src/app/shared/core/regx-expression/RegxExpression';
 import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { RdForgotPassword } from 'src/app/shared/core/models/forgot-password/rd-forgot-password';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-signup',
   templateUrl: './rd-signup.component.html',
@@ -28,10 +29,11 @@ export class RdSignupComponent implements OnInit {
   currentUser: any;
   tempArr: any = [];
   setSameAddress: Boolean;
+  @ViewChild('radioBtn') radioBtn: any;
   constructor(private _formBuilder: FormBuilder,
-    private rdAuthenticateService: RdAuthenticateService,
+    private rdAuthenticateService: RdAuthenticateService,private spinner:NgxSpinnerService,
     private router: Router, private notificationService: NotificationService) {
-    this.notificationService.showLoader();
+    
     this.skills = skillsInterest.SkillsInterest;
     this.membership = memberShipCategory.MembershipCategories;
     this.countryState = countryState.Countries;
@@ -41,10 +43,10 @@ export class RdSignupComponent implements OnInit {
 
   ngOnInit(): void {
    this.initRegisterForm();
-   debugger
+   
   }
   initRegisterForm(){
-    debugger;
+    ;
     this.registerFormGroup = this._formBuilder.group({
       isUser: [true, Validators.required],
       organizationName:['', this.requiredIfValidator(() => !this.registerForm.isUser.value)],
@@ -84,16 +86,16 @@ export class RdSignupComponent implements OnInit {
       //faxCode: ['', [codeValidation]],
       //fax: ['', [numberValidation]],
     });
-    this.notificationService.hideLoader();
+
   }
   // convenience getter for easy access to form fields
   get registerForm() { return this.registerFormGroup.controls; }
   getStates(event: any) {
-    this.notificationService.showLoader();
+    
     this.state = this.countryState.filter(function (item) {
       return item.country === event;
     })[0].states;
-    this.notificationService.hideLoader();
+
   }
   getBillingStates(event: any) {
     this.billStates = this.countryState.filter(function (item) {
@@ -119,12 +121,12 @@ export class RdSignupComponent implements OnInit {
     this.registerForm.profileSkillSubCategory.setValue(this.tempArr.join(','));
   }
   checkEmailExists() {
-    this.notificationService.showLoader();
+    
     this.rdAuthenticateService.checkEmailExists(new RdForgotPassword(this.registerFormGroup.value))
       .pipe(first())
       .subscribe(
         res => {
-          this.notificationService.hideLoader();
+
           if (res.status) {
             this.notificationService.success('Email already is in use.');
             this.registerFormGroup.controls.email.setValue('');
@@ -162,27 +164,28 @@ export class RdSignupComponent implements OnInit {
     }
   }
   onSubmit() {
-    debugger
-    this.notificationService.showLoader();
+    
+    this.spinner.show()
     // Stop here if form is invalid
     if (this.registerFormGroup.invalid) {
-      this.notificationService.hideLoader();
+
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.registerFormGroup);
       return;
     }
-    debugger
+    
     this.rdAuthenticateService.register(new RdRegister(this.registerFormGroup.value))
       .pipe(first())
       .subscribe(
         res => {
-          this.notificationService.hideLoader();
+          this.spinner.hide()
           if (res.status) {
             this.notificationService.success(res.message);
             this.router.navigate(['/home']);
           }
         },
         error => {
+          this.spinner.hide()
           this.notificationService.error('Something went wrong.Please try again.');
         });
 
@@ -212,7 +215,8 @@ export class RdSignupComponent implements OnInit {
     })
   }
   changeUserType(event:any){
-    debugger
+    
+    this.membership=[];
     if (event.target.checked) {
       this.registerForm.organizationName.setValue('');
       this.registerForm.uniqueNumber.setValue('');
@@ -221,7 +225,10 @@ export class RdSignupComponent implements OnInit {
       this.membership = memberShipCategory.MembershipCategories;
     }
     else {
-      this.membership = this.membership.filter((x:any)=>x.name==='Premium');
+      this.membership = memberShipCategory.MembershipCategories.filter((x:any)=>x.name==='Premium');
+      this.membership =[...this.membership ];
+      this.registerForm.memberShip.setValue( this.membership[0].Id);
+    
     }
   }
 }

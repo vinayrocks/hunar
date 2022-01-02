@@ -252,7 +252,7 @@
                     <div class="row">
                         <div class="card-register-membership custom-set"  [ngClass]="membership.length>1 ? 'col-md-6' : 'col-md-12 db-center'" 
                         *ngFor="let item of membership;let i=index;">
-                            <input id="radio{{i}}" type="radio" value="{{item.Id}}" formControlName="memberShip">
+                            <input #radioBtn id="radio{{i}}" type="radio" value="{{item.Id}}" formControlName="memberShip">
                             <label class="form-check-label card-label" for="radio{{i}}">
                                 <h4>{{item.name}}</h4>
                                 <h5>{{item.currency}}{{item.amount}} [{{item.planType}}]</h5><br />

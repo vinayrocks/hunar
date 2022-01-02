@@ -14,6 +14,7 @@ import { HeaderImageSliderComponent } from './components/header-image-slider/hea
 import { ScriptService } from './services/custom-script/script.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BlockCopyDirective } from './components/directives/block-copy.directive';
+import { NgxSpinnerService } from 'ngx-spinner';
 @NgModule({
   declarations: [RequiredFieldComponent, RequiredValidationMessageComponent, FormatValidationMessageComponent,
      NotmatchedValidationMessageComponent,
@@ -33,7 +34,7 @@ export class SharedModule {
     return {
       ngModule:SharedModule,
       providers:[RdAuthenticateService,RdUserService,RdEncryptDecryptService,
-        EmbedVideoService,ScriptService]
+        EmbedVideoService,ScriptService,NgxSpinnerService]
     }
   }
  }

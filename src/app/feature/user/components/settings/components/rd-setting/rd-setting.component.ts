@@ -7,6 +7,8 @@ import { RdUserSetting } from 'src/app/shared/core/models/rd-common/rd-common';
 import { Router } from '@angular/router';
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
 import { BehaviorSubject } from 'rxjs';
+import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-setting',
   templateUrl: './rd-setting.component.html',
@@ -19,7 +21,7 @@ export class RdSettingComponent implements OnInit {
   // private currentUserSubject: BehaviorSubject<any>;
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private notificationService: NotificationService, private router: Router,
-    private rdAuthenticateService: RdAuthenticateService) { 
+    private rdAuthenticateService: RdAuthenticateService,private spinner:NgxSpinnerService) { 
       this.currentUser = this.rdAuthenticateService.getLocalStorageData();
       this.currentUser.isAddressShown=this.currentUser.isAddressShown==true?true:false;
       this.currentUser.isEmailShown=this.currentUser.isEmailShown==true?true:false;
@@ -42,16 +44,17 @@ export class RdSettingComponent implements OnInit {
   }
   get addSettingForm() { return this.addSettingFormGroup.controls; }
   onSubmit() {
-    this.notificationService.showLoader();
+    this.spinner.show()
     // stop here if form is invalid
     if (this.addSettingFormGroup.invalid) {
-      this.notificationService.hideLoader();
+      this.spinner.hide()
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.addSettingFormGroup);
       return;
     }
     this.rdUserService.addUpdateSettings(new RdUserSetting(this.addSettingFormGroup.value))
       .subscribe(res => {
+        this.spinner.hide()
         if (res.status) {
           this.currentUser.isAddressShown = this.addSettingFormGroup.controls.IsAddressShown.value===true?true:false;
           this.currentUser.isRadianMemberProfileShown = this.addSettingFormGroup.controls.IsRadianMemberProfileShown.value===true?true:false;
@@ -63,7 +66,7 @@ export class RdSettingComponent implements OnInit {
           localStorage.setItem('currentUser',JSON.stringify(this.currentUser));
           this.currentUser = this.rdAuthenticateService.getLocalStorageData();
 
-          this.notificationService.hideLoader();
+
           this.notificationService.success(res.message);
           this.router.navigate(['/member/setting_view']);
           

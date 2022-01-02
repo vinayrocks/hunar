@@ -15,6 +15,7 @@ import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd
 import { RdLikeEventProfile } from 'src/app/shared/core/models/rd-common/rd-common';
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-rd-radian-update',
   templateUrl: './rd-radian-update.component.html',
@@ -46,11 +47,10 @@ export class RdRadianUpdateComponent implements OnInit {
   routerData: any = [];
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private notificationService: NotificationService, private router: Router,
-    private embedService: EmbedVideoService, public matDialog: MatDialog,
-    private _encryptDecryptService: RdEncryptDecryptService, private rdAuthenticateService: RdAuthenticateService,) {
+    private embedService: EmbedVideoService, public matDialog: MatDialog,private spinner: NgxSpinnerService,
+    private _encryptDecryptService: RdEncryptDecryptService, private rdAuthenticateService: RdAuthenticateService) {
     this.skills = skillsInterest.SkillsInterest;
     this.radianUpdates = [];
-    this.notificationService.showLoader();
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
     this.routerData = this._encryptDecryptService.decryptModel(this.routerData);
     if (this.currentUser === null) {
@@ -93,20 +93,20 @@ export class RdRadianUpdateComponent implements OnInit {
     this.searchRadianUpdatesForm.SearchBySkill.setValue(this.tempArr.join(','));
   }
   onSubmit(SearchCount: Number) {
-    this.notificationService.showLoader();
+    this.spinner.show()
     this.searchRadianUpdatesForm.SearchCount.setValue(SearchCount);
     if (this.searchRadianUpdatesFormGroup.invalid) {
-      this.notificationService.hideLoader();
+      // ();
       return;
     }
-    debugger
+    
     this.rdUserService.searchRadianUpdate(new RdRadianUpdates(this.searchRadianUpdatesFormGroup.value))
       .subscribe(res => {
-        this.notificationService.hideLoader();
+        // ();
         if (res.status) {
-          debugger;
+          ;
           if (res.data !== 'No Results Found!') {
-            debugger
+            
             res.data.forEach(element => {
               element.EventStatus = element.EventStatus === '1' ? true : false;
               element.ContactDetails = element.ContactDetails === '' ? [] : JSON.parse(element.ContactDetails);
@@ -131,6 +131,7 @@ export class RdRadianUpdateComponent implements OnInit {
         } else {
           this.notificationService.success(res.message);
         }
+        this.spinner.hide()
       })
   }
   getVideo(url) {
