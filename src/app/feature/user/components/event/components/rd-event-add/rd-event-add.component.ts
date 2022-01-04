@@ -10,6 +10,8 @@ import { RdEvent } from 'src/app/shared/core/models/rd-event/rd-event';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as  countryState from 'src/app/shared/core/json-data/countryState.json';
+import * as  countryCode from 'src/app/shared/core/json-data/countryCodes.json';
 @Component({
   selector: 'app-rd-event-add',
   templateUrl: './rd-event-add.component.html',
@@ -48,12 +50,17 @@ export class RdEventAddComponent implements OnInit {
     ]
   };
   _EventDateTime:any='';
+  countryState: any;
+  countryCode: any;
+  state: any;
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private embedService: EmbedVideoService,private spinner:NgxSpinnerService,
      private notificationService: NotificationService,
      private router: Router) {
     //PortfolioMedia
     this.skills = skillsInterest.SkillsInterest;
+    this.countryState = countryState.Countries;
+    this.countryCode = countryCode.CountryCodes;
     // 
   }
   ngOnInit() {
@@ -70,7 +77,12 @@ export class RdEventAddComponent implements OnInit {
       EventSkill: [''],
       EventCategory: ['', Validators.required],
       IsEventOnline: [false],
-      EventAddress: ['', Validators.required],
+      EventLink: ['', this.requiredIfValidator(() => this.addEventForm.IsEventOnline.value)],
+      country: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      street: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      city: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      state: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      zip: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
       EventDateTime: ['', Validators.required],
       linkURL: ['']
     });
@@ -82,6 +94,13 @@ export class RdEventAddComponent implements OnInit {
         return item.radianSkillCategoryId === event;
       })[0].radianSkillSubCategories;
     }
+  }
+  getStates(event: any) {
+    
+    this.state = this.countryState.filter(function (item) {
+      return item.country === event;
+    })[0].states;
+
   }
   fileChangeEvent(event: any, index: number): void {
     const data: any = [];
@@ -233,6 +252,17 @@ export class RdEventAddComponent implements OnInit {
         this.validateAllFormFields(control);            //{6}
       }
     });
+  }
+  requiredIfValidator(predicate) {
+    return (formControl => {
+      if (!formControl.parent) {
+        return null;
+      }
+      if (predicate()) {
+        return Validators.required(formControl); 
+      }
+      return null;
+    })
   }
   ngOnDestroy() {
     var body = document.getElementsByTagName('body')[0];
