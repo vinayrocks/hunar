@@ -6,6 +6,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   declarations: [RdUserLayoutComponent],
   imports: [
@@ -15,7 +18,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatExpansionModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatMomentModule,
+    MatDatepickerModule
   ]
 })
 export class UserModule { 

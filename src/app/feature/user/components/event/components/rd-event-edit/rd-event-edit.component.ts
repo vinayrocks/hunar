@@ -22,22 +22,22 @@ export class RdEventEditComponent implements OnInit {
   editEventFormGroup: FormGroup;
   isUploaded: Boolean = false;
   urls = [];
-  isImageType:Boolean=true;
+  isImageType: Boolean = true;
   skills: any;
   skillsSubcategory: any;
   tempArr: any = [];
-  routerData:any=[];
-  userEvent:any='';
+  routerData: any = [];
+  userEvent: any = '';
   tempSubCategory: any = [];
-  addMoreImageArray:any=[1];
-  imageIndex:number=0;
-  linkURL:string='';
+  addMoreImageArray: any = [1];
+  imageIndex: number = 0;
+  linkURL: string = '';
   serverFile = [];
   EventPictureModel: any = [];
-  projectFilePath:String='';
-  projectPath:String='';
-  currentUser:any;
-  eventName:String='';
+  projectFilePath: String = '';
+  projectPath: String = '';
+  currentUser: any;
+  eventName: String = '';
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -47,27 +47,27 @@ export class RdEventEditComponent implements OnInit {
     translate: 'no',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Open Sans',
-    showToolbar:true,
+    showToolbar: true,
     toolbarHiddenButtons: [
       ['bold', 'italic'],
       ['fontSize', 'insertImage',
-      'insertVideo',
-      'insertHorizontalRule',]
+        'insertVideo',
+        'insertHorizontalRule',]
     ]
   };
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
-    private router: Router,private _encryptDecryptService: RdEncryptDecryptService,
-    private route: ActivatedRoute,private embedService: EmbedVideoService,
-    private notificationService:NotificationService,private spinner:NgxSpinnerService,
+    private router: Router, private _encryptDecryptService: RdEncryptDecryptService,
+    private route: ActivatedRoute, private embedService: EmbedVideoService,
+    private notificationService: NotificationService, private spinner: NgxSpinnerService,
     private rdAuthenticateService: RdAuthenticateService) {
-      // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
-      
-      this.currentUser = this.rdAuthenticateService.getLocalStorageData();
-      this.projectFilePath=this.currentUser.firstName+'_'+this.currentUser.username.split('@')[0]+'/Event'; 
+    // this.rdAuthenticateService.currentUser.subscribe(x => this.currentUser = x);
+
+    this.currentUser = this.rdAuthenticateService.getLocalStorageData();
+    this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Event';
     //PortfolioMedia
-    this.routerData.Id=this.route.snapshot.paramMap.get('id');
-    if(this.routerData.Id!==''){
-      this.routerData=this._encryptDecryptService.decryptModel(this.routerData);
+    this.routerData.Id = this.route.snapshot.paramMap.get('id');
+    if (this.routerData.Id !== '') {
+      this.routerData = this._encryptDecryptService.decryptModel(this.routerData);
       this.getUserEvent(this.routerData);
     } else {
       this.router.navigate(['/member/event_view']);
@@ -77,24 +77,27 @@ export class RdEventEditComponent implements OnInit {
   ngOnInit() {
     var rellaxHeader = new Rellax('.rellax-header');
 
-      var body = document.getElementsByTagName('body')[0];
-      body.classList.add('profile-page');
-      var navbar = document.getElementsByTagName('nav')[0];
-      navbar.classList.add('navbar-transparent');
-      this.editEventFormGroup = this._formBuilder.group({
-        Id:[this.routerData.Id, Validators.required],
-        EventName: ['', Validators.required],
-        EventDescription: ['', Validators.required],
-        EventMedia: [''],
-        EventSkill:[''],
-        EventCategory:['',Validators.required],
-        EventStatus:[true],
-        linkURL:['']
-      });
+    var body = document.getElementsByTagName('body')[0];
+    body.classList.add('profile-page');
+    var navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.add('navbar-transparent');
+    this.editEventFormGroup = this._formBuilder.group({
+      Id: [this.routerData.Id, Validators.required],
+      EventName: ['', Validators.required],
+      EventDescription: ['', Validators.required],
+      EventMedia: [''],
+      EventSkill: [''],
+      EventCategory: ['', Validators.required],
+      EventStatus: [true],
+      IsEventOnline: [false],
+      EventAddress: ['', Validators.required],
+      EventDateTime: ['', Validators.required],
+      linkURL: ['']
+    });
   }
   get editEventForm() { return this.editEventFormGroup.controls; }
-  setFormGroup(){
-    const id=this.userEvent.EventSkill.id;
+  setFormGroup() {
+    const id = this.userEvent.EventSkill.id;
     this.userEvent.EventCategory.forEach(element => {
       this.tempArr.push(element.id);
     });
@@ -103,10 +106,10 @@ export class RdEventEditComponent implements OnInit {
     })[0].radianSkillSubCategories;
 
     this.skillsSubcategory.forEach(element => {
-      if(this.tempArr.indexOf(element.id) !== -1){
-       this.tempSubCategory.push({'id':element.id,'name':element.subCategoryName,'isChecked':true});
+      if (this.tempArr.indexOf(element.id) !== -1) {
+        this.tempSubCategory.push({ 'id': element.id, 'name': element.subCategoryName, 'isChecked': true });
       } else {
-        this.tempSubCategory.push({'id':element.id,'name':element.subCategoryName,'isChecked':false});
+        this.tempSubCategory.push({ 'id': element.id, 'name': element.subCategoryName, 'isChecked': false });
       }
     });
     this.editEventForm.EventName.setValue(this.userEvent.EventName);
@@ -115,47 +118,50 @@ export class RdEventEditComponent implements OnInit {
     this.editEventForm.EventCategory.setValue(this.tempArr.join(','));
     this.editEventForm.EventDescription.setValue(this.userEvent.EventDescription);
     this.editEventForm.EventStatus.setValue(this.userEvent.EventStatus);
+    this.editEventForm.IsEventOnline.setValue(this.userEvent.IsEventOnline);
+    this.editEventForm.EventAddress.setValue(this.userEvent.EventAddress);
+    this.editEventForm.EventDateTime.setValue(this.userEvent.EventDateTime);
   }
   getSkillSubCategory(event: any) {
-    this.tempSubCategory=[];
-    if (this.editEventForm.EventSkill.value !=='') {
+    this.tempSubCategory = [];
+    if (this.editEventForm.EventSkill.value !== '') {
       this.skillsSubcategory = this.skills.filter(function (item) {
         return item.radianSkillCategoryName === event;
       })[0].radianSkillSubCategories;
       this.skillsSubcategory.forEach(element => {
-        if(this.tempArr.indexOf(element.subCategoryName) !== -1){
-         this.tempSubCategory.push({'name':element.subCategoryName,'isChecked':true});
+        if (this.tempArr.indexOf(element.subCategoryName) !== -1) {
+          this.tempSubCategory.push({ 'name': element.subCategoryName, 'isChecked': true });
         } else {
-          this.tempSubCategory.push({'name':element.subCategoryName,'isChecked':false});
+          this.tempSubCategory.push({ 'name': element.subCategoryName, 'isChecked': false });
         }
       });
     }
   }
-  getUserEvent(item){
+  getUserEvent(item) {
     this.spinner.show()
     this.rdUserService.getUserEvent(new RdCommon(item))
-    .pipe(first())
-    .subscribe(
-      res => {
-        this.spinner.hide()
-        res.data.forEach(element => {
-          this.EventPictureModel = element.EventMedia.split(',');
-          element.EventSkill=element.EventSkill === ''?[]:JSON.parse(element.EventSkill);
-          element.EventCategory=element.EventCategory === ''?[]:JSON.parse(element.EventCategory);
-          element.EventMedia=element.EventMedia === ''?[]:this.GetEventImagePath(element);
-          
+      .pipe(first())
+      .subscribe(
+        res => {
+          this.spinner.hide()
+          res.data.forEach(element => {
+            this.EventPictureModel = element.EventMedia.split(',');
+            element.EventSkill = element.EventSkill === '' ? [] : JSON.parse(element.EventSkill);
+            element.EventCategory = element.EventCategory === '' ? [] : JSON.parse(element.EventCategory);
+            element.EventMedia = element.EventMedia === '' ? [] : this.GetEventImagePath(element);
+
+          });
+          this.projectPath = res.projectPath;
+          this.userEvent = res.data[0];
+          this.eventName = res.data[0].EventName;
+          this.eventName = this.eventName.replace(/\s/g, "");
+          this.setFormGroup();
+        },
+        error => {
+          this.spinner.hide()
         });
-        this.projectPath=res.projectPath;
-        this.userEvent = res.data[0];
-        this.eventName = res.data[0].EventName;
-        this.eventName = this.eventName.replace(/\s/g, "");
-        this.setFormGroup();
-      },
-      error => {
-        this.spinner.hide()
-      });
   }
-  getVideo(url){
+  getVideo(url) {
     return this.embedService.embed(url);
   }
   fileChangeEvent(event: any, index: number): void {
@@ -171,14 +177,14 @@ export class RdEventEditComponent implements OnInit {
           var reader = new FileReader();
           reader.onload = (event: any) => {
             // data.imageMovieURL = event.target.result;
-            this.urls.push({Name:event.target.result,IsImage:'image'});
+            this.urls.push({ Name: event.target.result, IsImage: 'image' });
             // this.urls.push(data);
           }
           reader.readAsDataURL(event.target.files[i]);
-        }else if(event.target.files[i].type==='application/pdf'){
+        } else if (event.target.files[i].type === 'application/pdf') {
           // data.type='document';
           // data.imageMovieURL='';
-          this.urls.push({Name:'',IsImage:'pdf'});
+          this.urls.push({ Name: '', IsImage: 'pdf' });
         } else {
           this.notificationService.warn('File format not accepted [Valid format: .jpg, .png, .pdf]')
         }
@@ -190,11 +196,11 @@ export class RdEventEditComponent implements OnInit {
     }
 
   }
-  selectMediaType(event: any){
-    if(event!=='image'){
-      this.isImageType=false;
+  selectMediaType(event: any) {
+    if (event !== 'image') {
+      this.isImageType = false;
     } else {
-      this.isImageType=true;
+      this.isImageType = true;
     }
   }
   addMoreImage(index: number) {
@@ -203,10 +209,12 @@ export class RdEventEditComponent implements OnInit {
       data.type = 'video';
       data.imageMovieURL = this.editEventForm.linkURL.value;
       const img = this.embedService.embed_image(this.editEventForm.linkURL.value, { image: 'mqdefault' })
-      .then(res => {
-        this.urls.push({Name:this.embedService.embed(data.imageMovieURL),IsImage:'video',
-        Image:res.link});
-      });
+        .then(res => {
+          this.urls.push({
+            Name: this.embedService.embed(data.imageMovieURL), IsImage: 'video',
+            Image: res.link
+          });
+        });
       // this.urls.push({Name:this.embedService.embed(this.editPortfolioForm.linkURL.value),IsImage:'video',
       // Image:res.link});
       this.imageIndex = index + 1;
@@ -221,16 +229,15 @@ export class RdEventEditComponent implements OnInit {
     }
   }
 
-  validateYouTubeUrl(index:number)
-  {
-    
+  validateYouTubeUrl(index: number) {
+
     if (this.editEventForm.linkURL.value != undefined || this.editEventForm.linkURL.value != '') {
-        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-        var match = this.editEventForm.linkURL.value.match(regExp);
-        if (match && match[2].length == 11) {
-          return true;
-        }
-        return false;
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+      var match = this.editEventForm.linkURL.value.match(regExp);
+      if (match && match[2].length == 11) {
+        return true;
+      }
+      return false;
     }
   }
   onSelectExperties(event, item: any) {
@@ -255,50 +262,50 @@ export class RdEventEditComponent implements OnInit {
     }
     if (this.serverFile.length != 0) {
       this.rdUserService.UploadUserEventImage(this.serverFile, this.editEventForm.EventName.value)
-      .pipe(first())
-      .subscribe(
-        res => {
-          var dataReposne = res.data.split(',');
-          this.serverFile = [];
-          dataReposne.forEach(element => {
-            this.EventPictureModel.push(element);
+        .pipe(first())
+        .subscribe(
+          res => {
+            var dataReposne = res.data.split(',');
+            this.serverFile = [];
+            dataReposne.forEach(element => {
+              this.EventPictureModel.push(element);
+            });
+            this.editEventForm.EventMedia.setValue(this.EventPictureModel.join(','));
+            this.submitDetail();
+          },
+          error => {
+            this.spinner.hide()
+            this.notificationService.error('Something went wrong.Please try again.');
           });
-          this.editEventForm.EventMedia.setValue(this.EventPictureModel.join(','));
-          this.submitDetail();
-        },
-        error => {
-          this.spinner.hide()
-          this.notificationService.error('Something went wrong.Please try again.');
-        });
     } else {
       this.submitDetail();
     }
-   
+
   }
-  submitDetail(){
+  submitDetail() {
     this.rdUserService.addUserEvent(new RdEvent(this.editEventFormGroup.value))
-    .subscribe(res => {
-      this.spinner.hide()
-      if (res.status) {
-        this.notificationService.success(res.message);
-        this.router.navigate(['/member/event_view']);
-      } else {
-        this.notificationService.error(res.message);
-      }
-    })
+      .subscribe(res => {
+        this.spinner.hide()
+        if (res.status) {
+          this.notificationService.success(res.message);
+          this.router.navigate(['/member/event_view']);
+        } else {
+          this.notificationService.error(res.message);
+        }
+      })
   }
-  assembleEventPictures(uploadedImages){
+  assembleEventPictures(uploadedImages) {
     uploadedImages.forEach(element => {
       this.EventPictureModel.push(element);
     });
-    this.userEvent.EventMedia.foreach(element=>{
+    this.userEvent.EventMedia.foreach(element => {
       this.EventPictureModel.push(element.imageMovieURL);
     })
     return this.EventPictureModel;
   }
-  removeMedia(index){
-    this.urls.splice(index,1);
-    this.serverFile.splice(index,1);
+  removeMedia(index) {
+    this.urls.splice(index, 1);
+    this.serverFile.splice(index, 1);
   }
   validateAllFormFields(formGroup: FormGroup) {         //{1}
     Object.keys(formGroup.controls).forEach(field => {  //{2}
@@ -310,54 +317,56 @@ export class RdEventEditComponent implements OnInit {
       }
     });
   }
-  GetEventImagePath(element){
-    const imageArry=[];
-    if(element.EventMedia!==''){
-      if(element.EventMedia.split(',').length>1){
+  GetEventImagePath(element) {
+    const imageArry = [];
+    if (element.EventMedia !== '') {
+      if (element.EventMedia.split(',').length > 1) {
         element.EventMedia.split(',')
-        .forEach(data => {
-          if(data.indexOf('youtu.be')===-1 && data.indexOf('youtube')===-1 && data.indexOf('pdf')===-1){
-            imageArry.push({Name:data,IsImage:'image'});
-          }else if(data.indexOf('youtu.be')===-1 && data.indexOf('youtube')===-1 && data.indexOf('pdf')!==-1){
-            imageArry.push({Name:data,IsImage:'pdf'});
-          } else {
-            
-            const img = this.embedService.embed_image(data, { image: 'mqdefault' })
-            .then(res => {
-              
-              imageArry.push({Name:this.embedService.embed(data),IsImage:'video',Image:res.link});
-            });
-           
-          }
-          
-        });
+          .forEach(data => {
+            if (data.indexOf('youtu.be') === -1 && data.indexOf('youtube') === -1 && data.indexOf('pdf') === -1) {
+              imageArry.push({ Name: data, IsImage: 'image' });
+            } else if (data.indexOf('youtu.be') === -1 && data.indexOf('youtube') === -1 && data.indexOf('pdf') !== -1) {
+              imageArry.push({ Name: data, IsImage: 'pdf' });
+            } else {
+
+              const img = this.embedService.embed_image(data, { image: 'mqdefault' })
+                .then(res => {
+
+                  imageArry.push({ Name: this.embedService.embed(data), IsImage: 'video', Image: res.link });
+                });
+
+            }
+
+          });
       } else {
-        if(element.EventMedia.indexOf('youtu.be')===-1 && element.EventMedia.indexOf('youtube')===-1
-        && element.EventMedia.indexOf('pdf')===-1){
-          imageArry.push({Name:element.EventMedia,IsImage:'image'});
-        }else if(element.EventMedia.indexOf('youtu.be')===-1 && element.EventMedia.indexOf('youtube')===-1 
-        && element.EventMedia.indexOf('pdf')!==-1){
-          imageArry.push({Name:element.EventMedia,IsImage:'pdf'});
+        if (element.EventMedia.indexOf('youtu.be') === -1 && element.EventMedia.indexOf('youtube') === -1
+          && element.EventMedia.indexOf('pdf') === -1) {
+          imageArry.push({ Name: element.EventMedia, IsImage: 'image' });
+        } else if (element.EventMedia.indexOf('youtu.be') === -1 && element.EventMedia.indexOf('youtube') === -1
+          && element.EventMedia.indexOf('pdf') !== -1) {
+          imageArry.push({ Name: element.EventMedia, IsImage: 'pdf' });
         } else {
           const img = this.embedService.embed_image(element.EventMedia, { image: 'mqdefault' })
             .then(res => {
-              
-              imageArry.push({Name:this.embedService.embed(element.EventMedia),IsImage:'video',
-              Image:res.link});
+
+              imageArry.push({
+                Name: this.embedService.embed(element.EventMedia), IsImage: 'video',
+                Image: res.link
+              });
             });
           // imageArry.push(element.EventMedia);
-         
+
         }
-       
+
       }
     }
     return imageArry;
   }
-  ngOnDestroy(){
-      var body = document.getElementsByTagName('body')[0];
-      body.classList.remove('profile-page');
-      var navbar = document.getElementsByTagName('nav')[0];
-      navbar.classList.remove('navbar-transparent');
+  ngOnDestroy() {
+    var body = document.getElementsByTagName('body')[0];
+    body.classList.remove('profile-page');
+    var navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
   }
 
 }

@@ -53,6 +53,10 @@ export class RdForgotPasswordComponent implements OnInit {
             this.resetPasswordUrl = res.url;
             this.matDialog.closeAll();
             this.router.navigate(['/account/resetpassword', res.url.split('/')[6]]);
+            // this.notificationService.error('Reset password link is sent on your registered email.');
+            // setTimeout(() => {
+            //   this.matDialog.closeAll();
+            // }, 1000);
           } else {
             this.notificationService.error(res.message);
           }
@@ -61,7 +65,6 @@ export class RdForgotPasswordComponent implements OnInit {
         error => {
           this.notificationService.error('Something went wrong.Pleased try again.');
         });
-
   }
   validateAllFormFields(formGroup: FormGroup) {         //{1}
     Object.keys(formGroup.controls).forEach(field => {  //{2}
