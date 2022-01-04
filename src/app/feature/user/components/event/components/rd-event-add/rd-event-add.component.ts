@@ -47,6 +47,7 @@ export class RdEventAddComponent implements OnInit {
       'insertHorizontalRule',]
     ]
   };
+  _EventDateTime:any='';
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private embedService: EmbedVideoService,private spinner:NgxSpinnerService,
      private notificationService: NotificationService,
@@ -68,6 +69,9 @@ export class RdEventAddComponent implements OnInit {
       EventMedia: [''],
       EventSkill: [''],
       EventCategory: ['', Validators.required],
+      IsEventOnline: [false],
+      EventAddress: ['', Validators.required],
+      EventDateTime: ['', Validators.required],
       linkURL: ['']
     });
   }
@@ -174,7 +178,7 @@ export class RdEventAddComponent implements OnInit {
     this.spinner.show()
     // stop here if form is invalid
     if (this.addEventFormGroup.invalid) {
-
+      this.spinner.hide()
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.addEventFormGroup);
       return;

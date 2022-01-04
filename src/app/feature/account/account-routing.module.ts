@@ -11,8 +11,7 @@ const routes: Routes = [
     component: RdAccountLayoutComponent,
     children: [
      {path: '', redirectTo: 'signup'},
-     {path:'signup',component:RdSignupComponent},
-     {path:'resetpassword/:id',component:RdResetPasswordComponent},
+     {path:'signup',component:RdSignupComponent}
     ]
   }
 ];
