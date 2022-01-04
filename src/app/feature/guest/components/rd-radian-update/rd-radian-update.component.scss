@@ -17,16 +17,18 @@
     float:right;
 }
 .custom-input{
-    margin-top: 21px;
+    margin-top: 0px;
     padding: 13px;
     width: -webkit-fill-available;
 }
 .custom-pd{
     padding:0px;
 }
-
+.lbl-custom{
+    font-weight: 700;
+}
 .custom-pd button {
-    margin-top: 18px;
+    margin-top: 0px;
 }
 .p-skill label{
     padding: 2px;
@@ -50,6 +52,9 @@
 }
 .custom-col-for-like{
     max-width: 3.3333333333% !important;
+}
+.btn-lg{
+    padding: 14px 42px; 
 }
 .custom-margin-icon{
     margin-top: 3px;
