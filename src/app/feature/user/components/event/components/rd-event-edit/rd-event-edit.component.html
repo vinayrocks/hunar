@@ -93,14 +93,14 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="pretty p-switch p-fill">
-                            <input type="radio" name="IsEventOnline" checked [value]="false"
+                            <input type="radio" name="IsEventOnline" checked [value]="true"
                               formControlName="IsEventOnline" />
                             <div class="state p-success">
                               <label>Online Event</label>
                             </div>
                           </div>
                           <div class="pretty p-switch p-fill">
-                            <input type="radio" name="IsEventOnline" [value]="true" formControlName="IsEventOnline" />
+                            <input type="radio" name="IsEventOnline" [value]="false" formControlName="IsEventOnline" />
                             <div class="state p-success">
                               <label>Offline Event</label>
                             </div>
@@ -108,13 +108,99 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-9" *ngIf="editEventForm.IsEventOnline.value">
+                          <label class="lbl-custom">Event Link*</label>
                           <div class="input-group">
-                            <input type="text" class="signUp-form-control form-control" placeholder="Event Address/Link"
-                              formControlName="EventAddress">
+                            <input type="text" class="signUp-form-control form-control" placeholder="Event Link"
+                              formControlName="EventLink">
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-9" *ngIf="!editEventForm.IsEventOnline.value">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label class="lbl-custom">Country*</label>
+                                  <div class="row"
+                                      *ngIf="editEventForm.country.errors && (editEventForm.country.dirty || editEventForm.country.touched)">
+                                      <div class="col-md-12">
+                                          <app-required-validation-message [fieldName]="'Country'"
+                                              *ngIf="editEventForm.country.errors.required"></app-required-validation-message>
+                                      </div>
+                                  </div>
+                                  <div class="input-group">
+                                      <select class="select-css" formControlName="country" name="country" (change)="getStates($event.target.value)">
+                                          <option value="" [disabled]="true" [selected]="true">Select</option>
+                                          <option *ngFor="let item of countryState" value="{{item.country}}">
+                                              {{item.country}}
+                                          </option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <label class="lbl-custom">Apt/Street*</label>
+                                  <div class="row"
+                                      *ngIf="editEventForm.street.errors && (editEventForm.street.dirty || editEventForm.street.touched)">
+                                      <div class="col-md-12">
+                                          <app-required-validation-message [fieldName]="'Apt/Street'"
+                                              *ngIf="editEventForm.street.errors.required"></app-required-validation-message>
+                                      </div>
+                                  </div>
+                                  <div class="input-group">
+                                      <input type="text" class="signUp-form-control form-control"
+                                          formControlName="street">
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <label class="lbl-custom">City*</label>
+                                  <div class="row"
+                                      *ngIf="editEventForm.city.errors && (editEventForm.city.dirty || editEventForm.city.touched)">
+                                      <div class="col-md-12">
+                                          <app-required-validation-message [fieldName]="'City'"
+                                              *ngIf="editEventForm.city.errors.required"></app-required-validation-message>
+                                      </div>
+                                  </div>
+                                  <div class="input-group">
+                                      <input type="text" class="signUp-form-control form-control"
+                                          formControlName="city">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label class="lbl-custom">State*</label>
+                                  <div class="row"
+                                      *ngIf="editEventForm.state.errors && (editEventForm.state.dirty || editEventForm.state.touched)">
+                                      <div class="col-md-12">
+                                          <app-required-validation-message [fieldName]="'State'"
+                                              *ngIf="editEventForm.state.errors.required"></app-required-validation-message>
+                                      </div>
+                                  </div>
+                                  <div class="input-group">
+                                      <select class="select-css" formControlName="state" name="state">
+                                          <option value="" [disabled]="true" [selected]="true">Select</option>
+                                          <option *ngFor="let item of state" value="{{item}}">
+                                              {{item}}
+                                          </option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <label class="lbl-custom">Zip / Pin Code*</label>
+                                  <div class="row"
+                                      *ngIf="editEventForm.zip.errors && (editEventForm.zip.dirty || editEventForm.zip.touched)">
+                                      <div class="col-md-12">
+                                          <app-required-validation-message [fieldName]="'Zip/Pincode'"
+                                              *ngIf="editEventForm.zip.errors.required"></app-required-validation-message>
+                                      </div>
+                                  </div>
+                                  <div class="input-group">
+                                      <input type="select" class="signUp-form-control form-control"
+                                          formControlName="zip" maxlength="7">
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <label class="lbl-custom">Event Date*</label>
                           <div class="input-group">
                             <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
                               formControlName="_EventDateTime"/>

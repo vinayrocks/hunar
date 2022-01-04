@@ -13,6 +13,8 @@ import { RdCommon } from 'src/app/shared/core/models/rd-common/rd-common';
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as  countryState from 'src/app/shared/core/json-data/countryState.json';
+import * as  countryCode from 'src/app/shared/core/json-data/countryCodes.json';
 @Component({
   selector: 'app-rd-event-edit',
   templateUrl: './rd-event-edit.component.html',
@@ -55,6 +57,9 @@ export class RdEventEditComponent implements OnInit {
         'insertHorizontalRule',]
     ]
   };
+  countryState: any;
+  countryCode: any;
+  state: any;
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private router: Router, private _encryptDecryptService: RdEncryptDecryptService,
     private route: ActivatedRoute, private embedService: EmbedVideoService,
@@ -73,6 +78,8 @@ export class RdEventEditComponent implements OnInit {
       this.router.navigate(['/member/event_view']);
     }
     this.skills = skillsInterest.SkillsInterest;
+    this.countryState = countryState.Countries;
+    this.countryCode = countryCode.CountryCodes;
   }
   ngOnInit() {
     var rellaxHeader = new Rellax('.rellax-header');
@@ -90,7 +97,12 @@ export class RdEventEditComponent implements OnInit {
       EventCategory: ['', Validators.required],
       EventStatus: [true],
       IsEventOnline: [false],
-      EventAddress: ['', Validators.required],
+      EventLink: ['', this.requiredIfValidator(() => this.editEventForm.IsEventOnline.value)],
+      country: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
+      street: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
+      city: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
+      state: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
+      zip: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
       EventDateTime: ['', Validators.required],
       linkURL: ['']
     });
@@ -119,8 +131,20 @@ export class RdEventEditComponent implements OnInit {
     this.editEventForm.EventDescription.setValue(this.userEvent.EventDescription);
     this.editEventForm.EventStatus.setValue(this.userEvent.EventStatus);
     this.editEventForm.IsEventOnline.setValue(this.userEvent.IsEventOnline);
-    this.editEventForm.EventAddress.setValue(this.userEvent.EventAddress);
+    this.editEventForm.country.setValue(this.userEvent.countryId);
+    this.editEventForm.street.setValue(this.userEvent.street);
+    this.editEventForm.city.setValue(this.userEvent.city);
+    this.editEventForm.state.setValue(this.userEvent.state);
+    this.editEventForm.zip.setValue(this.userEvent.zip);
+    this.editEventForm.EventLink.setValue(this.userEvent.EventLink);
     this.editEventForm.EventDateTime.setValue(this.userEvent.EventDateTime);
+  }
+  getStates(event: any) {
+    
+    this.state = this.countryState.filter(function (item) {
+      return item.country === event;
+    })[0].states;
+
   }
   getSkillSubCategory(event: any) {
     this.tempSubCategory = [];
@@ -361,6 +385,17 @@ export class RdEventEditComponent implements OnInit {
       }
     }
     return imageArry;
+  }
+  requiredIfValidator(predicate) {
+    return (formControl => {
+      if (!formControl.parent) {
+        return null;
+      }
+      if (predicate()) {
+        return Validators.required(formControl); 
+      }
+      return null;
+    })
   }
   ngOnDestroy() {
     var body = document.getElementsByTagName('body')[0];
