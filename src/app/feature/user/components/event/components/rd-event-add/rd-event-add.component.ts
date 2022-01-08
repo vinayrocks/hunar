@@ -83,7 +83,8 @@ export class RdEventAddComponent implements OnInit {
       city: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
       state: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
       zip: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
-      EventDateTime: ['', Validators.required],
+      EventStartDateTime: ['', Validators.required],
+      EventEndDateTime: ['', Validators.required],
       linkURL: ['']
     });
   }
@@ -194,6 +195,7 @@ export class RdEventAddComponent implements OnInit {
     this.serverFile.splice(index,1);
   }
   onSubmit() {
+    debugger
     this.spinner.show()
     // stop here if form is invalid
     if (this.addEventFormGroup.invalid) {
@@ -230,6 +232,7 @@ export class RdEventAddComponent implements OnInit {
         });
     } else {
       this.addEventForm.EventMedia.setValue('');
+      debugger;
       this.rdUserService.addUserEvent(new RdEvent(this.addEventFormGroup.value))
         .subscribe(res => {
           
