@@ -165,6 +165,8 @@ export class RdUserService {
     rdEvent.Email = this.currentUserSubject.username;
     rdEvent.FirstName = this.currentUserSubject.firstName;
     var data = this._encryptDecryptService.ecryptModel(rdEvent);
+    const dd = JSON.stringify(data);
+    debugger
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/createEvent.php', JSON.stringify(data));
   }
   addUpdateSettings(rdSettings:any){

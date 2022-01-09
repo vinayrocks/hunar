@@ -12,6 +12,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as  countryState from 'src/app/shared/core/json-data/countryState.json';
 import * as  countryCode from 'src/app/shared/core/json-data/countryCodes.json';
+import * as moment from 'moment';
 @Component({
   selector: 'app-rd-event-add',
   templateUrl: './rd-event-add.component.html',
@@ -64,8 +65,6 @@ export class RdEventAddComponent implements OnInit {
     // 
   }
   ngOnInit() {
-    var rellaxHeader = new Rellax('.rellax-header');
-
     var body = document.getElementsByTagName('body')[0];
     body.classList.add('profile-page');
     var navbar = document.getElementsByTagName('nav')[0];
@@ -87,8 +86,17 @@ export class RdEventAddComponent implements OnInit {
       EventEndDateTime: ['', Validators.required],
       linkURL: ['']
     });
+    debugger
   }
   get addEventForm() { return this.addEventFormGroup.controls; }
+  changeEventType(event:any){
+    this.addEventForm.EventLink.updateValueAndValidity();
+    this.addEventForm.country.updateValueAndValidity();
+    this.addEventForm.street.updateValueAndValidity();
+    this.addEventForm.city.updateValueAndValidity();
+    this.addEventForm.state.updateValueAndValidity();
+    this.addEventForm.zip.updateValueAndValidity();
+  }
   getSkillSubCategory(event: any) {
     if (this.addEventForm.EventSkill.value !== '') {
       this.skillsSubcategory = this.skills.filter(function (item) {
@@ -205,10 +213,13 @@ export class RdEventAddComponent implements OnInit {
       return;
     }
     if(this.serverFile.length>0){
+      this.addEventForm.EventStartDateTime.setValue(moment(this.addEventForm.EventStartDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
+      this.addEventForm.EventEndDateTime.setValue(moment(this.addEventForm.EventEndDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
       this.rdUserService.UploadUserEventImage(this.serverFile, this.addEventForm.EventName.value)
       .pipe(first())
       .subscribe(
         res => {
+          debugger
           this.spinner.hide()
           var dataReposne = res.data.split(',');
           this.serverFile = [];
@@ -231,11 +242,13 @@ export class RdEventAddComponent implements OnInit {
           this.notificationService.error('Something went wrong.Please try again.');
         });
     } else {
+      this.addEventForm.EventStartDateTime.setValue(moment(this.addEventForm.EventStartDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
+      this.addEventForm.EventEndDateTime.setValue(moment(this.addEventForm.EventEndDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
       this.addEventForm.EventMedia.setValue('');
       debugger;
       this.rdUserService.addUserEvent(new RdEvent(this.addEventFormGroup.value))
         .subscribe(res => {
-          
+          this.spinner.hide();
           if(res.status){
             this.notificationService.success(res.message);
             this.router.navigate(['/member/event_view']);
