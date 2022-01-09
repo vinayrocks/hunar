@@ -104,7 +104,8 @@ export class RdEventEditComponent implements OnInit {
       city: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
       state: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
       zip: ['',  this.requiredIfValidator(() => !this.editEventForm.IsEventOnline.value)],
-      EventDateTime: ['', Validators.required],
+      EventStartDateTime: ['', Validators.required],
+      EventEndDateTime: ['', Validators.required],
       linkURL: ['']
     });
   }
@@ -138,7 +139,8 @@ export class RdEventEditComponent implements OnInit {
     this.editEventForm.state.setValue(this.userEvent.state);
     this.editEventForm.zip.setValue(this.userEvent.zip);
     this.editEventForm.EventLink.setValue(this.userEvent.EventLink);
-    this.editEventForm.EventDateTime.setValue(this.userEvent.EventDateTime);
+    this.editEventForm.EventStartDateTime.setValue(this.userEvent.EventStartDateTime);
+    this.editEventForm.EventEndDateTime.setValue(this.userEvent.EventEndDateTime);
   }
   changeEventType(event:any){
     this.editEventForm.EventLink.updateValueAndValidity();
