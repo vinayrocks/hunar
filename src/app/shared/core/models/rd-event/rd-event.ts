@@ -5,6 +5,15 @@ export class RdEvent {
   EventMedia: String='';
   EventSkill:String='';
   EventCategory:String='';
+  IsEventOnline:String='';
+  EventLink:String='';
+  country: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  EventStartDateTime: string;
+  EventEndDateTime: string;
   UserId:Number=0;
   Email:String='';
   FirstName:String='';

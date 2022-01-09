@@ -2,6 +2,30 @@
 .row.card.portfolio{
   margin-top:28px;
 }
+.portfolio-label{
+  margin-bottom: 10px;
+}
+.btn-round {
+  border-width: 1px;
+  border-radius: 0.1875rem !important;
+  padding: 13px 25px;
+}
+.form-group .form-control, .input-group .form-control{
+  padding: 12px 18px 12px 18px;
+}
+.lbl-custom{
+  font-weight: 700;
+}
+h4 {
+  color: #000;
+  font-family: 'Open Sans';
+  font-weight: 700;
+  margin-top: 0px;
+}
+.custom-event{
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 .mt-top{
   margin-bottom: 18px;
 }
