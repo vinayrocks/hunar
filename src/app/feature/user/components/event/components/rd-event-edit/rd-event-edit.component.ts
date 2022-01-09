@@ -15,6 +15,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as  countryState from 'src/app/shared/core/json-data/countryState.json';
 import * as  countryCode from 'src/app/shared/core/json-data/countryCodes.json';
+import * as moment from 'moment';
 @Component({
   selector: 'app-rd-event-edit',
   templateUrl: './rd-event-edit.component.html',
@@ -138,6 +139,14 @@ export class RdEventEditComponent implements OnInit {
     this.editEventForm.zip.setValue(this.userEvent.zip);
     this.editEventForm.EventLink.setValue(this.userEvent.EventLink);
     this.editEventForm.EventDateTime.setValue(this.userEvent.EventDateTime);
+  }
+  changeEventType(event:any){
+    this.editEventForm.EventLink.updateValueAndValidity();
+    this.editEventForm.country.updateValueAndValidity();
+    this.editEventForm.street.updateValueAndValidity();
+    this.editEventForm.city.updateValueAndValidity();
+    this.editEventForm.state.updateValueAndValidity();
+    this.editEventForm.zip.updateValueAndValidity();
   }
   getStates(event: any) {
     
@@ -307,6 +316,8 @@ export class RdEventEditComponent implements OnInit {
 
   }
   submitDetail() {
+    this.editEventForm.EventStartDateTime.setValue(moment(this.editEventForm.EventStartDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
+    this.editEventForm.EventEndDateTime.setValue(moment(this.editEventForm.EventEndDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
     this.rdUserService.addUserEvent(new RdEvent(this.editEventFormGroup.value))
       .subscribe(res => {
         this.spinner.hide()

@@ -16,7 +16,7 @@
               <div class="row mt-top">
                 <div class="col-md-6">
                   <div class="pretty p-switch p-fill">
-                    <input type="radio" name="IsEventOnline" checked [value]="true" formControlName="IsEventOnline" />
+                    <input type="radio" name="IsEventOnline" checked [value]="true" formControlName="IsEventOnline" (change)="changeEventType($event)"/>
                     <div class="state p-success">
                       <label>Online Event</label>
                     </div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="pretty p-switch p-fill">
-                    <input type="radio" name="IsEventOnline" [value]="false" formControlName="IsEventOnline" />
+                    <input type="radio" name="IsEventOnline" [value]="false" formControlName="IsEventOnline" (change)="changeEventType($event)"/>
                     <div class="state p-success">
                       <label>Offline Event</label>
                     </div>
@@ -168,8 +168,15 @@
               <div class="row mt-top">
                 <div class="col-md-6">
                   <div class="portfolio-label">Event Start Date*</div>
+                  <div class="row"
+                    *ngIf="addEventForm.EventStartDateTime.errors && (addEventForm.EventStartDateTime.dirty || addEventForm.EventStartDateTime.touched)">
+                    <div class="col-md-12">
+                      <app-required-validation-message [fieldName]="'Event Start DateTime'"
+                        *ngIf="addEventForm.EventStartDateTime.errors.required"></app-required-validation-message>
+                    </div>
+                  </div>
                   <div class="input-group">
-                    <input matInput [ngxMatDatetimePicker]="startPicker" formControlName="_EventStartDateTime"
+                    <input matInput [ngxMatDatetimePicker]="startPicker" formControlName="EventStartDateTime"
                       style="width: 80%;" />
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                     <ngx-mat-datetime-picker #startPicker> </ngx-mat-datetime-picker>
@@ -177,8 +184,15 @@
                 </div>
                 <div class="col-md-6">
                   <div class="portfolio-label">Event End Date*</div>
+                  <div class="row"
+                        *ngIf="addEventForm.EventEndDateTime.errors && (addEventForm.EventEndDateTime.dirty || addEventForm.EventEndDateTime.touched)">
+                        <div class="col-md-12">
+                          <app-required-validation-message [fieldName]="'Event End DateTime'"
+                            *ngIf="addEventForm.EventEndDateTime.errors.required"></app-required-validation-message>
+                        </div>
+                      </div>
                   <div class="input-group">
-                    <input matInput [ngxMatDatetimePicker]="endPicker" formControlName="_EventEndDateTime"
+                    <input matInput [ngxMatDatetimePicker]="endPicker" formControlName="EventEndDateTime"
                       style="width: 80%;" />
                     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
                     <ngx-mat-datetime-picker #endPicker> </ngx-mat-datetime-picker>
@@ -186,77 +200,77 @@
                 </div>
               </div>
               <hr />
-                <div class="row mt-top">
-                  <div class="col-md-12">
-                    <div class="portfolio-label">Event Decription</div>
-                    <div class="row"
-                      *ngIf="addEventForm.EventDescription.errors && (addEventForm.EventDescription.dirty || addEventForm.EventDescription.touched)">
-                      <div class="col-md-12">
-                        <app-required-validation-message [fieldName]="'Event Description'"
-                          *ngIf="addEventForm.EventDescription.errors.required"></app-required-validation-message>
-                      </div>
-                    </div>
-                    <angular-editor class="form-control" [placeholder]="'About Event'"
-                      formControlName="EventDescription" [config]="config">
-                    </angular-editor>
-                  </div>
-                </div>
-                <hr />
-                <div class="row mt-top">
-                  <div class="col-md-12">
-                    <div class="portfolio-label">Event Media</div>
-                    <div class="row"
-                      *ngIf="addEventForm.EventMedia.errors && (addEventForm.EventMedia.dirty || addEventForm.EventMedia.touched)">
-                      <div class="col-md-12">
-                        <app-required-validation-message [fieldName]="'Image'"
-                          *ngIf="addEventForm.EventMedia.errors.required"></app-required-validation-message>
-                      </div>
-                    </div>
-                    <div class="row" *ngFor="let item of addMoreImageArray;let i=index;">
-                      <div class="col-md-4" *ngIf="imageIndex===i">
-                        <select class="select-css" (change)="selectMediaType($event.target.value)">
-                          <option value="image" selected="true">Image/Document</option>
-                          <option value="video">Video</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6" *ngIf="isImageType && imageIndex===i">
-                        <input id="file{{i}}" type="file" accept="application/pdf, image/jpeg, image/png"
-                          (change)="fileChangeEvent($event,i)" />
-                      </div>
-                      <div class="col-md-6" *ngIf="!isImageType && imageIndex===i">
-                        <div class="input-group">
-                          <input id="video{{i}}" type="text" class="signUp-form-control form-control"
-                            placeholder="YouTube Video Link" formControlName="linkURL">
-                        </div>
-                      </div>
-                      <div class="col-md-2" *ngIf="!isImageType && imageIndex===i">
-                        <input type="button" class="btn btn-primary btn-round custom-btn" value="Add"
-                          (click)="addMoreImage(i)" />
-                      </div>
+              <div class="row mt-top">
+                <div class="col-md-12">
+                  <div class="portfolio-label">Event Decription</div>
+                  <div class="row"
+                    *ngIf="addEventForm.EventDescription.errors && (addEventForm.EventDescription.dirty || addEventForm.EventDescription.touched)">
+                    <div class="col-md-12">
+                      <app-required-validation-message [fieldName]="'Event Description'"
+                        *ngIf="addEventForm.EventDescription.errors.required"></app-required-validation-message>
                     </div>
                   </div>
+                  <angular-editor class="form-control" [placeholder]="'About Event'" formControlName="EventDescription"
+                    [config]="config">
+                  </angular-editor>
                 </div>
-                <div class="row mt-top" *ngIf="isUploaded">
-                  <div class="col-md-2" *ngFor='let url of urls;let i=index'>
-                    <div class="custom-photo-container">
-                      <span class="close"><a (click)="removeMedia(i)">&times;</a></span>
-                      <img src="{{url.Name}}" alt="" class="img-raised" title="" *ngIf="url.IsImage==='image'">
-                      <a href="{{url.Name}}" *ngIf="url.IsImage==='pdf'" target="_blank">
-                        <img src="assets/img/radian/document.png" alt="" class="img-raised">
-                      </a>
-                      <div *ngIf="url.IsImage==='video'" class="video">
-                        <img src="{{url.Image}}" class="img-raised">
-                        <a></a>
+              </div>
+              <hr />
+              <div class="row mt-top">
+                <div class="col-md-12">
+                  <div class="portfolio-label">Event Media</div>
+                  <div class="row"
+                    *ngIf="addEventForm.EventMedia.errors && (addEventForm.EventMedia.dirty || addEventForm.EventMedia.touched)">
+                    <div class="col-md-12">
+                      <app-required-validation-message [fieldName]="'Image'"
+                        *ngIf="addEventForm.EventMedia.errors.required"></app-required-validation-message>
+                    </div>
+                  </div>
+                  <div class="row" *ngFor="let item of addMoreImageArray;let i=index;">
+                    <div class="col-md-4" *ngIf="imageIndex===i">
+                      <select class="select-css" (change)="selectMediaType($event.target.value)">
+                        <option value="image" selected="true">Image/Document</option>
+                        <option value="video">Video</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6" *ngIf="isImageType && imageIndex===i">
+                      <input id="file{{i}}" type="file" accept="application/pdf, image/jpeg, image/png"
+                        (change)="fileChangeEvent($event,i)" />
+                    </div>
+                    <div class="col-md-6" *ngIf="!isImageType && imageIndex===i">
+                      <div class="input-group">
+                        <input id="video{{i}}" type="text" class="signUp-form-control form-control"
+                          placeholder="YouTube Video Link" formControlName="linkURL">
                       </div>
+                    </div>
+                    <div class="col-md-2" *ngIf="!isImageType && imageIndex===i">
+                      <input type="button" class="btn btn-primary btn-round custom-btn" value="Add"
+                        (click)="addMoreImage(i)" />
                     </div>
                   </div>
                 </div>
-                <div class="row mt-top">
-                  <div class="col-md-12 flt-right">
-                    <button class="btn btn-primary btn-round btn-margin" (click)="onSubmit()">Create</button>&nbsp;
-                    <a [routerLink]="['/member/event_view']" class="btn btn-primary btn-round reset-btn">Cancel</a>
+              </div>
+              <div class="row mt-top" *ngIf="isUploaded">
+                <div class="col-md-2" *ngFor='let url of urls;let i=index'>
+                  <div class="custom-photo-container">
+                    <span class="close"><a (click)="removeMedia(i)">&times;</a></span>
+                    <img src="{{url.Name}}" alt="" class="img-raised" title="" *ngIf="url.IsImage==='image'">
+                    <a href="{{url.Name}}" *ngIf="url.IsImage==='pdf'" target="_blank">
+                      <img src="assets/img/radian/document.png" alt="" class="img-raised">
+                    </a>
+                    <div *ngIf="url.IsImage==='video'" class="video">
+                      <img src="{{url.Image}}" class="img-raised">
+                      <a></a>
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div class="row mt-top">
+                <div class="col-md-12 flt-right">
+                  <button class="btn btn-primary btn-round btn-margin" (click)="onSubmit()">Create</button>&nbsp;
+                  <a [routerLink]="['/member/event_view']" class="btn btn-primary btn-round reset-btn">Cancel</a>
+                </div>
+              </div>
             </div>
           </form>
         </div>
