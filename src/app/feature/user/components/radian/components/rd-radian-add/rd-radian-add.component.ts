@@ -111,6 +111,7 @@ export class RdRadianAddComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
+          debugger
           this.spinner.hide()
           this.userPortfolio = res.data;
         },

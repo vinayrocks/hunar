@@ -76,14 +76,7 @@ export class RdEventAddComponent implements OnInit {
       EventSkill: [''],
       EventCategory: ['', Validators.required],
       IsEventOnline: [false],
-      EventLink: ['', this.requiredIfValidator(() => this.addEventForm.IsEventOnline.value)],
-      country: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
-      street: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
-      city: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
-      state: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
-      zip: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
-      EventStartDateTime: ['', Validators.required],
-      EventEndDateTime: ['', Validators.required],
+       
       linkURL: ['']
     });
     debugger
@@ -219,7 +212,6 @@ export class RdEventAddComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          debugger
           this.spinner.hide()
           var dataReposne = res.data.split(',');
           this.serverFile = [];

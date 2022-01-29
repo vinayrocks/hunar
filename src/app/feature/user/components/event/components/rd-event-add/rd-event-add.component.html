@@ -210,9 +210,9 @@
                         *ngIf="addEventForm.EventDescription.errors.required"></app-required-validation-message>
                     </div>
                   </div>
-                  <angular-editor class="form-control" [placeholder]="'About Event'" formControlName="EventDescription"
-                    [config]="config">
-                  </angular-editor>
+                  <textarea class="form-control" [placeholder]="'About Event'" formControlName="EventDescription"
+                    >
+                  </textarea>
                 </div>
               </div>
               <hr />

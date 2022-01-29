@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { RdDeleteConfirmationBoxComponent } from './components/rd-delete-confirmation-box/rd-delete-confirmation-box.component';
 import { RdUrlLinkBoxComponent } from './components/rd-url-link-box/rd-url-link-box.component';
 import { RdUserListBoxComponent } from './components/rd-user-list-box/rd-user-list-box.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 @NgModule({
   declarations: [RdNavbarComponent, RdFooterComponent,RdLoginComponent, 
     RdForgotPasswordComponent, RdDeleteConfirmationBoxComponent, RdUrlLinkBoxComponent, RdUserListBoxComponent],
@@ -28,7 +29,8 @@ import { RdUserListBoxComponent } from './components/rd-user-list-box/rd-user-li
     ReactiveFormsModule,
     SharedModule.forRoot(),
     AngularEditorModule,
-    MatButtonModule
+    MatButtonModule,
+    ClipboardModule
   ],
   exports:[
     RdNavbarComponent,

@@ -111,9 +111,9 @@
               </div>
               <div class="row">
                 <div class="col-md-12 custom-editor">
-                  <angular-editor class="custom-angular-editor" [attr.disabled]="true"
-                    [(ngModel)]="item.EventDescription" [config]="config">
-                  </angular-editor>
+                  <textarea class="custom-angular-editor" [attr.disabled]="true"
+                    [(ngModel)]="item.EventDescription" >
+                  </textarea>
                 </div>
               </div>
               <div class="row">
@@ -166,7 +166,7 @@
                 <div class="col-md-3">
                   <div class="row custom-row-like custom-row-for-marking-like">
                     <div class="col-md-1 custom-col-for-like">
-                      <a class="a-btn a-click">
+                      <a class="a-btn a-click" (click)="getShareLink(item)">
                         <img class="custom-margin-icon" src="./assets/img/radian/shareIcon.png">
                       </a>
                     </div>

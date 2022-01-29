@@ -17,5 +17,4 @@ export class RdUrlLinkBoxComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close('Cancel');
   }
-
 }

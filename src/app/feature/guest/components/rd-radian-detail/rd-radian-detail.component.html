@@ -68,9 +68,9 @@
                     <div class="row"  style="margin-right: 0px; margin-left: 0px;">
                         <div class="col-md-12 custom-editor">
                             <!-- <h6>Event Description</h6> -->
-                            <angular-editor  [attr.disabled]="true"
-                                [(ngModel)]="radianDetail.EventDescription" [config]="config">
-                            </angular-editor>
+                            <textarea  [attr.disabled]="true"
+                                [(ngModel)]="radianDetail.EventDescription" >
+                            </textarea>
                             <!-- <p class="text-primary">{{radianDetail.EventDescription}}</p> -->
                         </div>
                     </div><br />
@@ -138,7 +138,7 @@
                     <div class="row"  style="margin-right: 0px; margin-left: 0px;text-align: center;">
                         <div class="col-md-12" *ngIf="radianDetail.EventStatus">
                             <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId===''" (click)="welcomeMessage()">I'm Interested</button>&nbsp;
-                            <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId!=='' && !UserInterested" (click)="addEventParticipation()">I'm Interested</button>&nbsp;
+                            <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId!==radianDetail.UserId" (click)="addEventParticipation()">I'm Interested</button>&nbsp;
                             <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId!=='' && UserInterested">Already Interested</button>&nbsp;
                         </div>
                     </div>

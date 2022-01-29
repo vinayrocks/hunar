@@ -38,9 +38,9 @@
                                         <!-- <textarea class="form-control white-board" [attr.disabled]="true">
                                             {{item.PortfolioArtifacts}}
                                         </textarea> -->
-                                        <angular-editor class="form-control" style="font-family: Open Sans !important;"
-                                            [(ngModel)]="item.PortfolioArtifacts" [config]="config" disabled="true">
-                                        </angular-editor>
+                                        <textarea class="form-control" style="font-family: Open Sans !important;"
+                                            [(ngModel)]="item.PortfolioArtifacts"  disabled="true">
+                                        </textarea>
                                         </div>
                                     </div><br />
                                     <div class="row" *ngIf="item.PortfolioMedia.length!==0">
