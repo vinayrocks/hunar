@@ -126,6 +126,15 @@ export class RdEventEditComponent implements OnInit {
         this.tempSubCategory.push({ 'id': element.id, 'name': element.subCategoryName, 'isChecked': false });
       }
     });
+
+    // 2 - Offline / 1 - Online
+    if(this.userEvent.IsEventOnline == "2"){
+      this.userEvent.IsEventOnline = false;
+    }
+    else if(this.userEvent.IsEventOnline == "1"){
+      this.userEvent.IsEventOnline = true;
+    }
+
     this.editEventForm.EventName.setValue(this.userEvent.EventName);
     this.editEventForm.EventSkill.setValue(this.userEvent.EventSkill.id);
     this.editEventForm.EventMedia.setValue(this.userEvent.EventMedia);
@@ -133,11 +142,11 @@ export class RdEventEditComponent implements OnInit {
     this.editEventForm.EventDescription.setValue(this.userEvent.EventDescription);
     this.editEventForm.EventStatus.setValue(this.userEvent.EventStatus);
     this.editEventForm.IsEventOnline.setValue(this.userEvent.IsEventOnline);
-    this.editEventForm.country.setValue(this.userEvent.countryId);
-    this.editEventForm.street.setValue(this.userEvent.street);
-    this.editEventForm.city.setValue(this.userEvent.city);
+    this.editEventForm.country.setValue(this.userEvent.EventLocation.country);
+    this.editEventForm.street.setValue(this.userEvent.EventLocation.street);
+    this.editEventForm.city.setValue(this.userEvent.EventLocation.city);
     this.editEventForm.state.setValue(this.userEvent.state);
-    this.editEventForm.zip.setValue(this.userEvent.zip);
+    this.editEventForm.zip.setValue(this.userEvent.EventLocation.zip);
     this.editEventForm.EventLink.setValue(this.userEvent.EventLink);
     this.editEventForm.EventStartDateTime.setValue(this.userEvent.EventStartDateTime);
     this.editEventForm.EventEndDateTime.setValue(this.userEvent.EventEndDateTime);
@@ -150,12 +159,11 @@ export class RdEventEditComponent implements OnInit {
     this.editEventForm.state.updateValueAndValidity();
     this.editEventForm.zip.updateValueAndValidity();
   }
+
   getStates(event: any) {
-    
     this.state = this.countryState.filter(function (item) {
       return item.country === event;
     })[0].states;
-
   }
   getSkillSubCategory(event: any) {
     this.tempSubCategory = [];
@@ -174,15 +182,19 @@ export class RdEventEditComponent implements OnInit {
   }
   getUserEvent(item) {
     this.spinner.show()
+    
     this.rdUserService.getUserEvent(new RdCommon(item))
       .pipe(first())
       .subscribe(
         res => {
           this.spinner.hide()
+          debugger;
           res.data.forEach(element => {
             this.EventPictureModel = element.EventMedia.split(',');
             element.EventSkill = element.EventSkill === '' ? [] : JSON.parse(element.EventSkill);
             element.EventCategory = element.EventCategory === '' ? [] : JSON.parse(element.EventCategory);
+            debugger;
+            element.EventLocation = element.EventLocation === '' ? [] : JSON.parse(element.EventLocation);
             element.EventMedia = element.EventMedia === '' ? [] : this.GetEventImagePath(element);
 
           });
@@ -289,8 +301,8 @@ export class RdEventEditComponent implements OnInit {
   onSubmit() {
     this.spinner.show()
     // stop here if form is invalid
+    debugger;
     if (this.editEventFormGroup.invalid) {
-
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.editEventFormGroup);
       return;
