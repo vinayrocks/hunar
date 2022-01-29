@@ -1,6 +1,11 @@
 .row.card.portfolio{
     margin-top:28px;
 }
+.custom-col-12{
+  padding-top: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+}
 textarea.white-board {
     resize: none;
     height: auto;
@@ -66,6 +71,20 @@ th {
   color:#FF3636;
 }
 .btn-custom{
-  background-color: #5cb85c !important;
-  margin-left: -15px !important;
+  background-color: #7ed957 !important;
+  padding-left: 30px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 700;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin: 20px;
+}
+.interestedUsers{
+  width: 9.5%;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: #FFFFFF;
+  color: #000000;
+  cursor: not-allowed;
 }

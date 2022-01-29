@@ -1,13 +1,15 @@
 <div class="section section-team">
+    <br/>
     <div class="container">
         <div class="row">
             <div class="col-md-12 card">
                 <div class="page-header page-header-small" filter-color="orange">
                     <div class="page-header-image rellax-header custom-cover" data-rellax-speed="0">
-                        <img src="{{CoverPicture}}" alt="" *ngIf="CoverPicture!==''">
-                        <img src="./assets/img/default-cover-picture.jpg" alt="" *ngIf="CoverPicture===''">
+                        <img src="{{CoverPicture}}" alt="" *ngIf="CoverPicture!==''" class="custom-cover">
+                        <img src="./assets/img/default-cover-picture.jpg" alt="" *ngIf="CoverPicture===''" class="custom-cover">
                     </div>
                 </div>
+                <br/>
                 <div class="team custom-paragraph">
                     <div class="row"  style="margin-right: 0px; margin-left: 0px;">
                         <div class="col-md-12">
@@ -17,14 +19,14 @@
                     </div>
                     <div class="row"  style="margin-right: 0px; margin-left: 0px;">
                         <div class="col-md-6">
-                            <p>Last Accessed: {{radianDetail.ModifiedDate|date:'MM/dd/yyyy hh:mm:ss'}}</p>
+                            <p><img class="custom-clock" src="./assets/img/radian/lastAccessed.png">&nbsp;<label class="like-count-text-accessed">{{radianDetail.ModifiedDate|date:'dd MMM yyyy'}} at {{radianDetail.ModifiedDate|date:'hh:mm'}}</label></p>
                         </div>
                         <div class="col-md-6 custom-align">
-    
                             <table>
+
                                 <tr>
                                     <td>
-                                        <div class="custom-like">{{radianDetail.LikeCount}}&nbsp;&nbsp;</div>
+                                        <div class="custom-like"><label class="like-count-text">{{radianDetail.LikeCount}}</label>&nbsp;&nbsp;</div>
                                     </td>
                                     <td *ngIf="radianLikeData.UserId!==''">
                                         <a class="a-btn a-click" (click)="likeRadianEvent(true,radianDetail)" *ngIf="!UserLiked">
@@ -32,8 +34,8 @@
                                         </a>
                                         <a class="a-btn a-click" (click)="likeRadianEvent(false,radianDetail)" *ngIf="UserLiked">
                                             <img src="./assets/img/radian/like-icon-filled.png">
-                                        </a>
-                                        <a class="a-btn a-click" (click)="getShareLink()"><i class="fa fa-share custom-icon"></i></a>
+                                        </a>&nbsp;
+                                        <a class="a-btn a-click" (click)="getShareLink()"><img class="custom-margin-icon" src="./assets/img/radian/shareIcon.png"></a>
                                     </td>
                                     <td *ngIf="radianLikeData.UserId===''">
                                         <a class="a-btn" *ngIf="radianDetail.LikeCount==='0'">
@@ -41,8 +43,10 @@
                                         </a>
                                         <a class="a-btn" *ngIf="radianDetail.LikeCount!=='0'">
                                             <img src="./assets/img/radian/like-icon-filled.png">
+                                        </a>&nbsp;
+                                        <a class="a-btn a-click">
+                                            <img class="custom-margin-icon" src="./assets/img/radian/shareIcon.png">
                                         </a>
-                                        <span><i class="fa fa-share custom-icon"></i></span>
                                     </td>
                                 </tr>
                             </table>
@@ -90,7 +94,7 @@
                         <div class="col-md-12">
                             <h5 class="title">Media</h5><br/>
                             <div class="row">
-                                <div class="col-md-2" *ngFor="let elem of radianDetail.EventImages;let i=index;">
+                                <div class="col-md-3" *ngFor="let elem of radianDetail.EventImages;let i=index;">
                                     <div class="custom-photo-container">
                                         <img src="{{elem.Name}}" alt="" class="img-raised" title="" (click)='openImageDialog(radianDetail.EventImages,i)'
                                         *ngIf="elem.IsImage==='image'">
@@ -128,7 +132,6 @@
                         </div>
                         <div class="col-md-9">
                             <p class=" text-primary">
-                                {{radianDetail.ContactDetails?.phoneCode}}-{{radianDetail.ContactDetails?.phone}} /
                                 {{radianDetail.ContactDetails?.cellCode}}-{{radianDetail.ContactDetails?.cell}}</p>
                         </div>
                     </div><br />

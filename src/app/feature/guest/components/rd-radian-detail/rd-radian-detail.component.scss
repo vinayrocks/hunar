@@ -1,7 +1,39 @@
 .content-header{
     color:#111111;
 }
-
+.custom-cover{
+  border-radius:8px;
+}
+.custom-margin-icon{
+  margin-top: 3px;
+}
+.like-count-text{
+  display: inline-block;
+  margin-bottom: 0px;
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.custom-clock{
+  height: 20px;
+  width: 20px;
+}
+.like-count-text-accessed {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.card {
+  border: 0;
+  padding: 25px;
+  border-radius: 0.1875rem;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 20%);
+}
 .p-skill label{
   //border-radius: 10px;
   //padding: 5px 8px 5px 8px;
