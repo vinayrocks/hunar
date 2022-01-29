@@ -15,6 +15,7 @@ export class RdEncryptDecryptService {
     for (var key in data) {
       if (data.hasOwnProperty(key)) {
         data[key]=this.set(data[key]);
+       
       }
     }
     return data; 

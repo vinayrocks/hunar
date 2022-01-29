@@ -61,6 +61,7 @@ export class RdEventEditComponent implements OnInit {
   countryState: any;
   countryCode: any;
   state: any;
+  images:any=[];
   constructor(private _formBuilder: FormBuilder, private rdUserService: RdUserService,
     private router: Router, private _encryptDecryptService: RdEncryptDecryptService,
     private route: ActivatedRoute, private embedService: EmbedVideoService,
@@ -134,22 +135,23 @@ export class RdEventEditComponent implements OnInit {
     else if(this.userEvent.IsEventOnline == "1"){
       this.userEvent.IsEventOnline = true;
     }
-
     this.editEventForm.EventName.setValue(this.userEvent.EventName);
     this.editEventForm.EventSkill.setValue(this.userEvent.EventSkill.id);
-    this.editEventForm.EventMedia.setValue(this.userEvent.EventMedia);
+    this.editEventForm.EventMedia.setValue(this.userEvent.EventMedia.map((x:any)=>x.name));
     this.editEventForm.EventCategory.setValue(this.tempArr.join(','));
     this.editEventForm.EventDescription.setValue(this.userEvent.EventDescription);
     this.editEventForm.EventStatus.setValue(this.userEvent.EventStatus);
     this.editEventForm.IsEventOnline.setValue(this.userEvent.IsEventOnline);
     this.editEventForm.country.setValue(this.userEvent.EventLocation.country);
     this.editEventForm.street.setValue(this.userEvent.EventLocation.street);
-    this.editEventForm.city.setValue(this.userEvent.EventLocation.city);
-    this.editEventForm.state.setValue(this.userEvent.state);
+    this.editEventForm.city.setValue(this.userEvent.EventLocation.city);                 
+    this.editEventForm.state.setValue(this.userEvent.EventLocation.state);
     this.editEventForm.zip.setValue(this.userEvent.EventLocation.zip);
-    this.editEventForm.EventLink.setValue(this.userEvent.EventLink);
+    this.editEventForm.EventLink.setValue(this.userEvent.EventLink===undefined?'':this.userEvent.EventLink);
     this.editEventForm.EventStartDateTime.setValue(this.userEvent.EventStartDateTime);
     this.editEventForm.EventEndDateTime.setValue(this.userEvent.EventEndDateTime);
+  
+    
   }
   changeEventType(event:any){
     this.editEventForm.EventLink.updateValueAndValidity();
@@ -182,26 +184,25 @@ export class RdEventEditComponent implements OnInit {
   }
   getUserEvent(item) {
     this.spinner.show()
-    
     this.rdUserService.getUserEvent(new RdCommon(item))
       .pipe(first())
       .subscribe(
         res => {
           this.spinner.hide()
-          debugger;
+          ;
           res.data.forEach(element => {
             this.EventPictureModel = element.EventMedia.split(',');
             element.EventSkill = element.EventSkill === '' ? [] : JSON.parse(element.EventSkill);
             element.EventCategory = element.EventCategory === '' ? [] : JSON.parse(element.EventCategory);
-            debugger;
             element.EventLocation = element.EventLocation === '' ? [] : JSON.parse(element.EventLocation);
             element.EventMedia = element.EventMedia === '' ? [] : this.GetEventImagePath(element);
-
           });
           this.projectPath = res.projectPath;
           this.userEvent = res.data[0];
           this.eventName = res.data[0].EventName;
           this.eventName = this.eventName.replace(/\s/g, "");
+          this.getStates(this.userEvent.EventLocation.country);
+          
           this.setFormGroup();
         },
         error => {
@@ -301,7 +302,7 @@ export class RdEventEditComponent implements OnInit {
   onSubmit() {
     this.spinner.show()
     // stop here if form is invalid
-    debugger;
+    ;
     if (this.editEventFormGroup.invalid) {
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.editEventFormGroup);
@@ -312,6 +313,7 @@ export class RdEventEditComponent implements OnInit {
         .pipe(first())
         .subscribe(
           res => {
+            this.spinner.hide()
             var dataReposne = res.data.split(',');
             this.serverFile = [];
             dataReposne.forEach(element => {
@@ -325,6 +327,8 @@ export class RdEventEditComponent implements OnInit {
             this.notificationService.error('Something went wrong.Please try again.');
           });
     } else {
+      debugger
+      this.editEventForm.EventMedia.setValue(this.EventPictureModel);
       this.submitDetail();
     }
 
@@ -341,7 +345,11 @@ export class RdEventEditComponent implements OnInit {
         } else {
           this.notificationService.error(res.message);
         }
-      })
+      },error => {
+        debugger
+        this.spinner.hide()
+        this.notificationService.error('Something went wrong.Please try again.');
+      });
   }
   assembleEventPictures(uploadedImages) {
     uploadedImages.forEach(element => {

@@ -62,9 +62,9 @@
                             <div class="portfolio-label">About Profile</div>
                         </div> -->
                             <div class="col-md-12 custom-editor">
-                                <angular-editor [attr.disabled]="true" [(ngModel)]="memberDetail.ProfileDescription"
-                                    [config]="config">
-                                </angular-editor>
+                                <textarea [attr.disabled]="true" [(ngModel)]="memberDetail.ProfileDescription"
+                                    >
+                                </textarea>
                                 <!-- <p class="text-primary">{{memberDetail.ProfileDescription}}</p> -->
                             </div>
                         </div><br />
@@ -151,10 +151,10 @@
                                             <td width=20%><a class="evt-name" (click)="getItemDetail(item)">
                                                     {{item.EventName}}</a></td>
                                             <td width=100% class="evt-detail">
-                                                <angular-editor [attr.disabled]="true"
-                                                    [(ngModel)]="item.EventDescription" [config]="config"
+                                                <textarea [attr.disabled]="true"
+                                                    [(ngModel)]="item.EventDescription" 
                                                     disabled="true">
-                                                </angular-editor>
+                                                </textarea>
                                             </td>
                                             <!-- <td>
                                                 <tr *ngFor="let cat of item.EventCategories">
@@ -184,10 +184,10 @@
                                             <td width=20%><a class="evt-name"
                                                     (click)="getProfileItemDetail(item)">{{item.ProfileName}}</a></td>
                                             <td width=100% class="evt-detail">
-                                                <angular-editor [attr.disabled]="true"
-                                                    [(ngModel)]="item.ProfileDescription" [config]="config"
+                                                <textarea [attr.disabled]="true"
+                                                    [(ngModel)]="item.ProfileDescription" 
                                                     disabled="true">
-                                                </angular-editor>
+                                                </textarea>
                                             </td>
 
                                         </tr>

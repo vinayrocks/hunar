@@ -36,9 +36,9 @@ export class RdUserService {
       }));
   }
   getUserPorfolios(rdCommon) {
-    rdCommon.UserId=rdCommon.UserId;
-    rdCommon.Id=0;
-    
+    this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
+    rdCommon.UserId=this.currentUserSubject.id;
+    rdCommon.Id=0;debugger
     return this.http.post<any>(environment.apiCommon+'radianApi/Portfolios/getPortfolios.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -121,6 +121,7 @@ export class RdUserService {
       }));
   }
   UploadUserEventImage(file: any, eventName: string) {
+    debugger
     this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     const formData = new FormData();
     formData.append('UserId', this._encryptDecryptService.set(this.currentUserSubject.id));
@@ -164,9 +165,9 @@ export class RdUserService {
     rdEvent.UserId = this.currentUserSubject.id;
     rdEvent.Email = this.currentUserSubject.username;
     rdEvent.FirstName = this.currentUserSubject.firstName;
+    debugger
     var data = this._encryptDecryptService.ecryptModel(rdEvent);
     const dd = JSON.stringify(data);
-    debugger
     return this.http.post<any>(environment.apiCommon+'radianApi/Events/createEvent.php', JSON.stringify(data));
   }
   addUpdateSettings(rdSettings:any){

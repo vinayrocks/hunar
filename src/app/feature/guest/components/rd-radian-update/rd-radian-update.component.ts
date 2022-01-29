@@ -217,14 +217,7 @@ export class RdRadianUpdateComponent implements OnInit {
   //   // return 'http://itechprovisions.com/radianApi/media/'+data.FirstName+'_'+data.Email.split('@')[0]+'/Profile/'+data.ProfileName+'/ProfileImages/'+data.ProfilePicture;
   // }
   GetRadianDetail(element) {
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = false;
-    // dialogConfig.autoFocus = true;
-    // dialogConfig.width = '1000px';
-    // dialogConfig.height = '500px';
-    // dialogConfig.data=element;
-    // this.matDialog.open(RdRadianDetailComponent, dialogConfig);
-
+    const key = this._encryptDecryptService.set(element.EventId);
     this.router.navigate(['/detail', this._encryptDecryptService.set(element.EventId)]);
   }
   likeRadianEvent(status, data) {
@@ -241,11 +234,12 @@ export class RdRadianUpdateComponent implements OnInit {
         error => {
         });
   }
-  getShareLink() {
-    const data = this.notificationService.showLinkUrl()
+  getShareLink(item) {
+    const data = this.notificationService.showLinkUrl();
+    const key = this._encryptDecryptService.set(item.EventId);
     this.matDialog.open(RdUrlLinkBoxComponent, {
       width: '500px',
-      data: { link: data }
+      data: { link: data+'/'+key }
     });
   }
   ngOnDestroy() {

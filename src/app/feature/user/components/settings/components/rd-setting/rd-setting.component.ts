@@ -23,11 +23,11 @@ export class RdSettingComponent implements OnInit {
     private notificationService: NotificationService, private router: Router,
     private rdAuthenticateService: RdAuthenticateService,private spinner:NgxSpinnerService) { 
       this.currentUser = this.rdAuthenticateService.getLocalStorageData();
-      this.currentUser.isAddressShown=this.currentUser.isAddressShown==true?true:false;
-      this.currentUser.isEmailShown=this.currentUser.isEmailShown==true?true:false;
-      this.currentUser.isMailingAddressShown=this.currentUser.isMailingAddressShown==true?true:false;
-      this.currentUser.isRadianMemberProfileShown=this.currentUser.isRadianMemberProfileShown==true?true:false;
-      this.currentUser.isViewerProfileShown=this.currentUser.isViewerProfileShown==true?true:false;
+      this.currentUser.isAddressShown=JSON.parse(this.currentUser.isAddressShown)==true?true:false;
+      this.currentUser.isEmailShown=JSON.parse(this.currentUser.isEmailShown)==true?true:false;
+      this.currentUser.isMailingAddressShown=JSON.parse(this.currentUser.isMailingAddressShown)==true?true:false;
+      this.currentUser.isRadianMemberProfileShown=JSON.parse(this.currentUser.isRadianMemberProfileShown)==true?true:false;
+      this.currentUser.isViewerProfileShown=JSON.parse(this.currentUser.isViewerProfileShown)==true?true:false;
     }
   ngOnInit() {
     var body = document.getElementsByTagName('body')[0];

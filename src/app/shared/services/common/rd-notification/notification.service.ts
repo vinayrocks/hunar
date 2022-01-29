@@ -45,6 +45,6 @@ export class NotificationService {
     },2000)
   }
   showLinkUrl(){
-    return environment.apiUrl + '#'+this.router.url;
+    return environment.apiUrl +'/detail';
   }
 }
