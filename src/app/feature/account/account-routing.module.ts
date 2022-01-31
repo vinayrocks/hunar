@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RdSignupComponent } from './components/rd-signup/rd-signup.component';
-import { RdResetPasswordComponent } from './components/rd-reset-password/rd-reset-password.component';
 import { RdAccountLayoutComponent } from './layout/rd-account-layout/rd-account-layout.component';
 
 

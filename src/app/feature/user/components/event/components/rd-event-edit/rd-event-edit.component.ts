@@ -327,7 +327,7 @@ export class RdEventEditComponent implements OnInit {
             this.notificationService.error('Something went wrong.Please try again.');
           });
     } else {
-      debugger
+      
       this.editEventForm.EventMedia.setValue(this.EventPictureModel);
       this.submitDetail();
     }
@@ -346,7 +346,7 @@ export class RdEventEditComponent implements OnInit {
           this.notificationService.error(res.message);
         }
       },error => {
-        debugger
+        
         this.spinner.hide()
         this.notificationService.error('Something went wrong.Please try again.');
       });

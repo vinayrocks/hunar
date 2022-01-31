@@ -32,7 +32,7 @@
                   <label class="lbl-custom">Search By Category</label>
                   <div class="row">
                     <div class="col-md-12">
-                      <select class="select-css" placeholder="Skill/Art" formControlName="SearchBySkillCategory"
+                      <select class="select-css" placeholder="Skill/Art" formControlName="SearchBySkill"
                         (change)="getSKillSubCategory($event.target.value)">
                         <option value="" [selected]="true">Select</option>
                         <option *ngFor="let item of skills" value="{{item.radianSkillCategoryId}}">

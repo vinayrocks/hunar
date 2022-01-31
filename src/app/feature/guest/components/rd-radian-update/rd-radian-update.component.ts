@@ -67,7 +67,7 @@ export class RdRadianUpdateComponent implements OnInit {
     body.classList.add('profile-page');
     var navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.add('navbar-transparent');
-    debugger
+    
     this.searchRadianUpdatesFormGroup = this._formBuilder.group({
       SearchBySkillCategory: [''],
       SearchBySkill: [''],
@@ -92,10 +92,10 @@ export class RdRadianUpdateComponent implements OnInit {
       }
     }
     
-    this.searchRadianUpdatesForm.SearchBySkill.setValue(this.tempArr.join(','));
+    this.searchRadianUpdatesForm.SearchBySkillCategory.setValue(this.tempArr.join(','));
   }
   onSubmit(SearchCount: Number) {
-    debugger;
+    ;
     this.spinner.show()
     this.searchRadianUpdatesForm.SearchCount.setValue(SearchCount);
     if (this.searchRadianUpdatesFormGroup.invalid) {
@@ -105,13 +105,11 @@ export class RdRadianUpdateComponent implements OnInit {
     
     this.rdUserService.searchRadianUpdate(new RdRadianUpdates(this.searchRadianUpdatesFormGroup.value))
       .subscribe(res => {
-        // ();
+        
         if (res.status) {
-          ;
           if (res.data !== 'No Results Found!') {
-            
             res.data.forEach(element => {
-              debugger
+              
               element.EventStatus = element.EventStatus === '1' ? true : false;
               element.ContactDetails = element.ContactDetails === '' ? [] : JSON.parse(element.ContactDetails);
               element.EventCategories = element.EventCategories === '' ? [] : JSON.parse(element.EventCategories);

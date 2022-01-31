@@ -72,6 +72,7 @@ export class RdRadianDetailComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
+          
           this.spinner.hide()
           res.data.forEach(element => {
             element.EventStatus = element.EventStatus === '1' ? true : false;
@@ -79,8 +80,9 @@ export class RdRadianDetailComponent implements OnInit {
             element.EventCategories = element.EventCategories === '' ? [] : JSON.parse(element.EventCategories);
             element.EventSkill = element.EventSkill === '' ? [] : JSON.parse(element.EventSkill);
             element.EventImages = this.getProfilefilePath(element);
+            element.EventLocation = element.EventLocation === '' ? [] : JSON.parse(element.EventLocation);
           });
-          debugger
+          
           this.radianDetail = res.data[0];
           this.UserLiked = res.UserLiked;
           this.UserInterested = res.UserInterested;
@@ -150,7 +152,7 @@ export class RdRadianDetailComponent implements OnInit {
         });
   }
   getShareLink() {
-    debugger
+    
     const data = this.notificationService.showLinkUrl()
     this.matDialog.open(RdUrlLinkBoxComponent, {
       width: '500px',

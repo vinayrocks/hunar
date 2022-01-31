@@ -76,10 +76,16 @@ export class RdEventAddComponent implements OnInit {
       EventSkill: [''],
       EventCategory: ['', Validators.required],
       IsEventOnline: [false],
-       
+      EventLink: ['', this.requiredIfValidator(() => this.addEventForm.IsEventOnline.value)],
+      country: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      street: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      city: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      state: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      zip: ['',  this.requiredIfValidator(() => !this.addEventForm.IsEventOnline.value)],
+      EventStartDateTime: ['', Validators.required],
+      EventEndDateTime: ['', Validators.required],
       linkURL: ['']
     });
-    debugger
   }
   get addEventForm() { return this.addEventFormGroup.controls; }
   changeEventType(event:any){
@@ -196,7 +202,7 @@ export class RdEventAddComponent implements OnInit {
     this.serverFile.splice(index,1);
   }
   onSubmit() {
-    debugger
+    
     this.spinner.show()
     // stop here if form is invalid
     if (this.addEventFormGroup.invalid) {
@@ -237,7 +243,7 @@ export class RdEventAddComponent implements OnInit {
       this.addEventForm.EventStartDateTime.setValue(moment(this.addEventForm.EventStartDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
       this.addEventForm.EventEndDateTime.setValue(moment(this.addEventForm.EventEndDateTime.value).format('YYYY-MM-DD HH:mm:ss'));
       this.addEventForm.EventMedia.setValue('');
-      debugger;
+      ;
       this.rdUserService.addUserEvent(new RdEvent(this.addEventFormGroup.value))
         .subscribe(res => {
           this.spinner.hide();

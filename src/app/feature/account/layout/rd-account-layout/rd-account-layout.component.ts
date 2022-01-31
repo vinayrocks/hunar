@@ -24,6 +24,7 @@ export class RdAccountLayoutComponent implements OnInit {
      });
      this._router = this.router.events.filter(event => event instanceof NavigationEnd)
     .subscribe((event: NavigationEnd) => {
+      
       var _location = this.location.path();
       _location = _location.split('/')[2];
       if(_location!=='home'){
