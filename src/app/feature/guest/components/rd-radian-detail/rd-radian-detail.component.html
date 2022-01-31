@@ -118,7 +118,7 @@
                             <p class=" text-primary">{{radianDetail.FirstName}} {{radianDetail.LastName}}</p>
                         </div>
                     </div>
-                    <div class="row"  style="margin-right: 0px; margin-left: 0px;">
+                    <div class="row"  style="margin-right: 0px; margin-left: 0px;" *ngIf="radianDetail.IsEmailShown==='true'">
                         <div class="col-md-3">
                             <div class="portfolio-label">Email Id</div>
                         </div>
@@ -126,7 +126,7 @@
                             <p class=" text-primary">{{radianDetail.Email}}</p>
                         </div>
                     </div>
-                    <div class="row"  style="margin-right: 0px; margin-left: 0px;">
+                    <div class="row"  style="margin-right: 0px; margin-left: 0px;" *ngIf="radianDetail.IsContactNumberShown==='true'">
                         <div class="col-md-3">
                             <div class="portfolio-label">Contact Details</div>
                         </div>
@@ -135,10 +135,20 @@
                                 {{radianDetail.ContactDetails?.cellCode}}-{{radianDetail.ContactDetails?.cell}}</p>
                         </div>
                     </div><br />
+                    <div class="row"  style="margin-right: 0px; margin-left: 0px;" *ngIf="radianDetail.IsAddressShown==='true'">
+                        <div class="col-md-3">
+                            <div class="portfolio-label">Address</div>
+                        </div>
+                        <div class="col-md-9">
+                            <p class=" text-primary">
+                                {{radianDetail.EventLocation?.street}},{{radianDetail.EventLocation?.city}},
+                                {{radianDetail.EventLocation?.state}},{{radianDetail.EventLocation?.zip}},{{radianDetail.EventLocation?.country}}</p>
+                        </div>
+                    </div><br />
                     <div class="row"  style="margin-right: 0px; margin-left: 0px;text-align: center;">
                         <div class="col-md-12" *ngIf="radianDetail.EventStatus">
                             <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId===''" (click)="welcomeMessage()">I'm Interested</button>&nbsp;
-                            <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId!==radianDetail.UserId" (click)="addEventParticipation()">I'm Interested</button>&nbsp;
+                            <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId!==radianDetail.UserId && radianLikeData.UserId!==''" (click)="addEventParticipation()">I'm Interested</button>&nbsp;
                             <button class="btn btn-primary btn-round btn-margin" *ngIf="radianLikeData.UserId!=='' && UserInterested">Already Interested</button>&nbsp;
                         </div>
                     </div>
