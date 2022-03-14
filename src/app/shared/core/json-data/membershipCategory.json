@@ -15,17 +15,57 @@
       },
       {
         "Id":2,
-        "name": "Premium",
-        "amount": "50",
-        "currency": "$",
-        "planType": "Yearly",
+        "name": "Monthly",
+        "amount": "299",
+        "currency": "INR",
+        "planType": "",
         "properties": [
             "All Features of Basic",
             "Create Multiple Events",
             "View Analytics",
             "Storage Space: 1 GB"
         ]
-    }
+      },
+      {
+        "Id":3,
+        "name": "Quarterly",
+        "amount": "599",
+        "currency": "INR",
+        "planType": "",
+        "properties": [
+            "All Features of Basic",
+            "Create Multiple Events",
+            "View Analytics",
+            "Storage Space: 1 GB"
+        ]
+      },
+      {
+        "Id":4,
+        "name": "Semi Annual",
+        "amount": "1099",
+        "currency": "INR",
+        "planType": "",
+        "properties": [
+            "All Features of Basic",
+            "Create Multiple Events",
+            "View Analytics",
+            "Storage Space: 1 GB"
+        ]
+      },
+      {
+        "Id":5,
+        "name": "Annual",
+        "amount": "2099",
+        "currency": "INR",
+        "planType": "",
+        "properties": [
+            "All Features of Basic",
+            "Create Multiple Events",
+            "View Analytics",
+            "Storage Space: 1 GB"
+        ]
+      }
+      
     
   ]
 }

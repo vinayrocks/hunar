@@ -15,6 +15,8 @@ export class RdRegister {
     altMmobileCountryCode: string;
     altMobileNumber: string;
     memberShip: string;
+    membershipAmount: Number=0;
+    membershipDuration: string;
     email: string;
     password: string;
     confirmPassword: string;

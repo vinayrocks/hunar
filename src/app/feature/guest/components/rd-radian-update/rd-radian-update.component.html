@@ -17,15 +17,11 @@
                 <div class="col-md-12">
                   <label class="lbl-custom">Search Events</label>
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                       <div class="input-group">
                         <input type="text" class="signUp-form-control form-control mt-top custom-input mat-expansion-panel"
                           placeholder="" formControlName="SearchByText">
                       </div>
-                    </div>
-                    <div class="col-md-2 custom-pd">
-                      <button mat-button class="btn btn-danger mt-top btn-lg"
-                        [disabled]="!searchRadianUpdatesFormGroup.valid" (click)="onSubmit(0)">Search</button>
                     </div>
                   </div>
                   <hr/>
@@ -53,6 +49,15 @@
                     </div>
                   </div>
                   <br/>
+                  <div class="row">
+                    <div class="col-md-12">
+                        <button mat-button class="btn btn-danger mt-top btn-lg"
+                          [disabled]="!searchRadianUpdatesFormGroup.valid" (click)="onSubmit(0)">Search</button>
+                        &nbsp;&nbsp;
+                        <button mat-button class="btn btn-danger btn-round mt-top btn-lg"
+                        (click)="reset()">Reset</button>
+                    </div>
+                  </div>
                   <!--<mat-accordion>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                       <mat-expansion-panel-header>
@@ -111,7 +116,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12 custom-editor">
-                  <textarea class="custom-angular-editor" [attr.disabled]="true"
+                  <textarea class="custom-angular-editor" [attr.disabled]="true" rows="8" class="txtarea-custom"
                     [(ngModel)]="item.EventDescription" >
                   </textarea>
                 </div>
