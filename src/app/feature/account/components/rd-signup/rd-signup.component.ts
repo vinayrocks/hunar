@@ -12,6 +12,8 @@ import { codeValidation, emailValidation, numberValidation, passwordValidation }
 import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { RdForgotPassword } from 'src/app/shared/core/models/forgot-password/rd-forgot-password';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as internal from 'events';
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 @Component({
   selector: 'app-rd-signup',
   templateUrl: './rd-signup.component.html',
@@ -21,6 +23,8 @@ export class RdSignupComponent implements OnInit {
   skills: any;
   skillsSubcategory: any;
   membership: any;
+  membershipAmount: Number;
+  membershipDuration: any;
   countryState: any;
   countryCode: any;
   state: any;
@@ -60,6 +64,8 @@ export class RdSignupComponent implements OnInit {
       state: ['', Validators.required],
       zip: ['', Validators.required],
       memberShip: ['', Validators.required],
+      membershipAmount: [''],
+      membershipDuration: [''],
       email: ['', [Validators.required, Validators.email, emailValidation]],
       password: ['', [Validators.required, passwordValidation]],
       confirmPassword: ['', Validators.required],
@@ -120,6 +126,14 @@ export class RdSignupComponent implements OnInit {
     }
     this.registerForm.profileSkillSubCategory.setValue(this.tempArr.join(','));
   }
+
+  onSelectMembership(event, item: any){
+    if (event.target.checked) {
+      this.registerForm.membershipAmount.setValue(item.amount);
+      this.registerForm.membershipDuration.setValue(item.name);
+    } 
+  }
+
   checkEmailExists() {
     
     this.rdAuthenticateService.checkEmailExists(new RdForgotPassword(this.registerFormGroup.value))
@@ -164,7 +178,9 @@ export class RdSignupComponent implements OnInit {
     }
   }
   onSubmit() {
-    
+
+    debugger;
+
     this.spinner.show()
     // Stop here if form is invalid
     if (this.registerFormGroup.invalid) {
@@ -225,9 +241,9 @@ export class RdSignupComponent implements OnInit {
       this.membership = memberShipCategory.MembershipCategories;
     }
     else {
-      this.membership = memberShipCategory.MembershipCategories.filter((x:any)=>x.name==='Premium');
-      this.membership =[...this.membership ];
-      this.registerForm.memberShip.setValue( this.membership[0].Id);
+      this.membership = memberShipCategory.MembershipCategories.filter((x:any)=>x.name==='Monthly' || x.name==='Quarterly' || x.name==='Semi Annual' || x.name==='Annual');
+      this.membership =[...this.membership];
+      this.registerForm.memberShip.setValue(this.membership[0].Id);
     
     }
   }

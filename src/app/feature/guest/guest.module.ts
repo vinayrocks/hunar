@@ -24,11 +24,12 @@ import { RdRadianDetailComponent } from './components/rd-radian-detail/rd-radian
 import { RdMemberDetailComponent } from './components/rd-member-detail/rd-member-detail.component';
 import { RdMemberPortfolioComponent } from './components/rd-member-portfolio/rd-member-portfolio.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RdSubscriptionRefundPolicyComponent } from './components/rd-subscription-refund-policy/rd-subscription-refund-policy.component';
 @NgModule({
   declarations: [RdRadianUpdateComponent, RdMemberSearchComponent, RdHomeComponent,
     RdGuestLayoutComponent, RdAboutUsComponent, RdContactUsComponent, RdHowItWorksComponent,
     RdPrivacyPolicyComponent, RdTermsOfUseComponent, RdVisionMissionComponent, 
-    RdWhoWeAreComponent,RdRadianDetailComponent, RdMemberDetailComponent, RdMemberPortfolioComponent],
+    RdWhoWeAreComponent,RdRadianDetailComponent, RdMemberDetailComponent, RdMemberPortfolioComponent, RdSubscriptionRefundPolicyComponent],
   imports: [
     CommonModule,
     GuestRoutingModule,

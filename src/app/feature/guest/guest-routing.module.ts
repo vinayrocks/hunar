@@ -14,6 +14,7 @@ import { RdPrivacyPolicyComponent } from './components/rd-privacy-policy/rd-priv
 import { RdRadianDetailComponent } from './components/rd-radian-detail/rd-radian-detail.component';
 import { RdMemberDetailComponent } from './components/rd-member-detail/rd-member-detail.component';
 import { RdMemberPortfolioComponent } from './components/rd-member-portfolio/rd-member-portfolio.component';
+import { RdSubscriptionRefundPolicyComponent } from './components/rd-subscription-refund-policy/rd-subscription-refund-policy.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
      {path:'vission-mission',component:RdVisionMissionComponent},
      {path:'term-of-use',component:RdTermsOfUseComponent},
      {path:'privacy-policy',component:RdPrivacyPolicyComponent},
+     {path:'subscription-refund-policy',component:RdSubscriptionRefundPolicyComponent},
      {path:'portfolio-detail/:id',component:RdMemberPortfolioComponent}
     ]
   }

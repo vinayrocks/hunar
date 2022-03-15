@@ -247,4 +247,8 @@ export class RdRadianUpdateComponent implements OnInit {
     navbar.classList.remove('navbar-transparent');
   }
 
+  reset(){
+    
+  }
+
 }
