@@ -14,6 +14,7 @@ import { RdForgotPassword } from 'src/app/shared/core/models/forgot-password/rd-
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as internal from 'events';
 import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { RazorPayService } from 'src/app/shared/services/razor-pay/razor-pay.service';
 @Component({
   selector: 'app-rd-signup',
   templateUrl: './rd-signup.component.html',
@@ -36,7 +37,7 @@ export class RdSignupComponent implements OnInit {
   @ViewChild('radioBtn') radioBtn: any;
   constructor(private _formBuilder: FormBuilder,
     private rdAuthenticateService: RdAuthenticateService,private spinner:NgxSpinnerService,
-    private router: Router, private notificationService: NotificationService) {
+    private router: Router, private notificationService: NotificationService,private razorPayService: RazorPayService) {
     
     this.skills = skillsInterest.SkillsInterest;
     this.membership = memberShipCategory.MembershipCategories;
@@ -178,13 +179,9 @@ export class RdSignupComponent implements OnInit {
     }
   }
   onSubmit() {
-
-    debugger;
-
     this.spinner.show()
     // Stop here if form is invalid
     if (this.registerFormGroup.invalid) {
-
       this.notificationService.error('Please fill in the required fields');
       this.validateAllFormFields(this.registerFormGroup);
       return;
@@ -194,10 +191,19 @@ export class RdSignupComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          this.spinner.hide()
           if (res.status) {
-            this.notificationService.success(res.message);
-            this.router.navigate(['/home']);
+            // this.notificationService.success(res.message);
+            this.razorPayService.payWithRazor(res).pipe(first()).subscribe(pay => {
+              debugger
+              this.notificationService.success(res.message);
+              this.spinner.hide()
+              this.router.navigate(['/home']);
+            },
+            error => {
+              this.spinner.hide()
+              this.notificationService.error('Something went wrong.Please try again.');
+            })
+           
           }
         },
         error => {

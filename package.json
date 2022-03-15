@@ -46,6 +46,7 @@
     "popper.js": "^1.16.1",
     "pretty-checkbox": "^3.0.3",
     "primeng": "^13.0.3",
+    "razorpay": "^2.8.1",
     "rellax": "^1.12.1",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.5",
