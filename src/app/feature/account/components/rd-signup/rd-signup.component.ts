@@ -188,13 +188,15 @@ export class RdSignupComponent implements OnInit {
     }
     
     this.rdAuthenticateService.register(new RdRegister(this.registerFormGroup.value))
+
       .pipe(first())
       .subscribe(
         res => {
+          debugger
           if (res.status) {
             // this.notificationService.success(res.message);
             this.razorPayService.payWithRazor(res).pipe(first()).subscribe(pay => {
-              debugger
+              
               this.notificationService.success(res.message);
               this.spinner.hide()
               this.router.navigate(['/home']);
