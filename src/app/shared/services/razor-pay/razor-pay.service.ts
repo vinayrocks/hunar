@@ -31,20 +31,27 @@ export class RazorPayService {
       }
     };
     options.handler = ((response:any, error:any) => {
-      debugger
-      var data=this._encryptDecryptService.ecryptModel(response);
-      // write the new webapi path in following API
-      return this.http.post<any>(environment.apiCommon+'radianApi/verify.php', data)
-      .pipe(map(res => {
-        return res;
-      }));
-      // call your backend api to verify payment signature & capture transaction
-    });
-    options.modal.ondismiss = (() => {
-      // handle the case when user closes the form while transaction is in progress
-      return null
-    });
+        
+        return response
+        // call your backend api to verify payment signature & capture transaction
+      });
+      options.modal.ondismiss = (() => {
+        // handle the case when user closes the form while transaction is in progress
+        return null
+      });
     const rzp = new this.winRef.nativeWindow.Razorpay(options);
     rzp.open();
   }
+  // managePayment(response:any){
+  //   
+  //   var data=this._encryptDecryptService.ecryptModel(response);
+  //     // write the new webapi path in following API
+  //     return this.http.post<any>(environment.apiCommon+'radianApi/verify.php', data)
+  //     .pipe(map(res => {
+  //       return res;
+  //     },error => {
+  //       
+  //       return
+  //     }));
+  // }
 }
