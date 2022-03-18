@@ -34,7 +34,7 @@ export class RazorPayService {
       debugger
       var data=this._encryptDecryptService.ecryptModel(response);
       // write the new webapi path in following API
-      return this.http.post<any>(environment.apiCommon+'radianApi/Users/loginDetails.php', data)
+      return this.http.post<any>(environment.apiCommon+'radianApi/verify.php', data)
       .pipe(map(res => {
         return res;
       }));
