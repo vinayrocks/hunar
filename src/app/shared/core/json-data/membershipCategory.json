@@ -16,7 +16,7 @@
       {
         "Id":2,
         "name": "Monthly",
-        "amount": "299",
+        "amount": "1",
         "currency": "INR",
         "planType": "",
         "properties": [

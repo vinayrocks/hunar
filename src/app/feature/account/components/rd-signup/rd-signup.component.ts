@@ -231,7 +231,7 @@ export class RdSignupComponent implements OnInit {
             //   this.notificationService.error('Something went wrong.Please try again.');
             // })
             const options: any = {
-              amount: 125500, // amount should be in paise format to display Rs 1255 without decimal point
+              amount: 1, // amount should be in paise format to display Rs 1255 without decimal point
               currency: 'INR',
               name: '', // company name or product name
               description: '', // product description
@@ -285,7 +285,7 @@ export class RdSignupComponent implements OnInit {
       .verifyPayment(event.detail)
       .subscribe(
         (data) => {
-          ;
+          debugger
           this.notificationService.success(data.message);
           this.router.navigate(['/home']);
         },
