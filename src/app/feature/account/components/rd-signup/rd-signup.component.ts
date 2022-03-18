@@ -219,6 +219,7 @@ export class RdSignupComponent implements OnInit {
       .subscribe(
         (res) => {
           if (res.status) {
+            // new concept added
             // this.notificationService.success(res.message);
             // this.razorPayService.payWithRazor(res).subscribe((pay:any) => {
             //   
