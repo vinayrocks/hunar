@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { RdEncryptDecryptService } from '../encrypt-decrypt/rd-encrypt-decrypt.service';
 import { WindowRefService } from './window-ref.service';
 
@@ -10,7 +8,7 @@ import { WindowRefService } from './window-ref.service';
 })
 export class RazorPayService {
 
-  constructor(private winRef: WindowRefService,private http: HttpClient,private _encryptDecryptService:RdEncryptDecryptService) { }
+  constructor(private winRef: WindowRefService) { }
   payWithRazor(data:any):any {
     debugger
     const options: any = {
@@ -32,7 +30,6 @@ export class RazorPayService {
       }
     };
     options.handler = ((response:any, error:any) => {
-        
         return response
         // call your backend api to verify payment signature & capture transaction
       });
