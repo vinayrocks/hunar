@@ -127,7 +127,7 @@ export class RdAuthenticateService {
   verifyPayment(response: any):any {
     var data = this._encryptDecryptService.ecryptModel(response);
     return this.http
-      .post<any>(environment.apiCommon + 'radianApi/verify.php', data)
+      .post<any>(environment.apiCommon + 'radianApi/verify.php', response)
       .pipe(
         map(
           (res) => {

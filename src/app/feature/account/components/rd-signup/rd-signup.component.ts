@@ -258,7 +258,9 @@ export class RdSignupComponent implements OnInit {
             };
             var rzp1 = new Razorpay(options);
             rzp1.open();
+          
             rzp1.on('payment.failed', function (response) {
+              debugger
               // Todo - store this information in the server
               console.log(response.error.code);
               console.log(response.error.description);
@@ -289,7 +291,10 @@ export class RdSignupComponent implements OnInit {
         (data) => {
           debugger
           this.notificationService.success(data.message);
-          this.router.navigate(['/home']);
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 1000);
+          
         },
         (err) => {
           this.spinner.hide();
