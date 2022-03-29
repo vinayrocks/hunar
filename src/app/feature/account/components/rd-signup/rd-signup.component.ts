@@ -237,10 +237,6 @@ export class RdSignupComponent implements OnInit {
               description: '', // product description
               // image: './assets/img/logo-for-razorpay-checkout.png', // company logo or product image
               order_id: res.razorPayOrderId, // order_id created by you in backend
-              modal: {
-                // We should prevent closing of the form when esc key is pressed.
-                escape: false,
-              },
               notes: {
                 // include notes if any
               },
@@ -255,6 +251,19 @@ export class RdSignupComponent implements OnInit {
                 });
                 window.dispatchEvent(event);
               },
+              modal: {
+                escape: false,
+                ondismiss: function (response) {
+                  if (confirm("Are you sure, you want to close the form?")) {
+                    var event = new CustomEvent('payment.modal.ondismiss', {
+                      detail: response,
+                      bubbles: true,
+                      cancelable: true,
+                    });
+                    window.dispatchEvent(event);
+                  }
+                }
+              }
             };
             var rzp1 = new Razorpay(options);
             rzp1.open();
@@ -285,7 +294,6 @@ export class RdSignupComponent implements OnInit {
       .verifyPayment(event.detail)
       .subscribe(
         (data) => {
-          debugger
           this.notificationService.success(data.message);
           this.router.navigate(['/home']);
         },
@@ -293,6 +301,23 @@ export class RdSignupComponent implements OnInit {
           this.spinner.hide();
         }
       );
+  }
+  @HostListener('window:payment.modal.ondismiss', ['$event'])
+  onPaymentModelClose(event): void {
+    debugger
+    console.log(event.detail)
+    // this.rdAuthenticateService
+    //   .verifyPayment(event.detail)
+    //   .subscribe(
+    //     (data) => {
+    //       debugger
+    //       this.notificationService.success(data.message);
+    //       this.router.navigate(['/home']);
+    //     },
+    //     (err) => {
+    //       this.spinner.hide();
+    //     }
+    //   );
   }
   validateAllFormFields(formGroup: FormGroup) {
     //{1}
