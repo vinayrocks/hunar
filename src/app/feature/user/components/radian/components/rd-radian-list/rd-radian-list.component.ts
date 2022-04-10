@@ -65,6 +65,7 @@ export class RdRadianListComponent implements OnInit {
     this.rdUserService.getUserProfiles(new RdCommon(this.routerData))
       .pipe(first())
       .subscribe(res => {
+        debugger
         this.spinner.hide()
         res.data.forEach(element => {
           element.ProfileExpertise = element.ProfileExpertise === ''?[]:JSON.parse(element.ProfileExpertise);

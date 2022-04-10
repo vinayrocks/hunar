@@ -144,12 +144,13 @@
                       <div class="portfolio-label">Linked Portfolio</div>
                     </div>
                     <div class="col-md-5">
-                      <select class="select-css" placeholder="Linked Portfolio" formControlName="LinkedPortfolio">
-                        <option value="">--Select Portfolio--</option>
-                        <option *ngFor="let item of userPortfolio" value="{{item.id}}">
-                          {{item.PortfolioName}}
-                        </option>
-                      </select>
+                      <div class="pretty p-switch p-fill" *ngFor="let item of tempArrPortfolio;let i=index;">
+                        <input type="checkbox" name="switch{{i}}" [value]="true" [checked]="item.isChecked"
+                        (change)="onSelectPortfolio($event,item)"/><br/>
+                        <div class="state p-success">
+                          <label>{{item.name}}</label>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-md-5"></div>
                   </div>

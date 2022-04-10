@@ -23,6 +23,7 @@ export class RdRadianAddComponent implements OnInit {
   routerData: any = [];
   url: any = '';
   tempArr: any = [];
+  tempArrPortfolio: any = [];
   userPortfolio: any;
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -104,6 +105,17 @@ export class RdRadianAddComponent implements OnInit {
       }
     }
     this.addRadianForm.ProfileExpertise.setValue(this.tempArr.join(','));
+  }
+  onSelectPortfolio(event, item: any){
+    if (event.target.checked) {
+      this.tempArrPortfolio.push(item.id);
+    } else {
+      const index: number = this.tempArrPortfolio.indexOf(item.id);
+      if (index !== -1) {
+        this.tempArrPortfolio.splice(index, 1);
+      }
+    }
+    this.addRadianForm.LinkedPortfolio.setValue(this.tempArrPortfolio.join(','));
   }
   getUserPorfolio() {
     this.spinner.show()

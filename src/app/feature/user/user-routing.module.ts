@@ -14,6 +14,7 @@ import { RdRadianListComponent } from './components/radian/components/rd-radian-
 import { RadianModule } from './components/radian/radian.module';
 import { RdSettingComponent } from './components/settings/components/rd-setting/rd-setting.component';
 import { SettingsModule } from './components/settings/settings.module';
+import { RdMyAccountComponent } from './components/user-account/components/rd-my-account/rd-my-account.component';
 import { RdUserLayoutComponent } from './layout/rd-user-layout/rd-user-layout.component';
 
 
@@ -61,6 +62,10 @@ const routes: Routes = [
       {
         path:'setting_view',
         component:RdSettingComponent
+      },
+      {
+        path:'my_account',
+        component:RdMyAccountComponent
       }
     ]
   }

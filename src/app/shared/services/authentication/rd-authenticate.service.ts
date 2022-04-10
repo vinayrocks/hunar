@@ -37,10 +37,11 @@ export class RdAuthenticateService {
       );
   }
   register(RdRegister: RdRegister) {
+    debugger
     var data = this._encryptDecryptService.ecryptModel(RdRegister);
     return this.http
       .post<any>(
-        environment.apiCommon + 'radianApi/Users/registrationDetails.php',
+        environment.apiCommon + 'radianApi/Users/registrationDetailsTemp.php',
         JSON.stringify(data)
       )
       .pipe(

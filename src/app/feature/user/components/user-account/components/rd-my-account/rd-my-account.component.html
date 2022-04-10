@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <h2 class="title" style="text-align: center">My Account</h2>
+    <div class="separator separator-primary" style="margin-bottom: 20px;"></div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+
+        <div class="col-md-10">
+            <div class="row card portfolio">
+                <div class="col-md-12 custom-event">
+                    <div class="container-fluid">
+                        <h2>Annual Subscription</h2>
+                        <div class="portfolio-label">Renew On 11th April 2023</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row card portfolio">
+                <div class="col-md-12 custom-event">
+                    <form class="form mb-search" name="upgradeMembershipCategoryForm" [formGroup]="upgradeMembershipCategoryFormGroup">
+                        <div class="container-fluid">
+                            <h4>Upgrade Membership Category</h4>
+                            <div class="row">
+                                <div class="card-register-membership custom-set"  [ngClass]="membership.length>1 ? 'col-md-4' : 'col-md-12 db-center'" 
+                                *ngFor="let item of membership;let i=index;">
+                                    <input #radioBtn id="radio{{i}}" type="radio" value="{{item.Id}}" formControlName="memberShip" (change)="onSelectMembership($event,item)">
+                                    <label class="form-check-label card-label" for="radio{{i}}">
+                                        <h4>{{item.name}}</h4>
+                                        <h5>{{item.currency}} {{item.amount}}</h5><br />
+                                        <h6 class="cstm-h6" *ngFor="let propItem of item.properties">{{propItem}}</h6>
+                                        <span class="form-check-sign"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</div>

@@ -231,15 +231,7 @@ export class RdSignupComponent implements OnInit {
             //   this.notificationService.error('Something went wrong.Please try again.');
             // })
             const options: any = {
-              amount: 1, // amount should be in paise format to display Rs 1255 without decimal point
-              currency: 'INR',
-              name: '', // company name or product name
-              description: '', // product description
-              // image: './assets/img/logo-for-razorpay-checkout.png', // company logo or product image
               order_id: res.razorPayOrderId, // order_id created by you in backend
-              notes: {
-                // include notes if any
-              },
               theme: {
                 color: '#0c238a',
               },
@@ -255,7 +247,7 @@ export class RdSignupComponent implements OnInit {
                 escape: false,
                 ondismiss: function (response) {
                   if (confirm("Are you sure, you want to close the form?")) {
-                    var event = new CustomEvent('payment.modal.ondismiss', {
+                    var event = new CustomEvent('modal.ondismiss', {
                       detail: response,
                       bubbles: true,
                       cancelable: true,
@@ -302,29 +294,16 @@ export class RdSignupComponent implements OnInit {
           setTimeout(() => {
             this.router.navigate(['/home']);
           }, 1000);
-          
         },
         (err) => {
           this.spinner.hide();
         }
       );
   }
-  @HostListener('window:payment.modal.ondismiss', ['$event'])
+  @HostListener('window:modal.ondismiss', ['$event'])
   onPaymentModelClose(event): void {
     debugger
-    console.log(event.detail)
-    // this.rdAuthenticateService
-    //   .verifyPayment(event.detail)
-    //   .subscribe(
-    //     (data) => {
-    //       debugger
-    //       this.notificationService.success(data.message);
-    //       this.router.navigate(['/home']);
-    //     },
-    //     (err) => {
-    //       this.spinner.hide();
-    //     }
-    //   );
+    this.router.navigate(['/home']);
   }
   validateAllFormFields(formGroup: FormGroup) {
     //{1}

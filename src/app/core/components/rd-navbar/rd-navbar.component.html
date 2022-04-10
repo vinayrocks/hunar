@@ -61,9 +61,10 @@
                 <p>{{currentUser?.firstName }} {{currentUser?.lastName}}</p>
               </a>
               <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-                <a class="nav-link dropdown-item" [routerLink]="['/member/hunar_view']"><p>My Profile(s)</p></a>
-                <a class="nav-link dropdown-item" [routerLink]="['/member/portfolio_view']"><p>My Portfolio(s)</p></a>
-                <a class="nav-link dropdown-item" [routerLink]="['/member/event_view']"><p>My Event(s)</p></a>
+                <a class="nav-link dropdown-item" [routerLink]="['/member/my_account']"><p>My Account</p></a>
+                <a class="nav-link dropdown-item" [routerLink]="['/member/hunar_view']"><p>My Profile</p></a>
+                <a class="nav-link dropdown-item" [routerLink]="['/member/portfolio_view']"><p>My Portfolio</p></a>
+                <a class="nav-link dropdown-item" [routerLink]="['/member/event_view']"><p>My Event</p></a>
                 <a class="nav-link dropdown-item" [routerLink]="['/member/setting_view']"><p>Settings</p></a>
                 <a class="nav-link dropdown-item" (click)="logout()"><p>Logout</p></a>
               </div>
