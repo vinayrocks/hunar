@@ -20,7 +20,7 @@
                         <div class="container-fluid">
                             <h4>Upgrade Membership Category</h4>
                             <div class="row">
-                                <div class="card-register-membership custom-set"  [ngClass]="membership.length>1 ? 'col-md-4' : 'col-md-12 db-center'" 
+                                <div class="card-register-membership custom-set"  [ngClass]="membership.length>1 ? 'col-md-4' : 'col-md-12 db-center'"
                                 *ngFor="let item of membership;let i=index;">
                                     <input #radioBtn id="radio{{i}}" type="radio" value="{{item.Id}}" formControlName="memberShip" (change)="onSelectMembership($event,item)">
                                     <label class="form-check-label card-label" for="radio{{i}}">
@@ -33,6 +33,11 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="row mt-top">
+                    <div class="col-md-12 flt-right">
+                      <button class="btn btn-primary btn-round btn-margin" (click)="onSubmit()">Change Plan</button>&nbsp;
+                    </div>
                 </div>
             </div>
         </div>

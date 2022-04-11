@@ -8,13 +8,13 @@ import { RdPortfolioAddComponent } from './components/portfolio/components/rd-po
 import { RdPortfolioEditComponent } from './components/portfolio/components/rd-portfolio-edit/rd-portfolio-edit.component';
 import { RdPortfolioListComponent } from './components/portfolio/components/rd-portfolio-list/rd-portfolio-list.component';
 import { PortfolioModule } from './components/portfolio/portfolio.module';
+import { RdMyAccountComponent } from './components/radian-account/components/rd-my-account/rd-my-account.component';
 import { RdRadianAddComponent } from './components/radian/components/rd-radian-add/rd-radian-add.component';
 import { RdRadianEditComponent } from './components/radian/components/rd-radian-edit/rd-radian-edit.component';
 import { RdRadianListComponent } from './components/radian/components/rd-radian-list/rd-radian-list.component';
 import { RadianModule } from './components/radian/radian.module';
 import { RdSettingComponent } from './components/settings/components/rd-setting/rd-setting.component';
 import { SettingsModule } from './components/settings/settings.module';
-import { RdMyAccountComponent } from './components/user-account/components/rd-my-account/rd-my-account.component';
 import { RdUserLayoutComponent } from './layout/rd-user-layout/rd-user-layout.component';
 
 

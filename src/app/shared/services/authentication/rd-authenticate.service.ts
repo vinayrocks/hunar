@@ -29,6 +29,7 @@ export class RdAuthenticateService {
       .pipe(
         map((res) => {
           if (res.status) {
+            debugger
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             this.setLocalStorageData(res.data);
           }

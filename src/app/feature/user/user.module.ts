@@ -9,6 +9,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxMatDateFormats, NgxMatDatetimePickerModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { RadianAccountModule } from './components/radian-account/radian-account.module';
 const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
   parse: {
     dateInput: 'l, LTS'
@@ -32,7 +33,8 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     NgxSpinnerModule,
     NgxMatDatetimePickerModule,
     NgxMatMomentModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    RadianAccountModule
   ],
   providers: [{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }]
 })
