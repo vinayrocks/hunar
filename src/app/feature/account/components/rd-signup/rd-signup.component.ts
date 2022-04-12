@@ -261,7 +261,7 @@ export class RdSignupComponent implements OnInit {
             rzp1.open();
           
             rzp1.on('payment.failed', function (response) {
-              debugger
+              
               // Todo - store this information in the server
               console.log(response.error.code);
               console.log(response.error.description);
@@ -285,7 +285,7 @@ export class RdSignupComponent implements OnInit {
   
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event): void {
-    debugger
+    
     this.rdAuthenticateService
       .verifyPayment(event.detail)
       .subscribe(
@@ -302,7 +302,7 @@ export class RdSignupComponent implements OnInit {
   }
   @HostListener('window:modal.ondismiss', ['$event'])
   onPaymentModelClose(event): void {
-    debugger
+    
     this.router.navigate(['/home']);
   }
   validateAllFormFields(formGroup: FormGroup) {

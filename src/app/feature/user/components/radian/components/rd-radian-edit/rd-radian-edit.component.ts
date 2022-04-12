@@ -114,7 +114,7 @@ export class RdRadianEditComponent implements OnInit {
 
   getUserProfile(data) {
     this.spinner.show()
-    debugger
+    
     this.rdUserService.getUserProfile(new RdCommon(data))
       .pipe(first())
       .subscribe(
@@ -180,7 +180,7 @@ export class RdRadianEditComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          debugger
+          
           this.spinner.hide()
           this.userPortfolio = res.data;
           var dbData = [];

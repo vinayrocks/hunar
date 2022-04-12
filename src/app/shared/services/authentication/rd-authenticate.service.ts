@@ -29,7 +29,7 @@ export class RdAuthenticateService {
       .pipe(
         map((res) => {
           if (res.status) {
-            debugger
+            
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             this.setLocalStorageData(res.data);
           }
@@ -38,7 +38,7 @@ export class RdAuthenticateService {
       );
   }
   register(RdRegister: RdRegister) {
-    debugger
+    
     var data = this._encryptDecryptService.ecryptModel(RdRegister);
     return this.http
       .post<any>(
@@ -128,8 +128,9 @@ export class RdAuthenticateService {
   // }
   verifyPayment(response: any):any {
     var data = this._encryptDecryptService.ecryptModel(response);
+    debugger
     return this.http
-      .post<any>(environment.apiCommon + 'radianApi/verify.php', response)
+      .post<any>(environment.apiCommon + 'radianApi/verify.php', data)
       .pipe(
         map(
           (res) => {
