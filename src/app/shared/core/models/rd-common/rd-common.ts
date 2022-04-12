@@ -91,3 +91,13 @@ export class RdEventIntUser {
     return this;
   }
 }
+export class RdUserAccount {
+  memberShip: String = '';
+  membershipAmount: String = '';
+  membershipDuration: String = '';
+  public RdUserAccount: RdUserAccount[];
+  constructor(input: any) {
+    Object.assign(this, input);
+    return this;
+  }
+}
