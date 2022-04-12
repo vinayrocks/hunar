@@ -14,6 +14,7 @@ export class RdUserService {
   }
 
   getUserProfiles(rdCommon) {
+    debugger
     return this.http.post<any>(environment.apiCommon+'radianApi/Profiles/getProfiles.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -21,6 +22,7 @@ export class RdUserService {
       }));
   }
   getUserProfile(rdCommon) {
+    debugger
     rdCommon.UserId=rdCommon.UserId;
     return this.http.post<any>(environment.apiCommon+'radianApi/Profiles/getProfiles.php', 
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
@@ -29,6 +31,7 @@ export class RdUserService {
       }));
   }
   getUserProfileDetail(rdCommon) {
+    debugger
     return this.http.post<any>(environment.apiCommon+'radianApi/Profiles/getSingleProfile.php', 
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -139,6 +142,7 @@ export class RdUserService {
       }));
   }
   addUserProfile(rdProfile: any) {
+    debugger
     this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdProfile.UserId = this.currentUserSubject.id;
     rdProfile.Email = this.currentUserSubject.username;

@@ -77,12 +77,13 @@
                     <div class="col-md-2">
                       <div class="portfolio-label">Linked Portfolio</div>
                     </div>
-                    <div class="col-md-10">
-                      <select class="select-css" disabled="true">
-                        <option selected="true" *ngIf="item.LinkedPortfolio!==null">{{item.LinkedPortfolio.name}}
-                        </option>
-                        <option selected="true"></option>
-                      </select>
+                    <div class="col-md-10" style="margin-top: 5px;">
+                      <div class="pretty p-switch p-fill" *ngFor="let elem of item.LinkedPortfolio;let i=index;">
+                        <input type="radio" disabled="true" checked value="true" />
+                        <div class="state p-success  p-fill">
+                          <label>{{elem.name}}</label>
+                        </div>
+                      </div>
                     </div>
                   </div><br />
                   <div class="row mt-top">
@@ -91,12 +92,7 @@
                       <button mat-button class="btn btn-primary btn-round btn-margin reset-btn"
                         (click)="DeleteProfile(item)" [disabled]='i===0'>Delete</button>
                     </div>
-                  </div>
-                  <!-- <div class="row text-center">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-primary btn-round" (click)="openEdit(item.id)">Edit</button>
-                                    </div>
-                                </div> -->
+                  </div>  
                 </mat-step>
               </mat-vertical-stepper>
             </div>

@@ -10,6 +10,7 @@ export class RazorPayService {
 
   constructor(private winRef: WindowRefService) { }
   payWithRazor(data:any):any {
+    debugger
     const options: any = {
       amount: 125500, // amount should be in paise format to display Rs 1255 without decimal point
       currency: 'INR',
@@ -36,6 +37,7 @@ export class RazorPayService {
         // handle the case when user closes the form while transaction is in progress
         return null
       });
+      
     const rzp = new this.winRef.nativeWindow.Razorpay(options);
     rzp.open();
   }

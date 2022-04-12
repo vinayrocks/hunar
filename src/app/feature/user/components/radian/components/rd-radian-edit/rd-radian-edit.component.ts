@@ -24,6 +24,7 @@ export class RdRadianEditComponent implements OnInit {
   skillsSubcategory: any;
   url: any = '';
   tempArr: any = [];
+  tempArrPortfolio: any = [];
   userPortfolio: any;
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -89,7 +90,6 @@ export class RdRadianEditComponent implements OnInit {
   get editRadianForm() { return this.editRadianFormGroup.controls; }
   setFormGroup() {
     this.editRadianForm.ProfileSkill.setValue(this.userProfile.ProfileSkill.id);
-    this.editRadianForm.LinkedPortfolio.setValue(this.userProfile.LinkedPortfolio === null ? '' : this.userProfile.LinkedPortfolio.id);
     this.editRadianForm.ProfileName.setValue(this.userProfile.ProfileName);
     this.editRadianForm.ProfilePicture.setValue(this.userProfile.ProfilePicture);
     this.editRadianForm.CoverPicture.setValue(this.userProfile.CoverPicture);
@@ -98,6 +98,7 @@ export class RdRadianEditComponent implements OnInit {
     this.userProfile.ProfileExpertise.forEach(element => {
       this.tempArr.push(element.id);
     });
+   
     this.editRadianForm.ProfileExpertise.setValue(this.tempArr.join(','));
     this.skillsSubcategory = this.skills.filter(function (item) {
       return item.radianSkillCategoryId === data;
@@ -113,6 +114,7 @@ export class RdRadianEditComponent implements OnInit {
 
   getUserProfile(data) {
     this.spinner.show()
+    debugger
     this.rdUserService.getUserProfile(new RdCommon(data))
       .pipe(first())
       .subscribe(
@@ -158,13 +160,41 @@ export class RdRadianEditComponent implements OnInit {
     }
     this.editRadianForm.ProfileExpertise.setValue(this.tempArr.join(','));
   }
+  onSelectPortfolio(event, item: any){
+    if (event.target.checked) {
+      if( this.tempArrPortfolio.filter((x:any)=>x.Id===item.Id)===-1){
+        const data = this.userPortfolio.filter((x:any)=>x.id===item.Id)[0];
+        this.tempArrPortfolio.push({ 'Id': data.id, 'name': data.PortfolioName, 'isChecked': true });
+      }
+    } else {
+      const data = this.tempArrPortfolio.filter((x:any)=>x.Id===item.Id)[0];
+      const index: number = this.tempArrPortfolio.indexOf(data);
+      if (index !== -1) {
+        this.tempArrPortfolio.splice(index, 1);
+      }
+    }
+    this.editRadianForm.LinkedPortfolio.setValue(this.tempArrPortfolio.map((x:any)=>x.Id).toString());
+  }
   getUserPorfolio() {
     this.rdUserService.getUserPorfolios(new RdCommon(this.routerData))
       .pipe(first())
       .subscribe(
         res => {
+          debugger
           this.spinner.hide()
           this.userPortfolio = res.data;
+          var dbData = [];
+          dbData = this.userProfile.LinkedPortfolio;
+          const ids = dbData.map((x:any)=>x.id);
+          this.userPortfolio.forEach(element => {
+            // this.tempArrPortfolio.push(element.id);
+            if (ids.indexOf(element.id) !== -1) {
+              this.tempArrPortfolio.push({ 'Id': element.id, 'name': element.PortfolioName, 'isChecked': true });
+            } else {
+              this.tempArrPortfolio.push({ 'Id': element.id, 'name': element.PortfolioName, 'isChecked': false });
+            }
+          });
+          this.editRadianForm.LinkedPortfolio.setValue(this.tempArrPortfolio.map((x:any)=>x.Id).toString());
         },
         error => {
           this.spinner.hide()

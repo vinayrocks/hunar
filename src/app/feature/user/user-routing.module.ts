@@ -8,6 +8,7 @@ import { RdPortfolioAddComponent } from './components/portfolio/components/rd-po
 import { RdPortfolioEditComponent } from './components/portfolio/components/rd-portfolio-edit/rd-portfolio-edit.component';
 import { RdPortfolioListComponent } from './components/portfolio/components/rd-portfolio-list/rd-portfolio-list.component';
 import { PortfolioModule } from './components/portfolio/portfolio.module';
+import { RdMyAccountComponent } from './components/radian-account/components/rd-my-account/rd-my-account.component';
 import { RdRadianAddComponent } from './components/radian/components/rd-radian-add/rd-radian-add.component';
 import { RdRadianEditComponent } from './components/radian/components/rd-radian-edit/rd-radian-edit.component';
 import { RdRadianListComponent } from './components/radian/components/rd-radian-list/rd-radian-list.component';
@@ -61,6 +62,10 @@ const routes: Routes = [
       {
         path:'setting_view',
         component:RdSettingComponent
+      },
+      {
+        path:'my_account',
+        component:RdMyAccountComponent
       }
     ]
   }
