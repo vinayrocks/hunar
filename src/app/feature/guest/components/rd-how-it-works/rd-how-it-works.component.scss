@@ -209,7 +209,7 @@ font-family: 'Open Sans';
 .container .date {
   position: absolute;
   display: inline-block;
-  top: calc(50% - 8px);
+  top: calc(50% - 10px);
   text-align: center;
   font-size: 14px;
   font-weight: bold;
@@ -220,11 +220,11 @@ font-family: 'Open Sans';
 }
 
 .container.left .date {
-  right: -75px;
+  right: -85px;
 }
 
 .container.right .date {
-  left: -75px;
+  left: -110px;
 }
 
 .container .icon {
@@ -267,7 +267,6 @@ font-family: 'Open Sans';
   margin: 0 0 10px 0;
   font-size: 18px;
   font-weight: normal;
-  color: #006E51;
 }
 
 .container .content p {
