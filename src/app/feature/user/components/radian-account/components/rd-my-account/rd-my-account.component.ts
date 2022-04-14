@@ -45,6 +45,7 @@ export class RdMyAccountComponent implements OnInit {
       membershipAmount: [''],
       membershipDuration: ['']
     });
+    debugger
     this.upgradeMembershipCategoryFormGroup.controls['memberShip'].setValue(parseInt(this.loggedUser.membership));
     this.label = this.membershipData.filter((x:any)=>x.Id===parseInt(this.loggedUser.membership))[0].name;
   }
