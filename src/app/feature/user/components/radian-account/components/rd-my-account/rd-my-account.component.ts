@@ -41,18 +41,17 @@ export class RdMyAccountComponent implements OnInit {
   }
   initRegisterForm() {
     this.upgradeMembershipCategoryFormGroup = this._formBuilder.group({
-      memberShip: ['', Validators.required],
+      memberShip: [this.loggedUser.membership, Validators.required],
       membershipAmount: [''],
       membershipDuration: ['']
     });
-    debugger
-    this.upgradeMembershipCategoryFormGroup.controls['memberShip'].setValue(parseInt(this.loggedUser.membership));
+    this.upgradeMembershipCategoryFormGroup.controls['memberShip'].setValue(this.loggedUser.membership);
     this.label = this.membershipData.filter((x:any)=>x.Id===parseInt(this.loggedUser.membership))[0].name;
+    debugger
   }
 
   onSelectMembership(event, item: any) {
     if (event.target.checked) {
-      debugger
       this.selectedMemberShip = item.Id;
       this.upgradeMembershipCategoryFormGroup.controls['membershipAmount'].setValue(item.amount);
       this.upgradeMembershipCategoryFormGroup.controls['membershipDuration'].setValue(item.name);
