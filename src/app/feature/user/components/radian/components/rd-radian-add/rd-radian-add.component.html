@@ -5,6 +5,8 @@
   <h2 class="title" style="text-align: center">New Profile</h2>
   <div class="separator separator-primary" style="margin-bottom: 20px;"></div>
   <div class="row">
+    <div class="col-md-1">
+    </div>
     <div class="col-md-10">
       <div class="row card portfolio">
         <div class="col-md-12">
@@ -17,31 +19,30 @@
             <div class="col-md-12">
               <form class="form mb-search" name="addRadianForm" [formGroup]="addRadianFormGroup">
                 <div class="container-fluid">
-                  <div class="row mt-top"
+                  <div class="portfolio-label">Profile Name</div>
+                  <div class="row"
                     *ngIf="addRadianForm.ProfileName.errors && (addRadianForm.ProfileName.dirty || addRadianForm.ProfileName.touched)">
                     <div class="col-md-12">
                       <app-required-validation-message [fieldName]="'Profile Name'"
                         *ngIf="addRadianForm.ProfileName.errors.required"></app-required-validation-message>
-
                     </div>
                   </div>
                   <div class="row mt-top">
-                    <div class="col-md-2 custom-label">
-                      <div class="portfolio-label">Profile Name</div>
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-md-12">
+
                       <div class="input-group">
-                        <input type="text" class="signUp-form-control form-control" placeholder="Profile Name"
+                        <input type="text" class="signUp-form-control form-control" placeholder=""
                           formControlName="ProfileName">
                       </div>
                     </div>
                   </div>
+                  <hr />
+                  <br />
                   <div class="row mt-top"
                     *ngIf="addRadianForm.ProfilePicture.errors && (addRadianForm.ProfilePicture.dirty || addRadianForm.ProfilePicture.touched)">
                     <div class="col-md-12">
                       <app-required-validation-message [fieldName]="'Image'"
                         *ngIf="addRadianForm.ProfilePicture.errors.required"></app-required-validation-message>
-
                     </div>
                   </div>
                   <div class="row mt-top">
@@ -98,23 +99,20 @@
                       </div>
                     </div>
                   </div>
+                  <hr />
+                  <br />
 
-
-                  <div class="row mt-top"
-                    *ngIf="addRadianForm.ProfileDescription.errors && (addRadianForm.ProfileDescription.dirty || addRadianForm.ProfileDescription.touched)">
-                    <div class="col-md-12">
-                      <app-required-validation-message [fieldName]="'Description'"
-                        *ngIf="addRadianForm.ProfileDescription.errors.required"></app-required-validation-message>
-
-                    </div>
-                  </div>
                   <div class="row mt-top">
-                    <div class="col-md-2 custom-label">
+                    <div class="col-md-12">
                       <div class="portfolio-label">About Profile</div>
-                    </div>
-                    <div class="col-md-10">
-                      <textarea class="form-control" [placeholder]="'About Profile'"
-                        formControlName="ProfileDescription" >
+                      <div class="row"
+                        *ngIf="addRadianForm.ProfileDescription.errors && (addRadianForm.ProfileDescription.dirty || addRadianForm.ProfileDescription.touched)">
+                        <div class="col-md-12">
+                          <app-required-validation-message [fieldName]="'Description'"
+                            *ngIf="addRadianForm.ProfileDescription.errors.required"></app-required-validation-message>
+                        </div>
+                      </div>
+                      <textarea class="form-control" [placeholder]="" formControlName="ProfileDescription">
                       </textarea>
                     </div>
                   </div>
@@ -126,13 +124,14 @@
 
                     </div>
                   </div>
+                  <br />
                   <div class="row mt-top">
                     <div class="col-md-2 custom-label">
                       <div class="portfolio-label">Linked Portfolio</div>
                     </div>
                     <div class="col-md-5">
                       <div class="pretty p-switch p-fill" *ngFor="let item of userPortfolio;let i=index;">
-                        <input type="checkbox" name="switch{{i}}" (change)="onSelectPortfolio($event,item)"/><br/>
+                        <input type="checkbox" name="switch{{i}}" (change)="onSelectPortfolio($event,item)" /><br />
                         <div class="state p-success">
                           <label>{{item.PortfolioName}}</label>
                         </div>
@@ -151,12 +150,12 @@
                   </div>
                   <div class="row mt-top">
                     <div class="col-md-2 custom-label">
-                      <div class="portfolio-label">Expertise</div>
+                      <div class="portfolio-label">Skills</div>
                     </div>
                     <div class="col-md-5">
                       <select class="select-css" placeholder="Skill/Art" formControlName="ProfileSkill"
                         (change)="getSkillSubCategory($event.target.value)">
-                        <option value="" [selected]="true">--Category of Art--</option>
+                        <option value="" [selected]="true">Select</option>
                         <option *ngFor="let item of skills" value="{{item.radianSkillCategoryId}}">
                           {{item.radianSkillCategoryName}}
                         </option>
@@ -171,7 +170,7 @@
 
                     <div class="col-md-10">
                       <div class="pretty p-switch p-fill" *ngFor="let item of skillsSubcategory;let i=index;">
-                        <input type="checkbox" name="switch{{i}}" (change)="onSelectExperties($event,item)" /><br/>
+                        <input type="checkbox" name="switch{{i}}" (change)="onSelectExperties($event,item)" /><br />
                         <div class="state p-success">
                           <label>{{item.subCategoryName}}</label>
                         </div>
@@ -180,8 +179,7 @@
                   </div>
                   <div class="row mt-top">
                     <div class="col-md-12 flt-right">
-                      <button class="btn btn-primary btn-round btn-margin"
-                        (click)="onSubmit()">Create</button>&nbsp;
+                      <button class="btn btn-primary btn-round btn-margin" (click)="onSubmit()">Create</button>&nbsp;
                       <a [routerLink]="['/member/hunar_view']" class="btn btn-primary btn-round reset-btn">Cancel</a>
                     </div>
                   </div>
@@ -193,7 +191,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
     </div>
   </div>
 </div>

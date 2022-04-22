@@ -23,3 +23,4 @@ describe('RdMemberSearchComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

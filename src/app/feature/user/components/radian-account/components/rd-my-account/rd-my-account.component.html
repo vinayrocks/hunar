@@ -10,7 +10,7 @@
                 <div class="col-md-12 custom-event">
                     <div class="container-fluid">
                         <h2>{{label}} Subscription</h2>
-                        <div class="portfolio-label">Renew On {{loggedUser.userRenewDate| date:'MMM d, y'}}</div>
+                        <div class="portfolio-label" *ngIf="loggedUser.userRenewDate!==null">Renew On {{loggedUser.userRenewDate| date:'MMM d, y'}}</div>
                     </div>
                 </div>
             </div>

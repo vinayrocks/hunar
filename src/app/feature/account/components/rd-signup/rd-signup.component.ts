@@ -271,6 +271,7 @@ export class RdSignupComponent implements OnInit {
               console.log(response.error.metadata.order_id);
               console.log(response.error.metadata.payment_id);
               this.error = response.error.reason;
+              this.spinner.hide();
             });
           }
         },
@@ -292,6 +293,7 @@ export class RdSignupComponent implements OnInit {
         (data) => {
           this.notificationService.success(data.message);
           setTimeout(() => {
+            this.spinner.hide();
             this.router.navigate(['/home']);
           }, 1000);
         },
@@ -302,7 +304,7 @@ export class RdSignupComponent implements OnInit {
   }
   @HostListener('window:modal.ondismiss', ['$event'])
   onPaymentModelClose(event): void {
-    
+    this.spinner.hide();
     this.router.navigate(['/home']);
   }
   validateAllFormFields(formGroup: FormGroup) {

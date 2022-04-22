@@ -26,7 +26,7 @@ export class RdMyAccountComponent implements OnInit {
     private spinner: NgxSpinnerService,private notificationService: NotificationService,private rdUserService:RdUserService,
     private router: Router) { 
     this.loggedUser = this.rdAuthenticateService.getLocalStorageData();
-    
+    debugger
     this.membershipData = memberShipCategory.MembershipCategories.filter(
       (x: any) =>
         x.name === 'Monthly' ||
@@ -46,7 +46,7 @@ export class RdMyAccountComponent implements OnInit {
       membershipDuration: ['']
     });
     this.upgradeMembershipCategoryFormGroup.controls['memberShip'].setValue(this.loggedUser.membership);
-    this.label = this.membershipData.filter((x:any)=>x.Id===parseInt(this.loggedUser.membership))[0].name;
+    this.label =  memberShipCategory.MembershipCategories.filter((x:any)=>x.Id===parseInt(this.loggedUser.membership))[0].name;
     debugger
   }
 
@@ -113,6 +113,7 @@ export class RdMyAccountComponent implements OnInit {
               console.log(response.error.metadata.order_id);
               console.log(response.error.metadata.payment_id);
               this.error = response.error.reason;
+              this.spinner.hide();
             });
           }
         },
@@ -135,7 +136,9 @@ export class RdMyAccountComponent implements OnInit {
           debugger
           this.notificationService.success(data.message);
           setTimeout(() => {
-            window.location.reload();
+            this.spinner.hide();
+            this.rdAuthenticateService.logout();
+            this.router.navigate(['/home']);
           }, 1000);
         },
         (err) => {
@@ -146,6 +149,7 @@ export class RdMyAccountComponent implements OnInit {
   @HostListener('window:modal.ondismiss', ['$event'])
   onPaymentModelClose(event): void {
     // this.router.navigate(['/home']);
+    this.spinner.hide();
   }
   validateAllFormFields(formGroup: FormGroup) {
     //{1}

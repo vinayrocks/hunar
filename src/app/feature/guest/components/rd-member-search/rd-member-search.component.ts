@@ -81,6 +81,7 @@ export class RdMemberSearchComponent implements OnInit {
       .subscribe(res => {
         this.spinner.hide()
         if (res.data !== 'No Results Found!') {
+          debugger
           res.data.forEach(element => {
             
             // element.UserLiked=true;
@@ -91,7 +92,7 @@ export class RdMemberSearchComponent implements OnInit {
             element.ProfileSkills = element.ProfileSkills === '' ? [] : JSON.parse(element.ProfileSkills);
             element.ProfilePicture = this.getProfilefilePath(element);
             element.CoverPicture = this.getCoverfilePath(element);
-            element.isUserLiked = element.isUserLiked === '0' ? false : true;
+            //element.isUserLiked = element.isUserLiked === "0" ? false : true;
             if (SearchCount !== 0) {
               this.rdMemberSearch.push(element);
             }
@@ -133,11 +134,12 @@ export class RdMemberSearchComponent implements OnInit {
     // this.matDialog.open(RdMemberDetailComponent, dialogConfig);
     this.router.navigate(['/member-detail', this._encryptDecryptService.set(element.ProfileId)]);
   }
-  getShareLink() {
-    const data = this.notificationService.showLinkUrl()
+  getShareLink(item) {
+    const data = this.notificationService.showLinkUrl();
+    const key = this._encryptDecryptService.set(item.EventId);
     this.matDialog.open(RdUrlLinkBoxComponent, {
       width: '500px',
-      data: { link: data }
+      data: { link: data+'/'+key }
     });
   }
   likeRadianEvent(status, data) {
@@ -160,5 +162,7 @@ export class RdMemberSearchComponent implements OnInit {
     var navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.remove('navbar-transparent');
   }
+
+  reset(){}
 
 }

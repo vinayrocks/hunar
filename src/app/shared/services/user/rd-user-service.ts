@@ -15,7 +15,7 @@ export class RdUserService {
   }
 
   getUserProfiles(rdCommon) {
-    
+    debugger
     return this.http.post<any>(environment.apiCommon+'radianApi/Profiles/getProfiles.php',
     JSON.stringify(this._encryptDecryptService.ecryptModel(rdCommon)))
       .pipe(map(res => {
@@ -188,11 +188,11 @@ export class RdUserService {
     rdSearchMember.UserId = this.currentUserSubject===null?0:this.currentUserSubject.id;
     rdSearchMember.Email = this.currentUserSubject===null?'':this.currentUserSubject.username;
     rdSearchMember.FirstName = this.currentUserSubject===null?'':this.currentUserSubject.firstName;
+
     var data = this._encryptDecryptService.ecryptModel(rdSearchMember);
     return this.http.post<any>(environment.apiCommon+'radianApi/Search/searchMember.php', JSON.stringify(data));
   }
   searchRadianUpdate(rdSearchRadian:any){
-    ;
     this.currentUserSubject = this.rdAuthenticateService.getLocalStorageData();
     rdSearchRadian.UserId = this.currentUserSubject===null?0:this.currentUserSubject.id;
     rdSearchRadian.Email = this.currentUserSubject===null?'':this.currentUserSubject.username;
