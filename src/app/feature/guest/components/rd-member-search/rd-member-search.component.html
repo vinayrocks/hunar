@@ -1,5 +1,5 @@
 <a [routerLink]="['/account/signup']">
-    <div id="mainPageHeader" filter-color="orange" class="page-header page-header-small">
+    <div id="mainPageHeader" filter-color="orange" class="page-header">
         <div class="page-header-image rellax-header" data-rellax-speed="0">
             <img src="./assets/img/radian/inside_pages_1.jpg">
         </div>
@@ -7,164 +7,176 @@
 </a>
 <div class="section section-team" style="background:url('./assets/img/home-section-01-bg.jpg')">
     <div class="container-fluid">
-        <!-- <h2 class="title">Radian Members</h2>
-        <div class="separator separator-primary" style="margin-bottom: 20px;"></div> -->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <form class="form radian-update-search" name="searchMemberForm" [formGroup]="searchMemberFormGroup">
-                    <div class="row">
+                    <div class="row card mb-search">
                         <div class="col-md-12">
-                            <div class="row card mb-search">
+                            <label class="lbl-custom">Search By Category</label>
+                            <div class="row">
                                 <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <mat-accordion>
-                                                <mat-expansion-panel (opened)="panelOpenState = true"
-                                                    (closed)="panelOpenState = false">
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            Advance Search
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            You can search by Coutry, State, Skills or Zip Code
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <select class="select-css" placeholder="Skill/Art"
-                                                                formControlName="SearchBySkill">
-                                                                <option value="" selected>--Category of Art--</option>
-                                                                <option *ngFor="let item of skills"
-                                                                    value="{{item.radianSkillCategoryId}}">
-                                                                    {{item.radianSkillCategoryName}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <select name="country" class="select-css"
-                                                                placeholder="Country"
-                                                                (change)="getStates($event.target.value)"
-                                                                formControlName="SearchByCountry">
-                                                                <option value="" selected>--Select Country--</option>
-                                                                <option *ngFor="let item of countryState"
-                                                                    value="{{item.country}}">
-                                                                    {{item.country}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <select class="select-css" placeholder="State"
-                                                                formControlName="SearchByState">
-                                                                <option value="" selected>--Select State--</option>
-                                                                <option *ngFor="let item of state" value="{{item}}">
-                                                                    {{item}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                          <div class="input-group">
-                                                            <input type="text" class="signUp-form-control form-control"
-                                                                placeholder="Zip Code"
-                                                                formControlName="SearchByZipCode">
-                                                              </div>
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
-                                            </mat-accordion>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                          <div class="input-group">
-                                            <input type="text"
-                                                class="signUp-form-control form-control mt-top custom-input mat-expansion-panel"
-                                                placeholder="Search Members" formControlName="SearchByText">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 custom-pd-test">
-                                            <button mat-button class="btn btn-danger mt-top btn-lg"
-                                                [disabled]="!searchMemberFormGroup.valid"
-                                                (click)="onSubmit(0)">Search</button>
-                                        </div>
+                                    <select class="select-css" placeholder="Skill/Art" formControlName="SearchBySkill">
+                                        <option value="" selected>Select</option>
+                                        <option *ngFor="let item of skills" value="{{item.radianSkillCategoryId}}">
+                                            {{item.radianSkillCategoryName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="lbl-custom">Search By Country</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select name="country" class="select-css" placeholder="Country"
+                                        (change)="getStates($event.target.value)" formControlName="SearchByCountry">
+                                        <option value="" selected>Select</option>
+                                        <option *ngFor="let item of countryState" value="{{item.country}}">
+                                            {{item.country}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="lbl-custom">Search By State</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select class="select-css" placeholder="State" formControlName="SearchByState">
+                                        <option value="" selected>Select</option>
+                                        <option *ngFor="let item of state" value="{{item}}">
+                                            {{item}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="lbl-custom">Search By Zip / Pin Code</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text" class="signUp-form-control form-control" placeholder=""
+                                            formControlName="SearchByZipCode">
                                     </div>
                                 </div>
                             </div>
-
+                            <label class="lbl-custom">Search Hunar Profiles</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text"
+                                            class="signUp-form-control form-control mt-top custom-input mat-expansion-panel"
+                                            placeholder="Search Members" formControlName="SearchByText">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 35px;">
+                                <div class="col-md-12 custom-pd-test">
+                                    <button mat-button class="btn btn-danger mt-top btn-lg"
+                                        [disabled]="!searchMemberFormGroup.valid" (click)="onSubmit(0)">Search</button>
+                                    &nbsp;&nbsp;
+                                    <button mat-button class="btn reset-btn btn-round mt-top btn-lg"
+                                        (click)="reset()">Reset</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
-                <div class="row card portfolio mb-search">
-                    <div clas="col-md-12" style="text-align:center;" *ngIf="rdMemberSearch?.length===0">
+            </div>
+            <div class="col-md-7">
+                <div class="row card portfolio mb-search" *ngIf="rdMemberSearch?.length===0">
+                    <div clas="col-md-12" style="text-align:center;">
                         <h4>No results found...</h4>
                     </div>
-                    <div class="col-md-12" *ngIf="rdMemberSearch?.length!==0">
-                        <div class="row">
-                            <div class="col-md-6 custom-pd custom-pd-lft" *ngFor="let item of rdMemberSearch">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src="{{item.ProfilePicture}}" alt="Thumbnail Image"
-                                            class="rounded img-fluid img-raised">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <h5 class="title mem-title"><a
-                                                        (click)="GetMemberDetail(item)">{{item.FirstName}}
-                                                        {{item.LastName}}</a></h5>
-                                            </div>
-                                            <div class="col-md-5 custom-align">
-                                              <div>
-                                                <table>
-                                                  <tr>
-                                                    <td>
-                                                      <div class="custom-like">{{item.LikeCount}}&nbsp;</div>
-                                                    </td>
-                                                    <td *ngIf="radianLikeData.UserId!==''">
-                                                        <a class="a-btn a-click" (click)="likeRadianEvent(true,item)" *ngIf="!item.isUserLiked">
-                                                            <img src="./assets/img/radian/like-icon.png">
-                                                        </a>
-                                                        <a class="a-btn a-click" (click)="likeRadianEvent(false,item)" *ngIf="item.isUserLiked">
-                                                            <img src="./assets/img/radian/like-icon-filled.png">
-                                                        </a>
-                                                    </td>
-                                                    <td *ngIf="radianLikeData.UserId!==''">
-                                                        <a class="a-btn a-click" (click)="getShareLink()"><i class="fa fa-share custom-icon"></i></a>
-                                                    </td>
-                                                    <td *ngIf="radianLikeData.UserId===''">
-                                                        <a class="a-btn" *ngIf="item.LikeCount==='0'">
-                                                            <img src="./assets/img/radian/like-icon.png">
-                                                        </a>
-                                                        <a class="a-btn" *ngIf="item.LikeCount!=='0'">
-                                                            <img src="./assets/img/radian/like-icon-filled.png">
-                                                        </a>
-                                                    </td>
-                                                    <td *ngIf="radianLikeData.UserId===''">
-                                                        <a class="a-btn"><i class="fa fa-share custom-icon"></i></a>
-                                                    </td>
-                                                  </tr>
-                                                </table>
-                                              </div>
-                                            </div>
-                                        </div>
-                                        <p class=" text-primary">{{item.ProfileAddress.city}},
-                                            {{item.ProfileAddress.state}}
-                                        </p>
-                                        <p class="p-skill">
-                                          <label *ngFor="let child of item.ProfileExpertise;let i = index">
-                                              <span *ngIf="i<item.ProfileExpertise.length-1">{{child.name}},</span>
-                                              <span *ngIf="i===item.ProfileExpertise.length-1">{{child.name}}</span>
-                                          </label>
-                                          </p>
-                                    </div>
+                </div>
+                <div class="row card portfolio mb-search" *ngFor="let item of rdMemberSearch">
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="rdMemberSearch?.length!==0">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <img src="{{item.ProfilePicture}}" alt="Thumbnail Image"
+                                        class="rounded img-fluid img-raised">
+                                </div>
+                                <div class="col-md-11 custom-col">
+                                    <span class="title mem-title"><a (click)="GetMemberDetail(item)">{{item.FirstName}}
+                                            {{item.LastName}}</a></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row" *ngIf="showLoadMore">
-                            <div class="col-md-12">
-                                <button mat-button class="btn btn-danger mt-top btn-lg btn-ft-right"
-                                (click)="onSubmit(rdMemberSearch?.length)">Load More..</button>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <p class="p-skill"><span><strong>Location :</strong></span>
+                                        <label>{{item.ProfileAddress.city}}, {{item.ProfileAddress.state}}</label>
+                                    </p>
+                                </div>
+                                <div class="col-md-6 custom-col-6">
+                                    <p class="p-skill"><span><strong>Skills :</strong></span>
+                                        <label *ngFor="let child of item.ProfileExpertise;let i = index">
+                                            <span *ngIf="i<item.ProfileExpertise.length-1">{{child.name}},</span>
+                                            <span *ngIf="i===item.ProfileExpertise.length-1">{{child.name}}</span>
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row custom-row-like">
+                                <div class="col-md-12">
+                                  <div class="row custom-row-like">
+                                    <div class="col-md-1 custom-col-for-like">
+                                      <a class="a-btn a-click">
+                                        <img src="./assets/img/radian/like-icon-filled.png">
+                                      </a>
+                                    </div>
+                                    <div class="col-md-1 custom-col-for-like ">
+                                      <label class="like-count-text">{{item.LikeCount}}</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            <hr/>
+                            <div class="row custom-row-like">
+                                <div class="col-md-4">
+                                    <div class="row custom-row-like custom-row-for-marking-like">
+                                      <div class="col-md-1 custom-col-for-like">
+                                        <a class="a-btn a-click" (click)="likeRadianEvent(true,item)" *ngIf="item.isUserLiked==='0'">
+                                          <img src="./assets/img/radian/like-icon.png">
+                                        </a>
+                                        <a class="a-btn a-click" (click)="likeRadianEvent(false,item)" *ngIf="item.isUserLiked!=='0'">
+                                          <img src="./assets/img/radian/like-icon-filled.png">
+                                        </a>
+                                      </div>
+                                      <div class="col-md-1 custom-col-for-like ">
+                                        <label class="like-count-text">Like</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="row custom-row-like custom-row-for-marking-like">
+                                      <div class="col-md-1 custom-col-for-like">
+                                        <a class="a-btn a-click" (click)="getShareLink(item)">
+                                          <img class="custom-margin-icon" src="./assets/img/radian/shareIcon.png">
+                                        </a>
+                                      </div>
+                                      <div class="col-md-1 custom-col-for-like">
+                                        <label class="like-count-text">Share</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="row custom-row-like custom-row-for-marking-like">
+                                      <div class="col-md-1 custom-col-for-like">
+                                        <a class="a-btn a-click">
+                                          <img class="custom-margin-icon"src="./assets/img/radian/comment-icon.png">
+                                        </a>
+                                      </div>
+                                      <div class="col-md-1 custom-col-for-like ">
+                                        <label class="like-count-text">Comment</label>
+                                      </div>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="showLoadMore">
+                    <div class="col-md-12">
+                        <button mat-button class="btn btn-danger mt-top btn-lg btn-ft-right"
+                        (click)="onSubmit(rdMemberSearch?.length)">Load More..</button>
                     </div>
                 </div>
             </div>

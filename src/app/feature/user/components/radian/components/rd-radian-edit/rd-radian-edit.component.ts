@@ -69,7 +69,7 @@ export class RdRadianEditComponent implements OnInit {
       this.getUserProfile(this.routerData);
       this.editRadianFormGroup = this._formBuilder.group({
         Id: [this.routerData.Id, Validators.required],
-        ProfileName: ['', Validators.required],
+        ProfileName: [''],
         ProfilePicture: [''],
         CoverPicture: [''],
         ProfileDescription: ['', Validators.required],
