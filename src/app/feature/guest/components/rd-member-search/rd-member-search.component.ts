@@ -81,7 +81,7 @@ export class RdMemberSearchComponent implements OnInit {
       .subscribe(res => {
         this.spinner.hide()
         if (res.data !== 'No Results Found!') {
-          debugger
+          
           res.data.forEach(element => {
             
             // element.UserLiked=true;

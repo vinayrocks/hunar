@@ -26,7 +26,7 @@ export class RdMyAccountComponent implements OnInit {
     private spinner: NgxSpinnerService,private notificationService: NotificationService,private rdUserService:RdUserService,
     private router: Router) { 
     this.loggedUser = this.rdAuthenticateService.getLocalStorageData();
-    debugger
+    
     this.membershipData = memberShipCategory.MembershipCategories.filter(
       (x: any) =>
         x.name === 'Monthly' ||
@@ -47,7 +47,7 @@ export class RdMyAccountComponent implements OnInit {
     });
     this.upgradeMembershipCategoryFormGroup.controls['memberShip'].setValue(this.loggedUser.membership);
     this.label =  memberShipCategory.MembershipCategories.filter((x:any)=>x.Id===parseInt(this.loggedUser.membership))[0].name;
-    debugger
+    
   }
 
   onSelectMembership(event, item: any) {
@@ -133,7 +133,7 @@ export class RdMyAccountComponent implements OnInit {
       .verifyPayment(event.detail)
       .subscribe(
         (data) => {
-          debugger
+          
           this.notificationService.success(data.message);
           setTimeout(() => {
             this.spinner.hide();
