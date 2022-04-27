@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountModule } from './feature/account/account.module';
-import { RdResetPasswordComponent } from './feature/account/components/rd-reset-password/rd-reset-password.component';
 import { GuestModule } from './feature/guest/guest.module';
 import { UserModule } from './feature/user/user.module';
+import { RdResetPasswordComponent } from './rd-reset-password/rd-reset-password.component';
 import { RdAuthGuard } from './shared/authentication/guard/rd-auth.guard';
 
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: './feature/account/account.module#AccountModule'
   },
   {
-    path:'resetpassword/:id',
+    path:'resetpassword',
     component: RdResetPasswordComponent
   },
   {

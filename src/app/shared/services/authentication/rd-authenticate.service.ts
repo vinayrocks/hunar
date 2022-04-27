@@ -54,7 +54,7 @@ export class RdAuthenticateService {
   }
   forgotPassword(rdForgotPassword: any) {
     var data = this._encryptDecryptService.ecryptModel(rdForgotPassword);
-    debugger
+    
     return this.http
       .post<any>(
         environment.apiCommon + 'radianApi/Users/forgotPassword.php',
@@ -130,7 +130,7 @@ export class RdAuthenticateService {
   // }
   verifyPayment(response: any):any {
     var data = this._encryptDecryptService.ecryptModel(response);
-    debugger
+    
     return this.http
       .post<any>(environment.apiCommon + 'radianApi/verify.php', data)
       .pipe(

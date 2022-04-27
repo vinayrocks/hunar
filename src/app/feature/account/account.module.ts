@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { RdSignupComponent } from './components/rd-signup/rd-signup.component';
-import { RdResetPasswordComponent } from './components/rd-reset-password/rd-reset-password.component';
 import { RouterModule } from '@angular/router';
 import { RdAccountLayoutComponent } from './layout/rd-account-layout/rd-account-layout.component';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -15,7 +14,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
-  declarations: [RdSignupComponent, RdResetPasswordComponent, RdAccountLayoutComponent],
+  declarations: [RdSignupComponent, RdAccountLayoutComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,
