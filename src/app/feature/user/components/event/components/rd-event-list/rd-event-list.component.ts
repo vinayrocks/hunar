@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { PopupImageSliderComponent } from 'src/app/shared/components/popup-image-slider/popup-image-slider.component';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { EmbedVideoService } from 'ngx-embed-video';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RdEncryptDecryptService } from 'src/app/shared/services/encrypt-decrypt/rd-encrypt-decrypt.service';
 import { RdCommon } from 'src/app/shared/core/models/rd-common/rd-common';
 import { LiteralMapEntry } from '@angular/compiler/src/output/output_ast';
@@ -46,7 +46,7 @@ export class RdEventListComponent implements OnInit {
       ['fontSize', 'insertImage', 'insertVideo', 'insertHorizontalRule',]
     ]
   };
-  constructor(private rdUserService: RdUserService, public matDialog: MatDialog,
+  constructor(private rdUserService: RdUserService, public matDialog: MatDialog,private activatedRoute:ActivatedRoute,
     private embedService: EmbedVideoService, private router: Router,
     private _encryptDecryptService: RdEncryptDecryptService,
     private rdAuthenticateService: RdAuthenticateService, private spinner: NgxSpinnerService) {
@@ -56,6 +56,11 @@ export class RdEventListComponent implements OnInit {
       this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Event/';
       this.routerData.UserId = this.currentUser.id;
     }
+    this.activatedRoute.children[0].data.subscribe(data=>{
+      
+      // this.pageLabel = data.name;
+      console.log(data.name)
+    });
 
   }
   ngOnInit() {

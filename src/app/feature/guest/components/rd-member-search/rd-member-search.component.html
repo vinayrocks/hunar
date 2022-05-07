@@ -68,7 +68,7 @@
                             <div class="row" style="margin-bottom: 35px;">
                                 <div class="col-md-12 custom-pd-test">
                                     <button mat-button class="btn btn-danger mt-top btn-lg"
-                                        [disabled]="!searchMemberFormGroup.valid" (click)="onSubmit(0)">Search</button>
+                                        [disabled]="!searchMemberFormGroup.valid" (click)="onSubmit(0,true)">Search</button>
                                     &nbsp;&nbsp;
                                     <button mat-button class="btn reset-btn btn-round mt-top btn-lg"
                                         (click)="reset()">Reset</button>
@@ -132,41 +132,43 @@
                             <div class="row custom-row-like">
                                 <div class="col-md-4">
                                     <div class="row custom-row-like custom-row-for-marking-like">
-                                      <div class="col-md-1 custom-col-for-like">
+                                      <div class="col-md-6">
                                         <a class="a-btn a-click" (click)="likeRadianEvent(true,item)" *ngIf="item.isUserLiked==='0'">
-                                          <img src="./assets/img/radian/like-icon.png">
+                                          <img src="./assets/img/radian/like-icon.png"><p class="like-count-text">Like</p>
                                         </a>
                                         <a class="a-btn a-click" (click)="likeRadianEvent(false,item)" *ngIf="item.isUserLiked!=='0'">
-                                          <img src="./assets/img/radian/like-icon-filled.png">
+                                          <img src="./assets/img/radian/like-icon-filled.png"><p class="like-count-text">Like</p>
                                         </a>
                                       </div>
-                                      <div class="col-md-1 custom-col-for-like ">
+                                      <!-- <div class="col-md-1 custom-col-for-like ">
                                         <label class="like-count-text">Like</label>
-                                      </div>
+                                      </div> -->
                                     </div>
                                   </div>
                                   <div class="col-md-4">
                                     <div class="row custom-row-like custom-row-for-marking-like">
-                                      <div class="col-md-1 custom-col-for-like">
+                                      <div class="col-md-6">
                                         <a class="a-btn a-click" (click)="getShareLink(item)">
                                           <img class="custom-margin-icon" src="./assets/img/radian/shareIcon.png">
+                                          <p class="like-count-text">Share</p>
                                         </a>
                                       </div>
-                                      <div class="col-md-1 custom-col-for-like">
+                                      <!-- <div class="col-md-1 custom-col-for-like">
                                         <label class="like-count-text">Share</label>
-                                      </div>
+                                      </div> -->
                                     </div>
                                   </div>
                                   <div class="col-md-4">
                                     <div class="row custom-row-like custom-row-for-marking-like">
-                                      <div class="col-md-1 custom-col-for-like">
+                                      <div class="col-md-6">
                                         <a class="a-btn a-click">
                                           <img class="custom-margin-icon"src="./assets/img/radian/comment-icon.png">
+                                          <p class="like-count-text">Comment</p>
                                         </a>
                                       </div>
-                                      <div class="col-md-1 custom-col-for-like ">
+                                      <!-- <div class="col-md-1 custom-col-for-like ">
                                         <label class="like-count-text">Comment</label>
-                                      </div>
+                                      </div> -->
                                     </div>
                                   </div>
                             </div>
@@ -176,7 +178,7 @@
                 <div class="row" *ngIf="showLoadMore">
                     <div class="col-md-12">
                         <button mat-button class="btn btn-danger mt-top btn-lg btn-ft-right"
-                        (click)="onSubmit(rdMemberSearch?.length)">Load More..</button>
+                        (click)="onSubmit(rdMemberSearch?.length,true)">Load More..</button>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/shared/services/common/rd-notification/notification.service';
 import { RdUserService } from 'src/app/shared/services/user/rd-user-service';
 
 @Component({
@@ -10,9 +11,12 @@ import { RdUserService } from 'src/app/shared/services/user/rd-user-service';
 export class RdUrlLinkBoxComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<RdUrlLinkBoxComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private rdUserService: RdUserService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
+  }
+  showMessage(){
+    this.notificationService.success('Clipboard copied.');
   }
   onNoClick(): void {
     this.dialogRef.close('Cancel');

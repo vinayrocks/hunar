@@ -52,7 +52,7 @@
                   <div class="row">
                     <div class="col-md-12">
                         <button mat-button class="btn btn-danger mt-top btn-lg"
-                          [disabled]="!searchRadianUpdatesFormGroup.valid" (click)="onSubmit(0)">Search</button>
+                          [disabled]="!searchRadianUpdatesFormGroup.valid" (click)="onSubmit(0,true)">Search</button>
                         &nbsp;&nbsp;
                         <button mat-button class="btn reset-btn btn-round mt-top btn-lg"
                         (click)="reset()">Reset</button>
@@ -155,55 +155,61 @@
               <div class="row custom-row-like">
                 <div class="col-md-3">
                   <div class="row custom-row-like custom-row-for-marking-like">
-                    <div class="col-md-1 custom-col-for-like">
+                    <div class="col-md-6">
                       <a class="a-btn a-click" (click)="likeRadianEvent(true,item)" *ngIf="item.isUserLiked==='0'">
                         <img src="./assets/img/radian/like-icon.png">
+                        <p class="like-count-text">Like</p>
                       </a>
                       <a class="a-btn a-click" (click)="likeRadianEvent(false,item)" *ngIf="item.isUserLiked!=='0'">
                         <img src="./assets/img/radian/like-icon-filled.png">
+                        <p class="like-count-text">Like</p>
                       </a>
                     </div>
-                    <div class="col-md-1 custom-col-for-like ">
+                    <!-- <div class="col-md-1 custom-col-for-like ">
                       <label class="like-count-text">Like</label>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="row custom-row-like custom-row-for-marking-like">
-                    <div class="col-md-1 custom-col-for-like">
+                    <div class="col-md-6">
                       <a class="a-btn a-click" (click)="getShareLink(item)">
                         <img class="custom-margin-icon" src="./assets/img/radian/shareIcon.png">
+                        <p class="like-count-text">Share</p>
                       </a>
                     </div>
-                    <div class="col-md-1 custom-col-for-like">
+                    <!-- <div class="col-md-1 custom-col-for-like">
                       <label class="like-count-text">Share</label>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="row custom-row-like custom-row-for-marking-like">
-                    <div class="col-md-1 custom-col-for-like">
+                    <div class="col-md-6">
                       <a class="a-btn a-click">
                         <img class="custom-margin-icon"src="./assets/img/radian/comment-icon.png">
+                        <p class="like-count-text">Comment</p>
                       </a>
                     </div>
-                    <div class="col-md-1 custom-col-for-like ">
+                    <!-- <div class="col-md-1 custom-col-for-like ">
                       <label class="like-count-text">Comment</label>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="row custom-row-like custom-row-for-marking-like">
-                    <div class="col-md-1 custom-col-for-like">
+                    <div class="col-md-6">
                       <a class="a-btn">
                         <img *ngIf="!item.EventStatus" title="In-Active" src="./assets/img/radian/inActiveIcon.png">
                         <img *ngIf="item.EventStatus" title="Active" src="./assets/img/radian/activeIcon.png">
+                        <p *ngIf="!item.EventStatus" class="like-count-text">Inactive</p>
+                        <p *ngIf="item.EventStatus" class="like-count-text">Active</p>
                       </a>
                     </div>
-                    <div class="col-md-1 custom-col-for-like ">
+                    <!-- <div class="col-md-1 custom-col-for-like ">
                       <label *ngIf="!item.EventStatus" class="like-count-text">Inactive</label>
                       <label *ngIf="item.EventStatus" class="like-count-text">Active</label>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <!--<div class="col-md-2 custom-align">
@@ -253,7 +259,7 @@
         <div class="row" *ngIf="showLoadMore">
           <div class="col-md-12">
             <button mat-button class="btn btn-danger mt-top btn-lg btn-ft-right"
-              (click)="onSubmit(radianUpdates?.length)">Load More..</button>
+              (click)="onSubmit(radianUpdates?.length,true)">Load More..</button>
           </div>
         </div>
       </div>

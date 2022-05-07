@@ -94,9 +94,11 @@ export class RdRadianUpdateComponent implements OnInit {
     
     this.searchRadianUpdatesForm.SearchBySkillCategory.setValue(this.tempArr.join(','));
   }
-  onSubmit(SearchCount: Number) {
-    ;
-    this.spinner.show()
+  onSubmit(SearchCount: Number,showLoader:boolean=false) {
+    if(showLoader){
+      this.spinner.show()
+    }
+   
     this.searchRadianUpdatesForm.SearchCount.setValue(SearchCount);
     if (this.searchRadianUpdatesFormGroup.invalid) {
       // ();

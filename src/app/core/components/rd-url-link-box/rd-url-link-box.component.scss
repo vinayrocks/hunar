@@ -13,3 +13,14 @@ i{
   color: red;
   font-size: xx-large;
 }
+.errspan{
+  float: right;
+    margin-right: 6px;
+    margin-top: -22px;
+    position: relative;
+    z-index: 2;
+    color: red;
+}
+.a-click:hover{
+  cursor: pointer;
+}

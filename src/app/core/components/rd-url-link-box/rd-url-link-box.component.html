@@ -1,7 +1,14 @@
 <h2>Share</h2>
 <div>
   <p>Copy the link given below and share it on your Social Media</p>
-  <p>{{data.link}} <a class="cursor-click" [cdkCopyToClipboard]="data.link"><i class="fa fa-copy"></i></a></p>
+  <div class="row">
+    <div class="col-md-12">
+      <input class="form-control inpt-box" type="text" value="{{data.link}}" disabled><a class="cursor-click a-click" [cdkCopyToClipboard]="data.link" (click)="showMessage()" title="Copy"><span class="fa fa-copy errspan"></span></a>
+    </div>
+  </div>
+  
+  <!-- <a class="cursor-click" [cdkCopyToClipboard]="data.link"><i class="fa fa-copy"></i></a> -->
+
 </div>
 <div mat-dialog-actions>
   <button class="btn btn-normal reset-btn" (click)="onNoClick()">Close</button>

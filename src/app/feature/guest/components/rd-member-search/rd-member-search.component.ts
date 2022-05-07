@@ -70,8 +70,10 @@ export class RdMemberSearchComponent implements OnInit {
       return item.country == event;
     })[0].states;
   }
-  onSubmit(SearchCount: Number) {
-    this.spinner.show()
+  onSubmit(SearchCount: Number,showLoader:boolean=false) {
+    if(showLoader){
+      this.spinner.show()
+    }
     if (this.searchMemberFormGroup.invalid) {
       this.spinner.hide()
       return;
@@ -135,8 +137,9 @@ export class RdMemberSearchComponent implements OnInit {
     this.router.navigate(['/member-detail', this._encryptDecryptService.set(element.ProfileId)]);
   }
   getShareLink(item) {
+    
     const data = this.notificationService.showLinkUrl();
-    const key = this._encryptDecryptService.set(item.EventId);
+    const key = this._encryptDecryptService.set(item.ProfileId);
     this.matDialog.open(RdUrlLinkBoxComponent, {
       width: '500px',
       data: { link: data+'/'+key }
@@ -150,7 +153,7 @@ export class RdMemberSearchComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          this.notificationService.success(res.message);
+          // this.notificationService.success(res.message);
           this.onSubmit(0);
         },
         error => {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { map, take } from 'rxjs/operators';
 import { RdAuthenticateService } from 'src/app/shared/services/authentication/rd-authenticate.service';
 
 @Component({
@@ -12,10 +13,12 @@ export class RdUserLayoutComponent implements OnInit {
   currentUrl: any;
   profileImagePath:string;
   coverImagePath:string
-  constructor(private rdAuthenticateService: RdAuthenticateService, private router: Router) { 
-    debugger
+  pageLabel:string=''
+  constructor(private rdAuthenticateService: RdAuthenticateService, private activatedRoute: ActivatedRoute,private router:Router) { 
     this.currentUser = this.rdAuthenticateService.getLocalStorageData();
-    this.currentUrl = router.url;
+    router.events.subscribe((val) => {
+     this.checkCurrentRoute();
+    });
   }
 
   ngOnInit(): void {
@@ -26,8 +29,10 @@ export class RdUserLayoutComponent implements OnInit {
     
   }
 
-  isCurrentRoute(route : string) : boolean {
-    return this.currentUrl === route;
+  checkCurrentRoute() {
+    this.activatedRoute.children[0].data.subscribe(data=>{
+      this.pageLabel = data.name;
+    });
   } 
 
   GetProfilePath(){
