@@ -24,47 +24,58 @@ const routes: Routes = [
     component: RdUserLayoutComponent,
     children: [
       {
-        path:'hunar_view', 
-        component:RdRadianListComponent
+        path:'hunar_view',
+        component:RdRadianListComponent,
+        data :{ name:"My Profiles"},
       },
       {
         path:'hunar_add', 
+        data :{ name:"My Profiles"},
         component:RdRadianAddComponent
       },
       {
         path:'hunar_edit/:id', 
+        data :{ name:"My Profiles"},
         component:RdRadianEditComponent
       },
       {
         path:'portfolio_view',
+        data :{ name:"My Portfolios"},
         component:RdPortfolioListComponent
       },
       {
         path:'portfolio_add',
+        data :{ name:"My Portfolios"},
         component:RdPortfolioAddComponent
       },
       {
         path:'portfolio_edit/:id',
+        data :{ name:"Portfolios"},
         component:RdPortfolioEditComponent
       },
       {
         path:'event_view',
+        data :{ name:"My Events"},
         component:RdEventListComponent
       },
       {
         path:'event_add',
+        data :{ name:"My Events"},
         component:RdEventAddComponent
       },
       {
         path:'event_edit/:id',
+        data :{ name:"My Events"},
         component:RdEventEditComponent
       },
       {
         path:'setting_view',
+        data :{ name:"Settings"},
         component:RdSettingComponent
       },
       {
         path:'my_account',
+        data :{ name:"My Account"},
         component:RdMyAccountComponent
       }
     ]
