@@ -52,11 +52,8 @@ export class RdForgotPasswordComponent implements OnInit {
           if (res.status) {
             this.resetPasswordUrl = res.url;
             this.matDialog.closeAll();
-            this.router.navigate(['/account/resetpassword', res.url.split('/')[6]]);
-            // this.notificationService.error('Reset password link is sent on your registered email.');
-            // setTimeout(() => {
-            //   this.matDialog.closeAll();
-            // }, 1000);
+            this.router.navigate(['/home']);
+            this.notificationService.success('The reset password link is sent to your registered email id.');
           } else {
             this.notificationService.error(res.message);
           }
