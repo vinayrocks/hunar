@@ -15,6 +15,7 @@ import { RdRadianDetailComponent } from './components/rd-radian-detail/rd-radian
 import { RdMemberDetailComponent } from './components/rd-member-detail/rd-member-detail.component';
 import { RdMemberPortfolioComponent } from './components/rd-member-portfolio/rd-member-portfolio.component';
 import { RdSubscriptionRefundPolicyComponent } from './components/rd-subscription-refund-policy/rd-subscription-refund-policy.component';
+import { RdConversationComponent } from './components/rd-conversation/rd-conversation.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
      {path:'home',component:RdHomeComponent},
      {path:'about-us',component:RdAboutUsComponent},
      {path:'contact-us',component:RdContactUsComponent},
+     {path:'conversations',component:RdConversationComponent},
      {path:'our-process',component:RdHowItWorksComponent},
      {path:'updates',component:RdRadianUpdateComponent},
      {path:'detail/:id',component:RdRadianDetailComponent},
