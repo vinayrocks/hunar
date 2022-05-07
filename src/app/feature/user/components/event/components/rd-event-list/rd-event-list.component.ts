@@ -56,11 +56,6 @@ export class RdEventListComponent implements OnInit {
       this.projectFilePath = this.currentUser.firstName + '_' + this.currentUser.username.split('@')[0] + '/Event/';
       this.routerData.UserId = this.currentUser.id;
     }
-    this.activatedRoute.children[0].data.subscribe(data=>{
-      
-      // this.pageLabel = data.name;
-      console.log(data.name)
-    });
 
   }
   ngOnInit() {
