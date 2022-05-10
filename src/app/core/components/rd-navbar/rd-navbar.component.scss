@@ -5,6 +5,13 @@
 .nav_custom:hover {
   cursor: pointer;
 }
+.navbar-font{
+  font-size: 14px;
+}
+.navbar-font-logged-in{
+  font-size: 14px;
+  text-transform: uppercase;
+}
 .custom-nav-link .button-dropdown .custom-link {
   padding-top: 0;
 }
