@@ -15,14 +15,11 @@ color-on-scroll="500" appBlockCopy>
           <div ngbDropdown>
             <a class="nav-link dropdown-toggle" ngbDropdownToggle>
               <!-- <i class="now-ui-icons business_bulb-63"></i> -->
-              <p>About Hunar</p>
+              <p class="navbar-font">ABOUT HUNAR</p>
             </a>
             <div ngbDropdownMenu>
-              <a class="nav-link dropdown-item" [routerLink]="['/our-purpose']"
-               routerLinkActive="active" (click)="_open=false"><p>Our Purpose</p></a>
-
-              <a class="nav-link dropdown-item" [routerLink]="['/our-process']"
-              routerLinkActive="active" (click)="_open=false"><p>Our Process</p></a>
+              <a class="nav-link dropdown-item" [routerLink]="['/our-purpose']" routerLinkActive="active" (click)="_open=false"><p  class="navbar-font">OUR PURPOSE</p></a>
+              <a class="nav-link dropdown-item" [routerLink]="['/our-process']" routerLinkActive="active" (click)="_open=false"><p  class="navbar-font">OUR PROCESS</p></a>
             </div>
           </div>
         </div>
@@ -30,40 +27,41 @@ color-on-scroll="500" appBlockCopy>
       <li class="nav-item" *ngIf="!isLoggedIn">
         <a class="nav-link" [routerLink]="['/account/signup']" routerLinkActive="active" (click)="_open=false">
           <!-- <i class="now-ui-icons tech_mobile"></i> -->
-          <p>Join Us</p>
+          <p class="navbar-font">JOIN US</p>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/updates']" routerLinkActive="active" (click)="_open=false">
           <!-- <i class="now-ui-icons users_single-02"></i> -->
-          <p>Events</p>
+          <p class="navbar-font">EVENTS</p>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/search']" routerLinkActive="active"(click)="_open=false">
           <!-- <i class="now-ui-icons users_single-02"></i> -->
-          <p>Search</p>
+          <p class="navbar-font">SEARCH</p>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/conversations']" routerLinkActive="" (click)="_open=false">
           <!-- <i class="now-ui-icons users_single-02"></i> -->
-          <p>Converstations</p>
+          <p class="navbar-font">CONVERSATIONS</p>
         </a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
         <div class="dropdown button-dropdown nav-link">
           <div ngbDropdown>
             <a ngbDropdownToggle routerLinkActive="active" class="custom-link nav-link" (click)="_open=false">
-              <p>{{currentUser?.firstName }} {{currentUser?.lastName}}</p>
+              <p class="navbar-font-logged-in">{{currentUser?.firstName }} {{currentUser?.lastName}}</p>
             </a>
             <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-              <a class="nav-link dropdown-item" [routerLink]="['/member/hunar_view']" (click)="_open=false"><p>My Profiles</p></a>
-              <a class="nav-link dropdown-item" [routerLink]="['/member/portfolio_view']" (click)="_open=false"><p>My Portfolios</p></a>
-              <a class="nav-link dropdown-item" [routerLink]="['/member/event_view']" *ngIf="currentUser?.membershipDuration!=='Basic'" (click)="_open=false"><p>My Events</p></a>
-              <a class="nav-link dropdown-item" [routerLink]="['/member/my_account']" (click)="_open=false"><p>My Account</p></a>
-              <a class="nav-link dropdown-item" [routerLink]="['/member/setting_view']" (click)="_open=false"><p>Settings</p></a>
-              <a class="nav-link dropdown-item" (click)="logout()"><p>Logout</p></a>
+              <a class="nav-link dropdown-item" [routerLink]="['/member/hunar_view']" (click)="_open=false"><p class="navbar-font-logged-in">My Profiles</p></a>
+              <a class="nav-link dropdown-item" [routerLink]="['/member/portfolio_view']" (click)="_open=false"><p class="navbar-font-logged-in">My Portfolios</p></a>
+              <a class="nav-link dropdown-item" [routerLink]="['/member/event_view']" *ngIf="currentUser?.membershipDuration!=='Basic'" (click)="_open=false"><p class="navbar-font-logged-in">My Events</p></a>
+              <a class="nav-link dropdown-item" [routerLink]="['/member/my_account']" (click)="_open=false"><p class="navbar-font-logged-in">My Account</p></a>
+              <a class="nav-link dropdown-item" [routerLink]="['/member/setting_view']" (click)="_open=false"><p class="navbar-font-logged-in">Settings</p></a>
+              <a class="nav-link dropdown-item" (click)="logout()"><p class="navbar-font-logged-in">Logout</p></a>
+
             </div>
           </div>
         </div>
@@ -71,7 +69,7 @@ color-on-scroll="500" appBlockCopy>
       <li class="nav-item" (click)="openDialog()" *ngIf="!isLoggedIn">
         <a class="nav-link nav_custom">
           <!-- <i class="now-ui-icons users_circle-08"></i> -->
-          <p>Login</p>
+          <p class="navbar-font">LOGIN</p>
         </a>
       </li>
     </div>

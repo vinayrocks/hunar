@@ -156,7 +156,7 @@ export class RdRadianAddComponent implements OnInit {
                 if (res.status) {
                   this.notificationService.success(res.message);
                   this.onReset();
-                  this.router.navigate(['/member/radian_view']);
+                  this.router.navigate(['/member/hunar_view']);
                 } else {
                   this.notificationService.error(res.message);
                 }
@@ -176,7 +176,7 @@ export class RdRadianAddComponent implements OnInit {
           if (res.status) {
             this.notificationService.success(res.message);
             this.onReset();
-            this.router.navigate(['/member/radian_view']);
+            this.router.navigate(['/member/hunar_view']);
           } else {
             this.notificationService.error(res.message);
           }

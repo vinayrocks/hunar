@@ -30,12 +30,12 @@ const routes: Routes = [
       },
       {
         path:'hunar_add', 
-        data :{ name:"My Profiles"},
+        data :{ name:"New Profile"},
         component:RdRadianAddComponent
       },
       {
         path:'hunar_edit/:id', 
-        data :{ name:"My Profiles"},
+        data :{ name:"Edit Profile"},
         component:RdRadianEditComponent
       },
       {
@@ -45,12 +45,12 @@ const routes: Routes = [
       },
       {
         path:'portfolio_add',
-        data :{ name:"My Portfolios"},
+        data :{ name:"New Portfolio"},
         component:RdPortfolioAddComponent
       },
       {
         path:'portfolio_edit/:id',
-        data :{ name:"Portfolios"},
+        data :{ name:"Edit Portfolio"},
         component:RdPortfolioEditComponent
       },
       {
@@ -60,12 +60,12 @@ const routes: Routes = [
       },
       {
         path:'event_add',
-        data :{ name:"My Events"},
+        data :{ name:"New Event"},
         component:RdEventAddComponent
       },
       {
         path:'event_edit/:id',
-        data :{ name:"My Events"},
+        data :{ name:"Edit Event"},
         component:RdEventEditComponent
       },
       {
