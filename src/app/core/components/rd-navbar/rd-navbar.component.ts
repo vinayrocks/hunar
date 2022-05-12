@@ -14,13 +14,9 @@ import { Subscription } from 'rxjs';
 export class RdNavbarComponent implements OnInit {
     private _router: Subscription;
     currentUser: any;
-    private toggleButton: any;
-    private sidebarVisible: boolean;
     isLoggedIn:Boolean=false;
-    constructor(public location: Location, private element: ElementRef,
-        public matDialog: MatDialog, private authenticationService: RdAuthenticateService,
-        private router: Router) {
-        this.sidebarVisible = false;
+    _open:boolean=false;
+    constructor(public location: Location,public matDialog: MatDialog, private authenticationService: RdAuthenticateService,private router: Router) {
         // redirect to home if already logged in
     }
 
@@ -36,31 +32,6 @@ export class RdNavbarComponent implements OnInit {
             }
         });
     }
-//     sidebarOpen() {
-//         const toggleButton = document.getElementById('myTopnav');
-//         const html = document.getElementsByTagName('html')[0];
-//         setTimeout(function () {
-//             toggleButton.classList.add('toggled');
-//         }, 500);
-//         html.classList.add('nav-open');
-//         this.sidebarVisible = true;
-//     };
-//     sidebarClose() {
-//         const toggleButton = document.getElementById('myTopnav');
-//         const html = document.getElementsByTagName('html')[0];
-//         // console.log(html);
-//         toggleButton.classList.remove('toggled');
-//         this.sidebarVisible = false;
-//         html.classList.remove('nav-open');
-//     };
-//     sidebarToggle() {
-//         debugger
-//       if (this.sidebarVisible === false) {
-//           this.sidebarOpen();
-//       } else {
-//           this.sidebarClose();
-//       }
-//   };
 
     openDialog() {
         const dialogConfig = new MatDialogConfig();
@@ -72,6 +43,7 @@ export class RdNavbarComponent implements OnInit {
         this.matDialog.open(RdLoginComponent, dialogConfig);
     }
     logout() {
+        this._open=false
         this.authenticationService.logout();
         this.isLoggedIn=false;
         this.router.navigate(['/home']);

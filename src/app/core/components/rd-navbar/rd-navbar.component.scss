@@ -52,6 +52,9 @@ input[type="checkbox"] {
 }
 /* APPLYING MEDIA QUERIES */
 @media (max-width: 850px) {
+  .dropdown-menu{
+    display: unset;
+  }
     .logo img {
         max-height: 50px !important;
       }
