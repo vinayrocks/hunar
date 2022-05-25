@@ -286,7 +286,7 @@ export class RdSignupComponent implements OnInit {
   
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event): void {
-    
+    debugger
     this.rdAuthenticateService
       .verifyPayment(event.detail)
       .subscribe(
