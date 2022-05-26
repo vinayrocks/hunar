@@ -129,7 +129,7 @@ export class RdAuthenticateService {
   //   rzp.open();
   // }
   verifyPayment(response: any):any {
-    debugger
+    
     var data = this._encryptDecryptService.ecryptModel(response);
     
     return this.http
