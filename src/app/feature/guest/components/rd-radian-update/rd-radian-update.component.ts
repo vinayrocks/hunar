@@ -107,11 +107,11 @@ export class RdRadianUpdateComponent implements OnInit {
     
     this.rdUserService.searchRadianUpdate(new RdRadianUpdates(this.searchRadianUpdatesFormGroup.value))
       .subscribe(res => {
-        debugger
+        
         if (res.status) {
           if (res.data !== 'No Results Found!') {
             res.data.forEach(element => {
-              debugger
+              
               element.EventStatus = element.EventStatus === '1' ? true : false;
               element.ContactDetails = element.ContactDetails === '' ? [] : JSON.parse(element.ContactDetails);
               element.EventCategories = element.EventCategories === '' ? [] : JSON.parse(element.EventCategories);

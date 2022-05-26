@@ -150,6 +150,7 @@ export class RdSignupComponent implements OnInit {
   }
 
   checkEmailExists() {
+    this.registerFormGroup.controls['email'].setValue(this.registerFormGroup.controls['email'].value.split(' ').join(''));
     this.rdAuthenticateService
       .checkEmailExists(new RdForgotPassword(this.registerFormGroup.value))
       .pipe(first())
@@ -286,11 +287,13 @@ export class RdSignupComponent implements OnInit {
   
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event): void {
-    debugger
+    event.detail.UserId = '';
+    event.detail.MembershipId = '';
     this.rdAuthenticateService
       .verifyPayment(event.detail)
       .subscribe(
         (data) => {
+          
           this.notificationService.success(data.message);
           setTimeout(() => {
             this.spinner.hide();
@@ -298,6 +301,7 @@ export class RdSignupComponent implements OnInit {
           }, 1000);
         },
         (err) => {
+          
           this.spinner.hide();
         }
       );
